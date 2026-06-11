@@ -4,795 +4,1107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movida Chivilcoy - Agenda Cultural y Comunitaria</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        /* PALETA: IDENTIDAD CHIVILCOYANA (Calidez, Cultura, Familia y Juventud) */
-        :root {
-            --violeta-cultural: #5B21B6;
-            --atardecer-pampeano: #F97316;
-            --amarillo-sol: #FDE047;
-            --crema-algodon: #FCF9F2;
-            --blanco: #ffffff;
-            --azul-pizarra: #1E293B;
-            --gris-suave: #F1F5F9;
-            --gris-bordes: #E2E8F0;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--crema-algodon);
-            color: var(--azul-pizarra);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
+            color: #2d3748;
+            background: #f8f9fa;
+            overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Outfit', sans-serif;
+        /* HERO SECTION - Banner con gradiente */
+        .hero-section {
+            position: relative;
+            min-height: 55vh;
+            max-height: 550px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 3rem 1rem;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.08) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
             font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+            line-height: 1.1;
+            letter-spacing: -1px;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            font-weight: 300;
         }
 
-        /* Botones Redondeados y Modernos */
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        /* Botones */
         .btn {
             display: inline-block;
-            padding: 12px 26px;
+            padding: 0.9rem 1.8rem;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: 700;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            white-space: nowrap;
             cursor: pointer;
-            border: none;
-            text-align: center;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(91, 33, 182, 0.2);
         }
 
         .btn-primary {
-            background-color: var(--violeta-cultural);
-            color: var(--blanco);
+            background: white;
+            color: #667eea;
         }
 
         .btn-primary:hover {
-            background-color: #4c1d95;
+            background: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .btn-secondary {
-            background-color: var(--atardecer-pampeano);
-            color: var(--blanco);
+            background: #f97316;
+            color: white;
         }
 
         .btn-secondary:hover {
-            background-color: #ea580c;
+            background: #ea580c;
+            transform: translateY(-2px);
         }
 
         .btn-outline {
-            border: 2px solid var(--violeta-cultural);
-            color: var(--violeta-cultural);
             background: transparent;
-            margin-top: auto;
+            color: white;
+            border: 2px solid white;
         }
 
         .btn-outline:hover {
-            background-color: var(--violeta-cultural);
-            color: var(--blanco);
+            background: white;
+            color: #667eea;
         }
 
-        /* Hero */
-        .hero {
-            padding: 110px 0;
-            text-align: center;
-            background: linear-gradient(135deg, #F3E8FF 0%, var(--crema-algodon) 100%);
-            border-bottom: 2px solid var(--gris-bordes);
-        }
-
-        .hero h1 {
-            font-size: 4.5rem;
-            color: var(--violeta-cultural);
-            margin-bottom: 12px;
-            letter-spacing: -1.5px;
-        }
-
-        .hero p {
-            font-size: 1.4rem;
-            color: var(--azul-pizarra);
-            margin-bottom: 35px;
-            font-weight: 600;
-        }
-
-        .hero .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        /* Sección de Historia Local */
-        .historia-section {
-            padding: 60px 0 20px 0;
-            text-align: center;
-        }
-        
-        .historia-box {
-            background-color: var(--blanco);
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid var(--gris-bordes);
-            box-shadow: 0 4px 12px rgba(30, 41, 59, 0.02);
-            max-width: 900px;
+        /* Sección Cultural */
+        .cultural-section {
+            padding: clamp(2rem, 5vw, 4rem) 1rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        .historia-box h2 {
-            font-size: 2.2rem;
-            color: var(--violeta-cultural);
-            margin-bottom: 15px;
+        .cultural-content {
+            background: white;
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
         }
 
-        .historia-box p {
-            font-size: 1.05rem;
-            color: #475569;
-            text-align: justify;
-            margin-bottom: 15px;
-        }
-
-        /* Filtros de Categorías */
-        .categories-filter {
-            padding: 50px 0 20px 0;
+        .cultural-title {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: #667eea;
             text-align: center;
-        }
-
-        .categories-filter h2 {
-            margin-bottom: 25px;
-            font-size: 2.4rem;
-            letter-spacing: -0.5px;
-            color: var(--azul-pizarra);
-        }
-
-        .filter-tags {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .tag-btn {
-            background-color: var(--blanco);
-            border: 1px solid var(--gris-bordes);
-            color: var(--azul-pizarra);
-            padding: 10px 22px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .tag-btn.active, .tag-btn:hover {
-            background-color: var(--violeta-cultural);
-            color: var(--blanco);
-            border-color: var(--violeta-cultural);
-            box-shadow: 0 4px 10px rgba(91, 33, 182, 0.15);
-        }
-
-        /* Agenda */
-        .agenda {
-            padding: 20px 0 60px 0;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-        }
-
-        /* Tarjeta de Evento */
-        .card {
-            background-color: var(--blanco);
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid var(--gris-bordes);
-            box-shadow: 0 4px 12px rgba(30, 41, 59, 0.03);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 16px 32px rgba(91, 33, 182, 0.08);
-            border-color: rgba(91, 33, 182, 0.2);
-        }
-
-        .card-content {
-            padding: 26px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .card-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .event-date {
-            background-color: var(--amarillo-sol);
-            color: var(--azul-pizarra);
-            padding: 6px 14px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            font-weight: 700;
-        }
-
-        .event-category {
-            background-color: #EDE9FE;
-            color: var(--violeta-cultural);
-            padding: 6px 14px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .card h3 {
-            font-size: 1.6rem;
-            margin-bottom: 12px;
+            margin-bottom: 1.5rem;
             line-height: 1.3;
-            color: var(--azul-pizarra);
-        }
-
-        .event-details {
-            font-size: 0.95rem;
-            margin-bottom: 18px;
-            color: #334155;
-            background-color: #FAFaf9;
-            padding: 14px;
-            border-radius: 14px;
-            border: 1px solid var(--gris-bordes);
-        }
-
-        .event-details p {
-            margin-bottom: 6px;
-        }
-        .event-details p:last-child {
-            margin-bottom: 0;
-        }
-
-        .event-details i {
-            margin-right: 8px;
-            text-align: center;
-        }
-
-        .event-desc {
-            font-size: 0.95rem;
-            margin-bottom: 24px;
-            color: #475569;
-            flex-grow: 1;
-        }
-
-        /* Sección de Espacios Culturales (Tabla Word) */
-        .espacios-section {
-            padding: 50px 0;
-        }
-
-        .espacios-section h2 {
-            font-size: 2.4rem;
-            text-align: center;
-            margin-bottom: 30px;
-            color: var(--azul-pizarra);
-        }
-
-        .table-responsive {
-            background: var(--blanco);
-            border-radius: 24px;
-            border: 1px solid var(--gris-bordes);
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(30, 41, 59, 0.02);
-        }
-
-        .espacios-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        .espacios-table th, .espacios-table td {
-            padding: 18px 24px;
-            border-bottom: 1px solid var(--gris-bordes);
-        }
-
-        .espacios-table th {
-            background-color: var(--violeta-cultural);
-            color: var(--blanco);
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.1rem;
-        }
-
-        .espacios-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .espacios-table tr:hover td {
-            background-color: #F8FAFC;
-        }
-
-        .espacios-table a {
-            color: var(--violeta-cultural);
-            text-decoration: none;
             font-weight: 700;
         }
-        
-        .espacios-table a:hover {
+
+        .cultural-content p {
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 1rem;
+        }
+
+        /* Filtros de categorías */
+        .filters-section {
+            padding: 1.5rem 1rem;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .filters-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Sección Agenda */
+        .agenda-section {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .event-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .event-card h3 {
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-info {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .event-info strong {
+            color: #667eea;
+        }
+
+        .event-card p {
+            margin: 1rem 0;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .event-link {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .event-link:hover {
             text-decoration: underline;
         }
 
-        /* Destacado de la Semana */
-        .featured-section {
-            background: linear-gradient(135deg, #FFEDD5 0%, #FEE2E2 100%);
-            padding: 65px 0;
-            border-radius: 28px;
-            margin: 40px auto;
-            border: 1px solid #FED7AA;
+        .no-events {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #666;
+            font-style: italic;
+            background: white;
+            border-radius: 15px;
+            grid-column: 1 / -1;
         }
 
-        .featured-box {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .featured-content {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .featured-badge {
-            background-color: var(--atardecer-pampeano);
-            color: var(--blanco);
-            display: inline-block;
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-        }
-
-        .featured-box h2 {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            letter-spacing: -0.5px;
-            color: #431407;
-        }
-
-        /* Mapa de Referencia */
-        .mapa-section {
-            padding: 60px 0;
-            background: var(--blanco);
-            border-radius: 28px;
-            margin-bottom: 40px;
-            border: 1px solid var(--gris-bordes);
-        }
-
-        .mapa-wrapper {
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 12px 30px rgba(30, 41, 59, 0.06);
-            max-width: 900px;
+        /* Tabla de Teatros */
+        .teatros-section {
+            padding: 2rem 1rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* Secciones de Acción */
-        .action-sections {
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+
+        .teatros-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        .teatros-table th,
+        .teatros-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .teatros-table th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .teatros-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .teatros-table a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .teatros-table a:hover {
+            text-decoration: underline;
+        }
+
+        /* Destacado */
+        .destacado-section {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .destacado-card {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: white;
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(249, 115, 22, 0.3);
+        }
+
+        .destacado-card h2 {
+            font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .destacado-card .fecha {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .destacado-card p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .destacado-card .btn {
+            background: white;
+            color: #f97316;
+        }
+
+        /* Hospedajes */
+        .hospedajes-section {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hospedajes-intro {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+
+        .hospedajes-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
 
-        @media (max-width: 768px) {
-            .action-sections { grid-template-columns: 1fr; }
-            .featured-box { text-align: center; }
-            .hero h1 { font-size: 3.2rem; }
-            .espacios-table th, .espacios-table td { padding: 12px 14px; font-size: 0.9rem; }
+        .hospedaje-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
         }
 
-        .action-card {
-            background-color: var(--blanco);
-            padding: 45px;
-            border-radius: 28px;
+        .hospedaje-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .hospedaje-card h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+        }
+
+        .hospedaje-card .tipo {
+            display: inline-block;
+            padding: 0.2rem 0.7rem;
+            background: #f0f0f0;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        .hospedaje-card .direccion {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+        }
+
+        .hospedaje-card .info {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0.3rem;
+        }
+
+        .hospedaje-card a {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .hospedaje-card a:hover {
+            text-decoration: underline;
+        }
+
+        .tip-visitantes {
+            background: #fff3e0;
+            border-left: 4px solid #f97316;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        /* Carteleras */
+        .carteleras-section {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .carteleras-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .cartelera-link {
+            display: block;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.01);
-            border: 1px solid var(--gris-bordes);
-            border-top: 6px solid var(--violeta-cultural);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s;
         }
 
-        .action-card.cafecito-card {
-            border-top-color: var(--atardecer-pampeano);
+        .cartelera-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            background: #667eea;
+            color: white;
         }
 
-        .action-card h3 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: var(--azul-pizarra);
+        /* Cómo llegar */
+        .como-llegar-section {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .action-card p {
-            margin-bottom: 25px;
-            color: #475569;
+        .mapa-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            aspect-ratio: 16/9;
         }
 
-        .action-card .btn {
-            margin-top: auto;
+        .mapa-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
 
-        .no-events-msg {
-            grid-column: 1 / -1;
+        /* Cargar evento y Apoyar */
+        .acciones-section {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .accion-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
             text-align: center;
-            padding: 60px;
-            font-size: 1.2rem;
-            background: #FAFaf9;
-            border: 2px dashed var(--gris-bordes);
-            border-radius: 24px;
-            display: none;
+        }
+
+        .accion-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+        }
+
+        .accion-card p {
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        .accion-card .btn {
+            display: inline-block;
         }
 
         /* Footer */
         footer {
-            background-color: var(--azul-pizarra);
-            color: var(--blanco);
-            padding: 60px 0;
-            margin-top: 80px;
+            background: #2d3748;
+            color: white;
+            padding: 3rem 1rem 2rem;
+            text-align: center;
+            margin-top: 3rem;
         }
 
         .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        @media (max-width: 768px) {
-            .footer-content { grid-template-columns: 1fr; }
-        }
-
-        .legal-text {
-            font-size: 0.85rem;
-            opacity: 0.85;
-        }
-
-        .legal-text h4, .contact-box h4 {
-            color: var(--amarillo-sol);
-            margin-bottom: 12px;
+        .footer-content h3 {
+            margin-bottom: 1rem;
             font-size: 1.3rem;
         }
 
-        .contact-box a {
-            color: var(--amarillo-sol);
-            text-decoration: none;
-            font-weight: 700;
+        .footer-content p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            opacity: 0.9;
         }
-        
-        .contact-box p {
-            margin-bottom: 8px;
+
+        .footer-content a {
+            color: #f97316;
+            text-decoration: none;
+        }
+
+        .footer-content a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-links {
+            margin: 1.5rem 0;
+        }
+
+        .footer-links a {
+            display: inline-block;
+            margin: 0 0.5rem;
+            color: white;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* MEDIA QUERIES - RESPONSIVE */
+
+        /* Tablets */
+        @media (max-width: 1024px) {
+            .events-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+
+        /* Mobile - Pantallas medianas */
+        @media (max-width: 768px) {
+            .hero-section {
+                min-height: 50vh;
+                max-height: none;
+                padding: 3rem 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                padding: 0 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .filters-container {
+                gap: 0.4rem;
+            }
+
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hospedajes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .carteleras-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .acciones-section {
+                grid-template-columns: 1fr;
+            }
+
+            .cultural-section {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Mobile - Pantallas pequeñas */
+        @media (max-width: 480px) {
+            .hero-section {
+                min-height: 45vh;
+                padding: 2rem 0.8rem;
+            }
+
+            .main-title {
+                font-size: 2rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .subtitle {
+                font-size: 0.95rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-buttons {
+                gap: 0.8rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .cultural-title {
+                font-size: 1.4rem;
+            }
+
+            .cultural-content {
+                padding: 1.2rem;
+            }
+
+            .cultural-content p {
+                font-size: 0.95rem;
+            }
+
+            .filters-container {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 0.5rem;
+                -webkit-overflow-scrolling: touch;
+                justify-content: flex-start;
+            }
+
+            .filter-btn {
+                flex-shrink: 0;
+                padding: 0.5rem 0.9rem;
+                font-size: 0.8rem;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+
+            .event-card,
+            .hospedaje-card {
+                padding: 1.2rem;
+            }
+
+            footer {
+                padding: 2rem 1rem 1.5rem;
+            }
+
+            .footer-content p {
+                font-size: 0.9rem;
+            }
+
+            .destacado-card {
+                padding: 1.5rem;
+            }
+
+            .accion-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Mobile - Pantallas muy pequeñas */
+        @media (max-width: 360px) {
+            .main-title {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                padding: 0.7rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .event-card,
+            .hospedaje-card {
+                padding: 1rem;
+            }
+
+            .teatros-table th,
+            .teatros-table td {
+                padding: 0.7rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Scrollbar personalizada para filtros en móvil */
+        .filters-container::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .filters-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .filters-container::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        /* Mejoras de accesibilidad */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus visible para navegación por teclado */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid #f97316;
+            outline-offset: 2px;
+        }
+
+        /* Utilidades */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-2 {
+            margin-bottom: 2rem;
         }
     </style>
 </head>
 <body>
 
-    <header class="hero">
-        <div class="container">
-            <h1>Movida Chivilcoy</h1>
-            <p>Todo lo que pasa en la ciudad, en un solo lugar.</p>
-            <div class="buttons">
+    <!-- HERO SECTION -->
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1 class="main-title">Movida Chivilcoy</h1>
+            <p class="subtitle">Todo lo que pasa en la ciudad, en un solo lugar.</p>
+            <div class="hero-buttons">
                 <a href="#agenda" class="btn btn-primary">Ver agenda</a>
-                <a href="#espacios" class="btn btn-outline" style="margin-top:0; border-color: var(--violeta-cultural); background: var(--blanco);">Salas y Espacios</a>
+                <a href="#espacios" class="btn btn-outline">Salas y Espacios</a>
                 <a href="#cargar" class="btn btn-secondary">Cargar un evento</a>
+                <a href="#hospedajes" class="btn btn-outline">Hospedajes</a>
             </div>
         </div>
     </header>
 
-    <div class="container">
-        
-        <!-- SECCIÓN DE CONTEXTO HISTÓRICO (Desde el Word) -->
-        <section class="historia-section">
-            <div class="historia-box">
-                <h2>Chivilcoy: Cuna Cultural y Capital Provincial del Teatro</h2>
-                <p>
-                    Chivilcoy posee una de las identidades culturales más ricas de la Provincia de Buenos Aires. Conocida históricamente como "La Perla del Oeste", la ciudad supo ganarse el título oficial de Capital Provincial del Teatro. Este reconocimiento artístico es el fruto de una tradición profunda ligada a las artes escénicas. El hito fundacional ocurrió en 1886, cuando los hermanos Podestá estrenaron aquí la versión hablada de "Juan Moreira", acontecimiento considerado como el nacimiento del Teatro Nacional Argentino.
-                </p>
-                <p>
-                    A lo largo de las décadas, esa chispa encendió un movimiento de teatro independiente inigualable. Generaciones de directores, actores y vecinos sostienen numerosas salas propias con esfuerzo comunitario, brindando una cartelera constante que combina clásicos, experimentación y talleres.
-                </p>
-            </div>
-        </section>
+    <!-- SECCIÓN CULTURAL -->
+    <section class="cultural-section">
+        <div class="cultural-content">
+            <h2 class="cultural-title">Chivilcoy: Cuna Cultural y Capital Provincial del Teatro</h2>
+            <p>Chivilcoy posee una de las identidades culturales más ricas de la Provincia de Buenos Aires. Conocida históricamente como "La Perla del Oeste", la ciudad supo ganarse el título oficial de Capital Provincial del Teatro. Este reconocimiento artístico es el fruto de una tradición profunda ligada a las artes escénicas. El hito fundacional ocurrió en 1886, cuando los hermanos Podestá estrenaron aquí la versión hablada de "Juan Moreira", acontecimiento considerado como el nacimiento del Teatro Nacional Argentino.</p>
+            <p>A lo largo de las décadas, esa chispa encendió un movimiento de teatro independiente inigualable. Generaciones de directores, actores y vecinos sostienen numerosas salas propias con esfuerzo comunitario, brindando una cartelera constante que combina clásicos, experimentación y talleres.</p>
+        </div>
+    </section>
 
-        <section class="categories-filter">
-            <h2>Explorá la movida local</h2>
-            <div class="filter-tags">
-                <button class="tag-btn active" onclick="filterCategory('todos')">Todos</button>
-                <button class="tag-btn" onclick="filterCategory('teatro')">Teatro</button>
-                <button class="tag-btn" onclick="filterCategory('musica')">Música</button>
-                <button class="tag-btn" onclick="filterCategory('ferias')">Ferias</button>
-                <button class="tag-btn" onclick="filterCategory('talleres')">Talleres</button>
-                <button class="tag-btn" onclick="filterCategory('muestras')">Muestras</button>
-                <button class="tag-btn" onclick="filterCategory('fiestas')">Fiestas</button>
-                <button class="tag-btn" onclick="filterCategory('gastronomia')">Gastronomía</button>
-                <button class="tag-btn" onclick="filterCategory('chicos')">Para chicos</button>
-            </div>
-        </section>
+    <!-- FILTROS -->
+    <section class="filters-section" id="agenda">
+        <h2 class="section-title">Explorá la movida local</h2>
+        <div class="filters-container">
+            <button class="filter-btn active" data-filter="todos">Todos</button>
+            <button class="filter-btn" data-filter="teatro">Teatro</button>
+            <button class="filter-btn" data-filter="musica">Música</button>
+            <button class="filter-btn" data-filter="ferias">Ferias</button>
+            <button class="filter-btn" data-filter="talleres">Talleres</button>
+            <button class="filter-btn" data-filter="muestras">Muestras</button>
+            <button class="filter-btn" data-filter="fiestas">Fiestas</button>
+            <button class="filter-btn" data-filter="gastronomia">Gastronomía</button>
+            <button class="filter-btn" data-filter="chicos">Para chicos</button>
+        </div>
+    </section>
 
-        <main class="agenda" id="agenda">
-            <div class="grid" id="events-grid">
-                
-                <div id="no-events" class="no-events-msg">
-                    <i class="fa-regular fa-calendar-xmark" style="font-size: 2.5rem; color: var(--atardecer-pampeano); margin-bottom: 12px;"></i><br>
-                    Por el momento no hay eventos programados en esta categoría. ¡Volvé a consultar pronto!
-                </div>
-
-                <!-- EVENTO 1: Teatro El Chasqui (Con datos reales de las fuentes) -->
-                <div class="card" data-category="teatro" data-date="2026-12-31T23:59:00">
-                    <div class="card-content">
-                        <div class="card-meta">
-                            <span class="event-date">Próximo Fin de Semana</span>
-                            <span class="event-category">Teatro</span>
-                        </div>
-                        <h3>La Verdad de las Mentiras</h3>
-                        
-                        <div class="event-details">
-                            <p><i class="fa-regular fa-clock" style="color: var(--violeta-cultural); width: 20px;"></i> 20:00 hs</p>
-                            <p><i class="fa-solid fa-location-dot" style="color: var(--atardecer-pampeano); width: 20px;"></i> Teatro El Chasqui</p>
-                            <p><i class="fa-solid fa-users" style="color: #64748B; width: 20px;"></i> Organiza: El Chasqui Cía Teatral</p>
-                        </div>
-
-                        <p class="event-desc">Función de la aclamada comedia dramática local. Asegurá tu lugar revisando la boletería digital.</p>
-                        <a href="https://teatroelchasqui.com/" target="_blank" class="btn btn-outline">Ver sitio oficial</a>
-                    </div>
-                </div>
-
-                <!-- EVENTO 2: Teatro La Cueva (Con datos reales de las fuentes) -->
-                <div class="card" data-category="teatro" data-date="2026-12-31T23:59:00">
-                    <div class="card-content">
-                        <div class="card-meta">
-                            <span class="event-date">Sábado y Domingo</span>
-                            <span class="event-category">Teatro</span>
-                        </div>
-                        <h3>Ciclo de Obras Dramáticas y Comedias</h3>
-                        
-                        <div class="event-details">
-                            <p><i class="fa-regular fa-clock" style="color: var(--violeta-cultural); width: 20px;"></i> 21:30 hs</p>
-                            <p><i class="fa-solid fa-location-dot" style="color: var(--atardecer-pampeano); width: 20px;"></i> Teatro La Cueva</p>
-                            <p><i class="fa-solid fa-users" style="color: #64748B; width: 20px;"></i> Organiza: Comisión La Cueva</p>
-                        </div>
-
-                        <p class="event-desc">Disfrutá de la cartelera de producciones independientes, comeduras y ciclos de música en nuestra sala histórica.</p>
-                        <a href="https://www.facebook.com/teatrolacueva.chivilcoy/" target="_blank" class="btn btn-outline">Ver Facebook Oficial</a>
-                    </div>
-                </div>
-
-                <!-- EVENTO 3: Peña Folclórica (Genérico - Ajustado con enlaces válidos) -->
-                <div class="card" data-category="musica" data-date="2026-12-31T23:59:00">
-                    <div class="card-content">
-                        <div class="card-meta">
-                            <span class="event-date">Viernes</span>
-                            <span class="event-category">Música</span>
-                        </div>
-                        <h3>Peña Folclórica Estudiantil</h3>
-                        
-                        <div class="event-details">
-                            <p><i class="fa-regular fa-clock" style="color: var(--violeta-cultural); width: 20px;"></i> 21:00 hs</p>
-                            <p><i class="fa-solid fa-location-dot" style="color: var(--atardecer-pampeano); width: 20px;"></i> Centro Cultural NK</p>
-                            <p><i class="fa-solid fa-users" style="color: #64748B; width: 20px;"></i> Organiza: Centro de Estudiantes</p>
-                        </div>
-
-                        <p class="event-desc">Una noche a puro folclore con artistas locales en vivo, servicio de cantina y espacio para bailar en familia en un espacio multidisciplinario.</p>
-                        <a href="https://www.facebook.com/CentroCulturalNestorKirchnerChivilcoy/" target="_blank" class="btn btn-outline">Ver espacio cultural</a>
-                    </div>
-                </div>
-
-            </div>
-        </main>
-
-        <!-- SECCIÓN DE ESPACIOS CULTURALES (Tabla integrada desde el Word) -->
-        <section class="espacios-section" id="espacios">
-            <h2>Teatros Independientes y Salas Principales</h2>
-            <div class="table-responsive">
-                <table class="espacios-table">
-                    <thead>
-                        <tr>
-                            <th>Espacio / Sala</th>
-                            <th>Descripción</th>
-                            <th>Enlace de Acceso / Redes</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Teatro El Chasqui</strong></td>
-                            <td>Institución teatral histórica con más de 60 años de trayectoria. Producciones locales y talleres.</td>
-                            <td><a href="https://teatroelchasqui.com/" target="_blank"><i class="fa-solid fa-globe"></i> Sitio Web</a></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Teatro La Cueva</strong></td>
-                            <td>Sala independiente con cartelera de obras dramáticas, comedias y ciclos de música.</td>
-                            <td><a href="https://www.facebook.com/teatrolacueva.chivilcoy/" target="_blank"><i class="fa-brands fa-facebook"></i> Facebook</a></td>
-                        </tr>
-                        <tr>
-                            <td><strong>TRAC (Grupo Teatral)</strong></td>
-                            <td>Espacio de experimentación de vanguardia, ciclos de cine debate y formación escénica.</td>
-                            <td><a href="https://www.instagram.com/trachteatro/" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Centro Cultural NK</strong></td>
-                            <td>Espacio multidisciplinario para peñas folclóricas, recitales acústicos y charlas.</td>
-                            <td><a href="https://www.facebook.com/CentroCulturalNestorKirchnerChivilcoy/" target="_blank"><i class="fa-brands fa-facebook"></i> Facebook</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- DESTACADO ACTUALIZADO -->
-        <section class="featured-section" id="featured-row" data-date="2026-12-31T23:59:00">
-            <div class="container">
-                <div class="featured-box">
-                    <div class="featured-content">
-                        <span class="featured-badge">Destacado de la semana</span>
-                        <h2>Gran Fiesta del Encuentro Chivilcoyano</h2>
-                        
-                        <div class="event-details" style="background: rgba(255,255,255,0.6); margin-bottom: 20px; border: none;">
-                            <p><i class="fa-regular fa-calendar-days" style="width: 20px; color: var(--atardecer-pampeano);"></i> <strong>Próximo Sábado - 22:00 hs</strong></p>
-                            <p><i class="fa-solid fa-location-dot" style="width: 20px; color: var(--atardecer-pampeano);"></i> <strong>Predio del Centro Tradicionalista El Fogón</strong></p>
-                        </div>
-
-                        <p class="event-desc" style="font-size: 1.1rem; margin-bottom: 25px; color: #431407;">
-                            El evento tradicionalista y comunitario más esperado llega con patio gastronómico gigante, artesanos, desfiles de campo y entrada libre y gratuita.
-                        </p>
-                        <a href="https://www.instagram.com/elfogonctro.tradicionalista/" target="_blank" class="btn btn-secondary">Más información del Predio</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CARTELERAS DIGITALES Y ENTRADAS (Agregado del Word) -->
-        <section class="mapa-section" style="background: #F8FAFC; margin-top: 40px;">
-            <div class="container" style="text-align: center;">
-                <h2><i class="fa-solid fa-ticket" style="color: var(--atardecer-pampeano); margin-right: 10px;"></i>Carteleras Digitales y Entradas</h2>
-                <p style="margin-bottom: 25px; color: #475569; max-width: 600px; margin-left: auto; margin-right: auto;">¿Querés reservar o comprar online para los espectáculos en la ciudad? Consultá las plataformas principales:</p>
-                <div class="buttons" style="gap: 20px;">
-                    <a href="https://www.alternativateatral.com/teatros.asp?pais=1&provincia=1&zona=79" target="_blank" class="btn btn-primary">Alternativa Teatral Chivilcoy</a>
-                    <a href="https://planetaentrada.com/" target="_blank" class="btn btn-secondary">Planeta Entrada</a>
-                    <a href="https://www.eventbrite.com.ar/d/argentina--chivilcoy/chivilcoy/" target="_blank" class="btn btn-outline" style="margin-top:0;">Eventbrite Chivilcoy</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="mapa-section">
-            <div class="container" style="text-align: center;">
-                <h2><i class="fa-solid fa-map-location-dot" style="color: var(--violeta-cultural); margin-right: 10px;"></i>¿Cómo llegar desde Buenos Aires?</h2>
-                <p style="margin-bottom: 25px; color: #475569; max-width: 600px; margin-left: auto; margin-right: auto;">Te dejamos la ruta directa hasta la Plaza 25 de Mayo. El punto central de Chivilcoy para arrancar tu recorrido por la ciudad.</p>
-                <div class="mapa-wrapper">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3270.36423984384!2d-60.01633512340578!3d-34.89735417323136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcbe31bebe60f3%3A0xe5a3637e1df23ccf!2sPlaza%2025%20de%20Mayo!5e0!3m2!1ses-419!2sar!4v1717700000000!5m2!1ses-419!2sar" 
-                        width="100%" 
-                        height="380" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </table>
-                    </iframe>
-                </div>
-            </div>
-        </section>
-
-        <section class="action-sections" id="cargar">
-            <div class="action-card">
-                <h3><i class="fa-regular fa-paper-plane" style="color: var(--violeta-cultural); margin-right: 10px;"></i>Cargá tu evento</h3>
-                <p>¿Sos organizador, artista o formás parte de una institución en Chivilcoy? Compartinos tu propuesta de forma amigable para que la sumemos a la agenda.</p>
-                <a href="https://forms.gle/vryqPWTYSAFBfjqh8" target="_blank" class="btn btn-primary">Ir al formulario</a>
+    <!-- AGENDA DE EVENTOS -->
+    <section class="agenda-section">
+        <div class="events-grid" id="eventsGrid">
+            <div class="event-card" data-category="teatro">
+                <span class="event-tag">Teatro</span>
+                <h3>La Verdad de las Mentiras</h3>
+                <p class="event-info"><strong>Próximo Fin de Semana</strong> · 20:00 hs</p>
+                <p class="event-info">📍 Teatro El Chasqui</p>
+                <p class="event-info">Organiza: El Chasqui Cía Teatral</p>
+                <p>Función de la aclamada comedia dramática local. Asegurá tu lugar revisando la boletería digital.</p>
+                <a href="https://teatroelchasqui.com/" target="_blank" class="event-link">Ver sitio oficial →</a>
             </div>
 
-            <div class="action-card cafecito-card">
-                <h3><i class="fa-solid fa-mug-hot" style="color: var(--atardecer-pampeano); margin-right: 10px;"></i>Apoyá este proyecto</h3>
-                <p>Movida Chivilcoy es una agenda independiente. Si esta página te resulta útil, podés colaborar con un cafecito para ayudar a sostener el tiempo de búsqueda.</p>
-                <a href="https://cafecito.app/movidachivilcoy" target="_blank" class="btn btn-secondary">Invitar un cafecito</a>
+            <div class="event-card" data-category="teatro">
+                <span class="event-tag">Teatro</span>
+                <h3>Ciclo de Obras Dramáticas y Comedias</h3>
+                <p class="event-info"><strong>Sábado y Domingo</strong> · 21:30 hs</p>
+                <p class="event-info">📍 Teatro La Cueva</p>
+                <p class="event-info">Organiza: Comisión La Cueva</p>
+                <p>Disfrutá de la cartelera de producciones independientes, comedias y ciclos de música en nuestra sala histórica.</p>
+                <a href="https://www.facebook.com/teatrolacueva.chivilcoy/" target="_blank" class="event-link">Ver Facebook Oficial →</a>
             </div>
-        </section>
 
-    </div>
+            <div class="event-card" data-category="musica">
+                <span class="event-tag">Música</span>
+                <h3>Peña Folclórica Estudiantil</h3>
+                <p class="event-info"><strong>Viernes</strong> · 21:00 hs</p>
+                <p class="event-info">📍 Centro Cultural NK</p>
+                <p class="event-info">Organiza: Centro de Estudiantes</p>
+                <p>Una noche a puro folclore con artistas locales en vivo, servicio de cantina y espacio para bailar en familia en un espacio multidisciplinario.</p>
+                <a href="https://www.facebook.com/CentroCulturalNestorKirchnerChivilcoy/" target="_blank" class="event-link">Ver espacio cultural →</a>
+            </div>
 
+            <div class="no-events" id="noEvents" style="display: none;">
+                <p>Por el momento no hay eventos programados en esta categoría. ¡Volvé a consultar pronto!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEATROS Y SALAS -->
+    <section class="teatros-section" id="espacios">
+        <h2 class="section-title">Teatros Independientes y Salas Principales</h2>
+        <div class="table-container">
+            <table class="teatros-table">
+                <thead>
+                    <tr>
+                        <th>Espacio / Sala</th>
+                        <th>Descripción</th>
+                        <th>Enlace de Acceso / Redes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Teatro El Chasqui</strong></td>
+                        <td>Institución teatral histórica con más de 60 años de trayectoria. Producciones locales y talleres.</td>
+                        <td><a href="https://teatroelchasqui.com/" target="_blank">Sitio Web</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Teatro La Cueva</strong></td>
+                        <td>Sala independiente con cartelera de obras dramáticas, comedias y ciclos de música.</td>
+                        <td><a href="https://www.facebook.com/teatrolacueva.chivilcoy/" target="_blank">Facebook</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TRAC (Grupo Teatral)</strong></td>
+                        <td>Espacio de experimentación de vanguardia, ciclos de cine debate y formación escénica.</td>
+                        <td><a href="https://www.instagram.com/trachteatro/" target="_blank">Instagram</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Centro Cultural NK</strong></td>
+                        <td>Espacio multidisciplinario para peñas folclóricas, recitales acústicos y charlas.</td>
+                        <td><a href="https://www.facebook.com/CentroCulturalNestorKirchnerChivilcoy/" target="_blank">Facebook</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- DESTACADO -->
+    <section class="destacado-section">
+        <div class="destacado-card">
+            <h2>Destacado de la semana</h2>
+            <p class="fecha">🎉 Gran Fiesta del Encuentro Chivilcoyano · Próximo Sábado - 22:00 hs</p>
+            <p>El evento tradicionalista y comunitario más esperado llega con patio gastronómico gigante, artesanos, desfiles de campo y entrada libre y gratuita.</p>
+            <p><strong>📍 Predio del Centro Tradicionalista El Fogón</strong></p>
+            <a href="https://www.instagram.com/elfogonctro.tradicionalista/" target="_blank" class="btn">Más información del Predio →</a>
+        </div>
+    </section>
+
+    <!-- HOSPEDAJES -->
+    <section class="hospedajes-section" id="hospedajes">
+        <h2 class="section-title">Hospedajes en Chivilcoy</h2>
+        <div class="hospedajes-intro">
+            <p>Una guía útil para quienes vienen a disfrutar la agenda cultural, visitar familia, participar de encuentros o pasar un fin de semana en la ciudad. Los valores son orientativos: recomendamos confirmar disponibilidad y tarifa actual en cada enlace.</p>
+        </div>
+
+        <div class="hospedajes-grid">
+            <div class="hospedaje-card">
+                <h3>Hotel Tomaso</h3>
+                <span class="tipo">Hotel boutique</span>
+                <span class="tipo">Gama media / alta</span>
+                <p class="direccion">📍 Av. De Tomaso y Calle 556</p>
+                <p class="info">Clasificación: consultar en plataforma</p>
+                <p class="info">Tarifa: variable según fecha</p>
+                <a href="https://www.hoteltomaso.com.ar/" target="_blank">Ver sitio oficial →</a>
+            </div>
+
+            <div class="hospedaje-card">
+                <h3>Patri Hotel</h3>
+                <span class="tipo">Hotel 3 estrellas</span>
+                <span class="tipo">Céntrico</span>
+                <p class="direccion"> Av. Ceballos 163</p>
+                <p class="info">Clasificación: 3 estrellas</p>
+                <p class="info">Tarifa: variable según fecha</p>
+                <a href="https://www.facebook.com/patrihotel/" target="_blank">Ver contacto →</a>
+            </div>
+
+            <div class="hospedaje-card">
+                <h3>Petit Hotel</h3>
+                <span class="tipo">Hotel 2 estrellas</span>
+                <span class="tipo">Céntrico</span>
+                <p class="direccion"> Hipólito Yrigoyen 259</p>
+                <p class="info">Clasificación: 2 estrellas</p>
+                <p class="info">Tarifa: variable según fecha</p>
+                <a href="https://www.booking.com/hotel/ar/petit-chivilcoy.es-ar.html" target="_blank">Ver disponibilidad →</a>
+            </div>
+
+            <div class="hospedaje-card">
+                <h3>Hotel Mitre</h3>
+                <span class="tipo">Hotel 2 estrellas</span>
+                <span class="tipo">Av. principal</span>
+                <p class="direccion"> Av. Mitre 227</p>
+                <p class="info">Clasificación: 2 estrellas</p>
+                <p class="info">Tarifa: variable según fecha</p>
+                <a href="https://www.facebook.com/HotelMitreChivilcoy/" target="_blank">Ver contacto →</a>
+            </div>
+
+            <div class="hospedaje-card">
+                <h3>Falcone Hotel</h3>
+                <span class="tipo">Hotel tradicional</span>
+                <span class="tipo">Económico / medio</span>
+                <p class="direccion">📍 Belgrano 201</p>
+                <p class="info">Clasificación: consultar en plataforma</p>
+                <p class="info">Tarifa: variable según fecha</p>
+                <a href="https://www.paginasamarillas.com.ar/fichas/hotel-falcone_16843033" target="_blank">Ver datos →</a>
+            </div>
+
+            <div class="hospedaje-card">
+                <h3>Gran Hotel Chivilcoy</h3>
+                <span class="tipo">Hotel 3 estrellas</span>
+                <span class="tipo">Centro</span>
+                <p class="direccion">📍 Av. Sarmiento 125</p>
+                <p class="info">Clasificación: 3 estrellas</p>
+                <p class="info">Tarifa: variable según fecha</p>
+                <a href="https://www.facebook.com/p/Hotel-Gran-Hotel-Chivilcoy-100063639727923/" target="_blank">Ver contacto →</a>
+            </div>
+        </div>
+
+        <div class="tip-visitantes">
+            💡 <strong>Tip para visitantes:</strong> si venís por un evento puntual, reservá con anticipación. En fechas con encuentros, ferias o actividades deportivas la disponibilidad puede cambiar rápido.
+        </div>
+    </section>
+
+    <!-- CARTELERAS -->
+    <section class="carteleras-section">
+        <h2 class="section-title">Carteleras Digitales y Entradas</h2>
+        <p class="text-center mb-2">¿Querés reservar o comprar online para los espectáculos en la ciudad? Consultá las plataformas principales:</p>
+        <div class="carteleras-grid">
+            <a href="https://www.alternativateatral.com/teatros.asp?pais=1&provincia=1&zona=79" target="_blank" class="cartelera-link">Alternativa Teatral Chivilcoy</a>
+            <a href="https://planetaentrada.com/" target="_blank" class="cartelera-link">Planeta Entrada</a>
+            <a href="https://www.eventbrite.com.ar/d/argentina--chivilcoy/chivilcoy/" target="_blank" class="cartelera-link">Eventbrite Chivilcoy</a>
+        </div>
+    </section>
+
+    <!-- CÓMO LLEGAR -->
+    <section class="como-llegar-section">
+        <h2 class="section-title">¿Cómo llegar desde Buenos Aires?</h2>
+        <p class="text-center mb-2">Te dejamos la ruta directa hasta la Plaza 25 de Mayo. El punto central de Chivilcoy para arrancar tu recorrido por la ciudad.</p>
+        <div class="mapa-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52788.69489123456!2d-60.0345!3d-34.8956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb5c5c5c5c5c5%3A0x0!2sChivilcoy%2C+Buenos+Aires!5e0!3m2!1ses!2sar!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <!-- ACCIONES -->
+    <section class="acciones-section" id="cargar">
+        <div class="accion-card">
+            <h3>Cargá tu evento</h3>
+            <p>¿Sos organizador, artista o formás parte de una institución en Chivilcoy? Compartinos tu propuesta de forma amigable para que la sumemos a la agenda.</p>
+            <a href="https://forms.gle/vryqPWTYSAFBfjqh8" target="_blank" class="btn btn-secondary">Ir al formulario →</a>
+        </div>
+
+        <div class="accion-card">
+            <h3>Apoyá este proyecto</h3>
+            <p>Movida Chivilcoy es una agenda independiente. Si esta página te resulta útil, podés colaborar con un cafecito para ayudar a sostener el tiempo de búsqueda.</p>
+            <a href="https://cafecito.app/movidachivilcoy" target="_blank" class="btn btn-primary" style="background: #667eea; color: white;">Invitar un cafecito ☕</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer>
-        <div class="container footer-content">
-            <div class="legal-text">
-                <h4>Aclaración importante</h4>
-                <p>La información publicada se recopila desde fuentes públicas, redes sociales de organizadores, instituciones, espacios culturales y medios locales. Recomendamos verificar fecha, horario, lugar y condiciones de acceso en el enlace original de cada evento. La agenda funciona como un espacio de difusión y curaduría de actividades locales.</p>
-                <p style="margin-top:10px;">Para más información institucional, visitá el <a href="https://chivilcoy.gov.ar/category/cultura/" target="_blank" style="color: var(--amarillo-sol); text-decoration:underline;">Área de Cultura Municipal</a>.</p>
-            </div>
-            <div class="contact-box">
-                <h4>Contacto</h4>
+        <div class="footer-content">
+            <h3>Aclaración importante</h3>
+            <p>La información publicada se recopila desde fuentes públicas, redes sociales de organizadores, instituciones, espacios culturales y medios locales. Recomendamos verificar fecha, horario, lugar y condiciones de acceso en el enlace original de cada evento. La agenda funciona como un espacio de difusión y curaduría de actividades locales.</p>
+            <p>Para más información institucional, visitá el <a href="https://chivilcoy.gov.ar/category/cultura/" target="_blank">Área de Cultura Municipal</a>.</p>
+            
+            <div class="footer-links">
+                <h3>Contacto</h3>
                 <p>Para sumar actividades, correcciones o consultas, escribinos a:</p>
-                <p style="margin-top: 12px; font-size: 1.05rem;">
-                    <i class="fa-regular fa-envelope" style="color: var(--amarillo-sol); width: 25px;"></i> <a href="mailto:movidachivilcoy@gmail.com">movidachivilcoy@gmail.com</a><br>
-                    <i class="fa-brands fa-instagram" style="color: var(--amarillo-sol); width: 25px;"></i> <a href="https://instagram.com/movidachivilcoy" target="_blank">@movidachivilcoy</a>
+                <p>
+                    <a href="mailto:movidachivilcoy@gmail.com">movidachivilcoy@gmail.com</a> · 
+                    <a href="https://instagram.com/movidachivilcoy" target="_blank">@movidachivilcoy</a>
                 </p>
             </div>
         </div>
     </footer>
 
     <script>
-        let categoriaActual = 'todos';
+        // Filtros de categorías
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const eventCards = document.querySelectorAll('.event-card');
+        const noEvents = document.getElementById('noEvents');
 
-        function filterCategory(category) {
-            categoriaActual = category;
-            const buttons = document.querySelectorAll('.tag-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            if(window.event) { window.event.target.classList.add('active'); }
-            checkEvents();
-        }
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Actualizar botón activo
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
 
-        function checkEvents() {
-            const cards = document.querySelectorAll('.card');
-            const ahora = new Date();
-            let visibles = 0;
+                const filter = btn.getAttribute('data-filter');
+                let visibleCount = 0;
 
-            cards.forEach(card => {
-                const fechaLimiteStr = card.getAttribute('data-date');
-                const fechaLimite = new Date(fechaLimiteStr);
-                const categoriaCard = card.getAttribute('data-category');
-
-                if (fechaLimite < ahora) {
-                    card.style.display = 'none';
-                    card.classList.add('vencido');
-                } else {
-                    if (categoriaActual === 'todos' || categoriaCard === categoriaActual) {
-                        card.style.display = 'flex';
-                        visibles++;
+                eventCards.forEach(card => {
+                    if (filter === 'todos' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                        visibleCount++;
                     } else {
                         card.style.display = 'none';
                     }
+                });
+
+                // Mostrar mensaje si no hay eventos
+                if (visibleCount === 0) {
+                    noEvents.style.display = 'block';
+                } else {
+                    noEvents.style.display = 'none';
                 }
             });
-
-            const noEventsMsg = document.getElementById('no-events');
-            if (visibles === 0) { noEventsMsg.style.display = 'block'; } 
-            else { noEventsMsg.style.display = 'none'; }
-
-            const featuredRow = document.getElementById('featured-row');
-            if (featuredRow) {
-                const featuredDate = new Date(featuredRow.getAttribute('data-date'));
-                if (featuredDate < ahora) { featuredRow.style.display = 'none'; }
-            }
-        }
-
-        window.onload = function() { checkEvents(); };
+        });
     </script>
+
 </body>
 </html>
