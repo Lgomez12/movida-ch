@@ -23,7 +23,7 @@
             overflow-x: hidden;
         }
 
-        /* HERO SECTION - Banner con gradiente */
+        /* HERO SECTION */
         .hero-section {
             position: relative;
             min-height: 55vh;
@@ -158,7 +158,7 @@
             margin-bottom: 1rem;
         }
 
-        /* Filtros de categorías */
+        /* Filtros */
         .filters-section {
             padding: 1.5rem 1rem;
             background: white;
@@ -196,7 +196,7 @@
             color: white;
         }
 
-        /* Sección Agenda */
+        /* Agenda */
         .agenda-section {
             padding: 2rem 1rem;
             max-width: 1200px;
@@ -287,7 +287,7 @@
             grid-column: 1 / -1;
         }
 
-        /* Tabla de Teatros */
+        /* Tabla Teatros */
         .teatros-section {
             padding: 2rem 1rem;
             max-width: 1200px;
@@ -514,7 +514,7 @@
             border: 0;
         }
 
-        /* Cargar evento y Apoyar */
+        /* Acciones */
         .acciones-section {
             padding: 2rem 1rem;
             max-width: 1200px;
@@ -541,10 +541,6 @@
         .accion-card p {
             color: #555;
             margin-bottom: 1.5rem;
-        }
-
-        .accion-card .btn {
-            display: inline-block;
         }
 
         /* Footer */
@@ -592,7 +588,7 @@
             color: white;
         }
 
-        /* Créditos y derechos de autor */
+        /* Créditos */
         .footer-credits {
             margin-top: 2rem;
             padding-top: 1.5rem;
@@ -612,36 +608,177 @@
             margin-top: 0.5rem;
         }
 
-        .footer-credits .legal {
-            font-size: 0.8rem;
-            opacity: 0.7;
+        /* Link al aviso legal */
+        .legal-link {
+            display: inline-block;
             margin-top: 1rem;
-            line-height: 1.6;
+            padding: 0.5rem 1.2rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .legal-link:hover {
+            background: rgba(255,255,255,0.2);
+            text-decoration: none;
+        }
+
+        /* ========== MODAL LEGAL ========== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.4s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 15px 15px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            margin: 0;
+        }
+
+        .modal-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.35);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 2rem;
+            color: #2d3748;
+        }
+
+        .modal-body h3 {
+            color: #667eea;
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .modal-body h3:first-child {
+            margin-top: 0;
+        }
+
+        .modal-body p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .modal-body strong {
+            color: #2d3748;
+        }
+
+        .modal-body a {
+            color: #f97316;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .modal-body a:hover {
+            text-decoration: underline;
+        }
+
+        .modal-body .highlight-box {
+            background: #fff3e0;
+            border-left: 4px solid #f97316;
+            padding: 1rem 1.2rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .modal-footer-note {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+            font-size: 0.85rem;
+            color: #888;
+            text-align: center;
+            font-style: italic;
         }
 
         /* Animaciones */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* MEDIA QUERIES - RESPONSIVE */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
-        /* Tablets */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 1024px) {
             .events-grid {
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 1.5rem;
             }
         }
 
-        /* Mobile - Pantallas medianas */
         @media (max-width: 768px) {
             .hero-section {
                 min-height: 50vh;
@@ -660,74 +797,24 @@
                 text-align: center;
             }
 
-            .filters-container {
-                gap: 0.4rem;
-            }
-
-            .filter-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.85rem;
-            }
-
-            .events-grid {
+            .filters-container { gap: 0.4rem; }
+            .filter-btn { padding: 0.5rem 1rem; font-size: 0.85rem; }
+            .events-grid, .hospedajes-grid, .carteleras-grid, .acciones-section {
                 grid-template-columns: 1fr;
             }
+            .cultural-section { padding: 2rem 1rem; }
 
-            .hospedajes-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .carteleras-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .acciones-section {
-                grid-template-columns: 1fr;
-            }
-
-            .cultural-section {
-                padding: 2rem 1rem;
-            }
+            .modal-body { padding: 1.5rem; }
+            .modal-header { padding: 1.2rem 1.5rem; }
         }
 
-        /* Mobile - Pantallas pequeñas */
         @media (max-width: 480px) {
-            .hero-section {
-                min-height: 45vh;
-                padding: 2rem 0.8rem;
-            }
-
-            .main-title {
-                font-size: 2rem;
-                margin-bottom: 0.8rem;
-            }
-
-            .subtitle {
-                font-size: 0.95rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .hero-buttons {
-                gap: 0.8rem;
-            }
-
-            .btn {
-                padding: 0.8rem 1.2rem;
-                font-size: 0.9rem;
-            }
-
-            .cultural-title {
-                font-size: 1.4rem;
-            }
-
-            .cultural-content {
-                padding: 1.2rem;
-            }
-
-            .cultural-content p {
-                font-size: 0.95rem;
-            }
-
+            .hero-section { min-height: 45vh; padding: 2rem 0.8rem; }
+            .main-title { font-size: 2rem; margin-bottom: 0.8rem; }
+            .subtitle { font-size: 0.95rem; margin-bottom: 1.5rem; }
+            .btn { padding: 0.8rem 1.2rem; font-size: 0.9rem; }
+            .cultural-title { font-size: 1.4rem; }
+            .cultural-content { padding: 1.2rem; }
             .filters-container {
                 overflow-x: auto;
                 flex-wrap: nowrap;
@@ -735,82 +822,28 @@
                 -webkit-overflow-scrolling: touch;
                 justify-content: flex-start;
             }
+            .filter-btn { flex-shrink: 0; padding: 0.5rem 0.9rem; font-size: 0.8rem; }
+            .section-title { font-size: 1.4rem; }
+            .event-card, .hospedaje-card { padding: 1.2rem; }
+            footer { padding: 2rem 1rem 1.5rem; }
+            .destacado-card, .accion-card { padding: 1.5rem; }
 
-            .filter-btn {
-                flex-shrink: 0;
-                padding: 0.5rem 0.9rem;
-                font-size: 0.8rem;
-            }
-
-            .section-title {
-                font-size: 1.4rem;
-            }
-
-            .event-card,
-            .hospedaje-card {
-                padding: 1.2rem;
-            }
-
-            footer {
-                padding: 2rem 1rem 1.5rem;
-            }
-
-            .footer-content p {
-                font-size: 0.9rem;
-            }
-
-            .destacado-card {
-                padding: 1.5rem;
-            }
-
-            .accion-card {
-                padding: 1.5rem;
-            }
+            .modal-body h3 { font-size: 1.05rem; }
+            .modal-body p { font-size: 0.9rem; }
         }
 
-        /* Mobile - Pantallas muy pequeñas */
         @media (max-width: 360px) {
-            .main-title {
-                font-size: 1.8rem;
-            }
-
-            .subtitle {
-                font-size: 0.9rem;
-            }
-
-            .btn {
-                padding: 0.7rem 1rem;
-                font-size: 0.85rem;
-            }
-
-            .event-card,
-            .hospedaje-card {
-                padding: 1rem;
-            }
-
-            .teatros-table th,
-            .teatros-table td {
-                padding: 0.7rem;
-                font-size: 0.9rem;
-            }
+            .main-title { font-size: 1.8rem; }
+            .subtitle { font-size: 0.9rem; }
+            .btn { padding: 0.7rem 1rem; font-size: 0.85rem; }
+            .event-card, .hospedaje-card { padding: 1rem; }
+            .teatros-table th, .teatros-table td { padding: 0.7rem; font-size: 0.9rem; }
         }
 
-        /* Scrollbar personalizada para filtros en móvil */
-        .filters-container::-webkit-scrollbar {
-            height: 4px;
-        }
+        .filters-container::-webkit-scrollbar { height: 4px; }
+        .filters-container::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .filters-container::-webkit-scrollbar-thumb { background: #667eea; border-radius: 10px; }
 
-        .filters-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        .filters-container::-webkit-scrollbar-thumb {
-            background: #667eea;
-            border-radius: 10px;
-        }
-
-        /* Mejoras de accesibilidad */
         @media (prefers-reduced-motion: reduce) {
             * {
                 animation-duration: 0.01ms !important;
@@ -819,28 +852,13 @@
             }
         }
 
-        /* Focus visible para navegación por teclado */
-        a:focus-visible,
-        button:focus-visible {
+        a:focus-visible, button:focus-visible {
             outline: 3px solid #f97316;
             outline-offset: 2px;
         }
 
-        /* Utilidades */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .mb-2 {
-            margin-bottom: 2rem;
-        }
+        .text-center { text-align: center; }
+        .mb-2 { margin-bottom: 2rem; }
     </style>
 </head>
 <body>
@@ -884,7 +902,7 @@
         </div>
     </section>
 
-    <!-- AGENDA DE EVENTOS -->
+    <!-- AGENDA -->
     <section class="agenda-section">
         <div class="events-grid" id="eventsGrid">
             <div class="event-card" data-category="teatro">
@@ -1133,7 +1151,7 @@
     <footer>
         <div class="footer-content">
             <h3>Aclaración importante</h3>
-            <p>La información publicada se recopila desde fuentes públicas, redes sociales de organizadores, instituciones, espacios culturales y medios locales. Recomendamos verificar fecha, horario, lugar y condiciones de acceso en el enlace original de cada evento. La agenda funciona como un espacio de difusión y curaduría de actividades locales.</p>
+            <p>La información publicada se recopila desde fuentes públicas, redes sociales de organizadores, instituciones, espacios culturales y medios locales. Recomendamos verificar fecha, horario, lugar y condiciones de acceso en el enlace original de cada evento.</p>
             <p>Para más información institucional, visitá el <a href="https://chivilcoy.gov.ar/category/cultura/" target="_blank">Área de Cultura Municipal</a>.</p>
             
             <div class="footer-links">
@@ -1145,17 +1163,63 @@
                 </p>
             </div>
 
-            <!-- Créditos y derechos de autor -->
+            <!-- Créditos -->
             <div class="footer-credits">
                 <p>&copy; 2026 <strong>Movida Chivilcoy</strong>. Todos los derechos reservados.</p>
                 <p class="autor">Desarrollado por Lic. Leticia Gomez</p>
-                <p class="legal">
-                    El diseño, código fuente y contenido original de esta plataforma son propiedad intelectual de su autora. 
-                    Queda prohibida su reproducción total o parcial sin autorización previa.
-                </p>
+                
+                <!-- Botón que abre el modal legal -->
+                <a href="#" class="legal-link" id="openLegalModal">📋 Aviso legal y términos de uso</a>
             </div>
         </div>
     </footer>
+
+    <!-- ========== MODAL LEGAL ========== -->
+    <div class="modal-overlay" id="legalModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📋 Aviso Legal y Términos de Uso</h2>
+                <button class="modal-close" id="closeLegalModal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>1. Naturaleza del proyecto</h3>
+                <p><strong>Movida Chivilcoy</strong> es un proyecto independiente, de carácter <strong>informativo, cultural y comunitario</strong>, sin fines de lucro. Su objetivo es difundir la agenda de actividades culturales, artísticas, deportivas y sociales que se desarrollan en la ciudad de Chivilcoy, Provincia de Buenos Aires, República Argentina.</p>
+
+                <h3>2. Descargo de responsabilidad sobre terceros</h3>
+                <p>La mención de hoteles, espacios culturales, teatros, salas, restaurantes, organizadores de eventos y otros establecimientos tiene <strong>carácter meramente informativo y de utilidad pública</strong> para visitantes y residentes.</p>
+                <div class="highlight-box">
+                    <strong>⚠️ Aclaración:</strong> No mantenemos relación comercial con los establecimientos listados, ni recibimos compensación económica alguna por su inclusión, ni contamos con autorización expresa previa de cada uno de ellos para aparecer en esta plataforma.
+                </div>
+                <p>Todos los enlaces externos dirigen a <strong>fuentes oficiales y públicas</strong> (sitios web, redes sociales, plataformas de venta de entradas) pertenecientes a cada institución o comercio.</p>
+
+                <h3>3. Exactitud de la información</h3>
+                <p>La información publicada se recopila desde fuentes públicas, redes sociales de organizadores, instituciones, espacios culturales y medios locales. <strong>Recomendamos verificar siempre</strong> fecha, horario, lugar, costo y condiciones de acceso en el enlace original de cada evento o establecimiento.</p>
+                <p>Movida Chivilcoy <strong>no se responsabiliza</strong> por cambios de última hora, cancelaciones, errores en la difusión original o modificaciones realizadas por los propios organizadores.</p>
+
+                <h3>4. Propiedad intelectual</h3>
+                <p>El diseño, código fuente, estructura y contenido original de esta plataforma son <strong>propiedad intelectual de la Lic. Leticia Gomez</strong>. Queda prohibida su reproducción total o parcial sin autorización previa por escrito.</p>
+                <p>Las marcas, logotipos, nombres comerciales e imágenes de terceros que pudieran aparecer pertenecen a sus respectivos propietarios y se utilizan únicamente con fines informativos.</p>
+
+                <h3>5. Política de imágenes y contenido</h3>
+                <p>En caso de utilizar imágenes, textos o materiales protegidos por derechos de autor de terceros, estos se emplean bajo el amparo del <strong>uso justo con fines informativos y culturales</strong>, respetando en todo momento la autoría original y enlazando a la fuente correspondiente.</p>
+
+                <h3>6. Solicitud de corrección o remoción</h3>
+                <p>Si algún establecimiento, organizador o titular de derechos prefiere <strong>no aparecer en esta agenda</strong>, solicita la corrección de alguna información o considera que algún contenido vulnera sus derechos, puede contactarse a:</p>
+                <div class="highlight-box">
+                    📧 <a href="mailto:movidachivilcoy@gmail.com">movidachivilcoy@gmail.com</a><br>
+                    📱 Instagram: <a href="https://instagram.com/movidachivilcoy" target="_blank">@movidachivilcoy</a>
+                </div>
+                <p>Procederemos a <strong>retirar o modificar la información de manera inmediata</strong> tras recibir la solicitud correspondiente.</p>
+
+                <h3>7. Legislación aplicable</h3>
+                <p>Este aviso se rige por las leyes de la <strong>República Argentina</strong>, en particular la Ley 25.326 de Protección de Datos Personales, la Ley 11.723 de Propiedad Intelectual y la Ley 24.240 de Defensa del Consumidor (en lo que resulte aplicable). Cualquier controversia se resolverá ante los tribunales competentes de la Provincia de Buenos Aires.</p>
+
+                <div class="modal-footer-note">
+                    Última actualización: Junio 2026
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Filtros de categorías
@@ -1165,7 +1229,6 @@
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Actualizar botón activo
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
@@ -1181,13 +1244,44 @@
                     }
                 });
 
-                // Mostrar mensaje si no hay eventos
                 if (visibleCount === 0) {
                     noEvents.style.display = 'block';
                 } else {
                     noEvents.style.display = 'none';
                 }
             });
+        });
+
+        // ========== MODAL LEGAL ==========
+        const legalModal = document.getElementById('legalModal');
+        const openBtn = document.getElementById('openLegalModal');
+        const closeBtn = document.getElementById('closeLegalModal');
+
+        openBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            legalModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            legalModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Cerrar al hacer click fuera del modal
+        legalModal.addEventListener('click', (e) => {
+            if (e.target === legalModal) {
+                legalModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Cerrar con tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && legalModal.classList.contains('active')) {
+                legalModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
         });
     </script>
 
