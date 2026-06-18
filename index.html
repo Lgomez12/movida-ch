@@ -128,6 +128,20 @@
             color: #667eea;
         }
 
+        /* Botón especial Teléfonos Útiles */
+        .btn-telefonos {
+            background: #dc2626;
+            color: white;
+            border: 2px solid #dc2626;
+        }
+
+        .btn-telefonos:hover {
+            background: #b91c1c;
+            border-color: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
+        }
+
         /* Sección Cultural */
         .cultural-section {
             padding: clamp(2rem, 5vw, 4rem) 1rem;
@@ -756,6 +770,261 @@
             font-style: italic;
         }
 
+        /* ========== MODAL TELÉFONOS ÚTILES ========== */
+        .telefonos-modal-content {
+            max-width: 1100px;
+        }
+
+        .telefonos-modal-header {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        }
+
+        .telefonos-body {
+            padding: 1.5rem;
+            background: #f8f9fa;
+        }
+
+        .telefonos-intro-modal {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Emergencias destacadas */
+        .emergencias-destacadas {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            border: 2px solid #dc2626;
+            box-shadow: 0 5px 20px rgba(220, 38, 38, 0.15);
+        }
+
+        .emergencias-destacadas h3 {
+            color: #dc2626;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .emergencias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.8rem;
+        }
+
+        .emergencia-card {
+            background: white;
+            padding: 1rem 0.8rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            border-top: 3px solid #dc2626;
+        }
+
+        .emergencia-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.2);
+        }
+
+        .emergencia-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .emergencia-card h4 {
+            color: #2d3748;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .emergencia-numero {
+            display: inline-block;
+            background: #dc2626;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .emergencia-numero:hover {
+            background: #b91c1c;
+            transform: scale(1.05);
+        }
+
+        /* Botón ver más */
+        .ver-mas-btn {
+            display: block;
+            margin: 1.5rem auto;
+            padding: 0.8rem 2rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .ver-mas-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .ver-mas-btn .flecha {
+            display: inline-block;
+            margin-left: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .ver-mas-btn.active .flecha {
+            transform: rotate(180deg);
+        }
+
+        /* Sección expandible */
+        .telefonos-expandibles {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .telefonos-expandibles.active {
+            display: block;
+        }
+
+        .categoria-bloque {
+            margin-bottom: 1.5rem;
+        }
+
+        .categoria-titulo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            color: #667eea;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .telefonos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.8rem;
+        }
+
+        .telefono-card {
+            background: white;
+            padding: 0.8rem;
+            border-radius: 10px;
+            border-left: 3px solid #667eea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .telefono-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .telefono-card.salud {
+            border-left-color: #16a34a;
+        }
+
+        .telefono-card.seguridad {
+            border-left-color: #2563eb;
+        }
+
+        .telefono-card.servicios {
+            border-left-color: #f97316;
+        }
+
+        .telefono-card h3 {
+            color: #2d3748;
+            font-size: 0.85rem;
+            margin-bottom: 0.4rem;
+            line-height: 1.3;
+            font-weight: 600;
+        }
+
+        .telefono-numero {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 0.25rem 0.6rem;
+            border-radius: 15px;
+            font-weight: 600;
+            color: #667eea;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            margin-bottom: 0.3rem;
+        }
+
+        .telefono-numero:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .telefono-card.salud .telefono-numero {
+            color: #16a34a;
+        }
+
+        .telefono-card.salud .telefono-numero:hover {
+            background: #16a34a;
+            color: white;
+        }
+
+        .telefono-card.seguridad .telefono-numero {
+            color: #2563eb;
+        }
+
+        .telefono-card.seguridad .telefono-numero:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        .telefono-card.servicios .telefono-numero {
+            color: #f97316;
+        }
+
+        .telefono-card.servicios .telefono-numero:hover {
+            background: #f97316;
+            color: white;
+        }
+
+        .telefono-info {
+            color: #666;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            margin-top: 0.2rem;
+        }
+
+        .tip-emergencia-modal {
+            background: #fee2e2;
+            border-left: 3px solid #dc2626;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
         /* Animaciones */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
@@ -806,6 +1075,18 @@
 
             .modal-body { padding: 1.5rem; }
             .modal-header { padding: 1.2rem 1.5rem; }
+            .telefonos-body { padding: 1rem; }
+            .emergencias-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .telefonos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 0.6rem;
+            }
+            .telefono-card { padding: 0.7rem; }
+            .telefono-card h3 { font-size: 0.8rem; }
+            .telefono-numero { font-size: 0.8rem; padding: 0.2rem 0.5rem; }
+            .telefono-info { font-size: 0.7rem; }
         }
 
         @media (max-width: 480px) {
@@ -830,6 +1111,23 @@
 
             .modal-body h3 { font-size: 1.05rem; }
             .modal-body p { font-size: 0.9rem; }
+
+            .emergencias-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+            }
+            .emergencia-card { padding: 0.8rem 0.5rem; }
+            .emergencia-icon { font-size: 1.5rem; }
+            .emergencia-card h4 { font-size: 0.75rem; }
+            .emergencia-numero { font-size: 1rem; padding: 0.35rem 0.8rem; }
+            .telefonos-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+            .telefono-card { padding: 0.6rem; }
+            .telefono-card h3 { font-size: 0.75rem; }
+            .telefono-numero { font-size: 0.75rem; padding: 0.2rem 0.4rem; }
+            .ver-mas-btn { width: 100%; font-size: 0.9rem; }
         }
 
         @media (max-width: 360px) {
@@ -838,6 +1136,8 @@
             .btn { padding: 0.7rem 1rem; font-size: 0.85rem; }
             .event-card, .hospedaje-card { padding: 1rem; }
             .teatros-table th, .teatros-table td { padding: 0.7rem; font-size: 0.9rem; }
+            .emergencia-numero { font-size: 0.95rem; padding: 0.3rem 0.7rem; }
+            .emergencia-card h4 { font-size: 0.7rem; }
         }
 
         .filters-container::-webkit-scrollbar { height: 4px; }
@@ -871,6 +1171,7 @@
             <div class="hero-buttons">
                 <a href="#agenda" class="btn btn-primary">Ver agenda</a>
                 <a href="#espacios" class="btn btn-outline">Salas y Espacios</a>
+                <button class="btn btn-telefonos" id="openTelefonosBtn">📞 Teléfonos Útiles</button>
                 <a href="#cargar" class="btn btn-secondary">Cargar un evento</a>
                 <a href="#hospedajes" class="btn btn-outline">Hospedajes</a>
             </div>
@@ -1221,6 +1522,216 @@
         </div>
     </div>
 
+    <!-- ========== MODAL TELÉFONOS ÚTILES ========== -->
+    <div class="modal-overlay" id="telefonosModal">
+        <div class="modal-content telefonos-modal-content">
+            <div class="modal-header telefonos-modal-header">
+                <h2>📞 Teléfonos Útiles de Chivilcoy</h2>
+                <button class="modal-close" id="closeTelefonosModal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="telefonos-body">
+                <div class="telefonos-intro-modal">
+                    <p>Guía de contactos de emergencia y servicios públicos de la ciudad. <strong>En caso de emergencia inmediata, llamá al 911.</strong></p>
+                </div>
+
+                <!-- EMERGENCIAS DESTACADAS -->
+                <div class="emergencias-destacadas">
+                    <h3>🚨 Emergencias Inmediatas</h3>
+                    <div class="emergencias-grid">
+                        <div class="emergencia-card">
+                            <div class="emergencia-icon">🚨</div>
+                            <h4>Policía / Emergencias</h4>
+                            <a href="tel:911" class="emergencia-numero">911</a>
+                        </div>
+                        <div class="emergencia-card">
+                            <div class="emergencia-icon">🚒</div>
+                            <h4>Bomberos</h4>
+                            <a href="tel:100" class="emergencia-numero">100</a>
+                        </div>
+                        <div class="emergencia-card">
+                            <div class="emergencia-icon">🚑</div>
+                            <h4>SAME / Ambulancia</h4>
+                            <a href="tel:107" class="emergencia-numero">107</a>
+                        </div>
+                        <div class="emergencia-card">
+                            <div class="emergencia-icon">⛑️</div>
+                            <h4>Defensa Civil</h4>
+                            <a href="tel:103" class="emergencia-numero">103</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOTÓN VER MÁS -->
+                <button class="ver-mas-btn" id="verMasBtn">
+                    Ver todos los teléfonos útiles <span class="flecha">▼</span>
+                </button>
+
+                <!-- SECCIÓN EXPANDIBLE -->
+                <div class="telefonos-expandibles" id="telefonosExpandibles">
+                    
+                    <!-- SALUD -->
+                    <div class="categoria-bloque">
+                        <h3 class="categoria-titulo">🏥 Salud</h3>
+                        <div class="telefonos-grid">
+                            <div class="telefono-card salud">
+                                <h3>Hospital Municipal "Santiago Fornos"</h3>
+                                <a href="tel:02346439100" class="telefono-numero">(02346) 439100</a>
+                                <p class="telefono-info">Central telefónica</p>
+                            </div>
+                            <div class="telefono-card salud">
+                                <h3>Turnos Hospital (0800)</h3>
+                                <a href="tel:08001221020" class="telefono-numero">0800-122-1020</a>
+                                <p class="telefono-info">Turnos médicos gratuitos</p>
+                            </div>
+                            <div class="telefono-card salud">
+                                <h3>Cruz Roja Chivilcoy</h3>
+                                <a href="tel:02346428461" class="telefono-numero">(02346) 428461</a>
+                                <p class="telefono-info">Av. Güemes y Belgrano</p>
+                            </div>
+                            <div class="telefono-card salud">
+                                <h3>Turnos Pediatría</h3>
+                                <a href="tel:02346559964" class="telefono-numero">(02346) 559964</a>
+                                <p class="telefono-info">Atención pediátrica</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEGURIDAD -->
+                    <div class="categoria-bloque">
+                        <h3 class="categoria-titulo">👮 Seguridad</h3>
+                        <div class="telefonos-grid">
+                            <div class="telefono-card seguridad">
+                                <h3>Comisaría Primera</h3>
+                                <a href="tel:02346422016" class="telefono-numero">(02346) 422016</a>
+                                <p class="telefono-info">San Martín 75</p>
+                            </div>
+                            <div class="telefono-card seguridad">
+                                <h3>Comisaría de la Mujer</h3>
+                                <a href="tel:02346435786" class="telefono-numero">(02346) 435786</a>
+                                <p class="telefono-info">Av. Mitre casi esq. 110</p>
+                            </div>
+                            <div class="telefono-card seguridad">
+                                <h3>Subcomisaría Garelli</h3>
+                                <a href="tel:02346428636" class="telefono-numero">(02346) 428636</a>
+                                <p class="telefono-info">Localidad de Garelli</p>
+                            </div>
+                            <div class="telefono-card seguridad">
+                                <h3>Bomberos (Administración)</h3>
+                                <a href="tel:02346424319" class="telefono-numero">(02346) 424319</a>
+                                <p class="telefono-info">Gral. Pueyrredón 162</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MUNICIPALIDAD -->
+                    <div class="categoria-bloque">
+                        <h3 class="categoria-titulo">🏛️ Municipalidad y Trámites</h3>
+                        <div class="telefonos-grid">
+                            <div class="telefono-card">
+                                <h3>Municipalidad (Conmutador)</h3>
+                                <a href="tel:02346439000" class="telefono-numero">(02346) 439000</a>
+                                <p class="telefono-info">25 de Mayo 35</p>
+                            </div>
+                            <div class="telefono-card">
+                                <h3>Reclamos Vecinales (0800)</h3>
+                                <a href="tel:08009996864" class="telefono-numero">0800-999-6864</a>
+                                <p class="telefono-info">Línea gratuita de reclamos</p>
+                            </div>
+                            <div class="telefono-card">
+                                <h3>Dirección de Tránsito</h3>
+                                <a href="tel:02346439043" class="telefono-numero">(02346) 439043</a>
+                                <p class="telefono-info">Int. 1613 - Belgrano 271</p>
+                            </div>
+                            <div class="telefono-card">
+                                <h3>WhatsApp Tránsito</h3>
+                                <a href="https://wa.me/542346559912" class="telefono-numero">(02346) 559912</a>
+                                <p class="telefono-info">Consultas por WhatsApp</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SERVICIOS PÚBLICOS -->
+                    <div class="categoria-bloque">
+                        <h3 class="categoria-titulo">⚡ Servicios Públicos</h3>
+                        <div class="telefonos-grid">
+                            <div class="telefono-card servicios">
+                                <h3>EDEN - Técnico 24hs</h3>
+                                <a href="tel:08009993336" class="telefono-numero">0800-999-3336</a>
+                                <p class="telefono-info">Cortes de luz y emergencias</p>
+                            </div>
+                            <div class="telefono-card servicios">
+                                <h3>EDEN - Comercial</h3>
+                                <a href="tel:08109993336" class="telefono-numero">0810-999-3336</a>
+                                <p class="telefono-info">Reclamos y trámites</p>
+                            </div>
+                            <div class="telefono-card servicios">
+                                <h3>EDEN WhatsApp</h3>
+                                <a href="https://wa.me/5493364526944" class="telefono-numero">+54 9 336 452-6944</a>
+                                <p class="telefono-info">Atención por WhatsApp</p>
+                            </div>
+                            <div class="telefono-card servicios">
+                                <h3>ABSA - Asistencia 24hs</h3>
+                                <a href="tel:08009992272" class="telefono-numero">0800-999-2272</a>
+                                <p class="telefono-info">Cortes de agua y emergencias</p>
+                            </div>
+                            <div class="telefono-card servicios">
+                                <h3>ABSA - Comercial</h3>
+                                <a href="tel:08109992272" class="telefono-numero">0810-999-2272</a>
+                                <p class="telefono-info">Reclamos y trámites</p>
+                            </div>
+                            <div class="telefono-card servicios">
+                                <h3>Camuzzi Gas - Emergencias</h3>
+                                <a href="tel:08007771808" class="telefono-numero">0800-777-1808</a>
+                                <p class="telefono-info">Fugas de gas y emergencias</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LÍNEAS DE AYUDA -->
+                    <div class="categoria-bloque">
+                        <h3 class="categoria-titulo">🆘 Líneas de Ayuda Nacional</h3>
+                        <div class="telefonos-grid">
+                            <div class="telefono-card">
+                                <h3>Violencia de Género</h3>
+                                <a href="tel:144" class="telefono-numero">144</a>
+                                <p class="telefono-info">Atención las 24hs, todos los días</p>
+                            </div>
+                            <div class="telefono-card">
+                                <h3>Violencia Familiar</h3>
+                                <a href="tel:137" class="telefono-numero">137</a>
+                                <p class="telefono-info">Atención inmediata</p>
+                            </div>
+                            <div class="telefono-card">
+                                <h3>Ayuda al Niño</h3>
+                                <a href="tel:102" class="telefono-numero">102</a>
+                                <p class="telefono-info">Niñez y adolescencia</p>
+                            </div>
+                            <div class="telefono-card">
+                                <h3>Adicciones</h3>
+                                <a href="tel:141" class="telefono-numero">141</a>
+                                <p class="telefono-info">Orientación y contención</p>
+                            </div>
+                            <div class="telefono-card">
+                                <h3>ANSES</h3>
+                                <a href="tel:130" class="telefono-numero">130</a>
+                                <p class="telefono-info">Consultas y trámites</p>
+                            </div>
+                            <div class="telefono-card">
+                                <h3>Emergencia Ambiental</h3>
+                                <a href="tel:105" class="telefono-numero">105</a>
+                                <p class="telefono-info">Contaminación y derrames</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip-emergencia-modal">
+                    💡 <strong>Importante:</strong> Los números de emergencia (911, 100, 103, 107) son <strong>gratuitos</strong> desde cualquier teléfono, fijo o celular, incluso sin saldo.
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Filtros de categorías
         const filterBtns = document.querySelectorAll('.filter-btn');
@@ -1254,21 +1765,20 @@
 
         // ========== MODAL LEGAL ==========
         const legalModal = document.getElementById('legalModal');
-        const openBtn = document.getElementById('openLegalModal');
-        const closeBtn = document.getElementById('closeLegalModal');
+        const openLegalBtn = document.getElementById('openLegalModal');
+        const closeLegalBtn = document.getElementById('closeLegalModal');
 
-        openBtn.addEventListener('click', (e) => {
+        openLegalBtn.addEventListener('click', (e) => {
             e.preventDefault();
             legalModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
 
-        closeBtn.addEventListener('click', () => {
+        closeLegalBtn.addEventListener('click', () => {
             legalModal.classList.remove('active');
             document.body.style.overflow = '';
         });
 
-        // Cerrar al hacer click fuera del modal
         legalModal.addEventListener('click', (e) => {
             if (e.target === legalModal) {
                 legalModal.classList.remove('active');
@@ -1276,14 +1786,58 @@
             }
         });
 
-        // Cerrar con tecla Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && legalModal.classList.contains('active')) {
-                legalModal.classList.remove('active');
+        // ========== MODAL TELÉFONOS ÚTILES ==========
+        const telefonosModal = document.getElementById('telefonosModal');
+        const openTelBtn = document.getElementById('openTelefonosBtn');
+        const closeTelBtn = document.getElementById('closeTelefonosModal');
+
+        openTelBtn.addEventListener('click', () => {
+            telefonosModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeTelBtn.addEventListener('click', () => {
+            telefonosModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        telefonosModal.addEventListener('click', (e) => {
+            if (e.target === telefonosModal) {
+                telefonosModal.classList.remove('active');
                 document.body.style.overflow = '';
+            }
+        });
+
+        // Botón "Ver más" dentro del modal de teléfonos
+        const verMasBtn = document.getElementById('verMasBtn');
+        const telefonosExpandibles = document.getElementById('telefonosExpandibles');
+
+        verMasBtn.addEventListener('click', () => {
+            telefonosExpandibles.classList.toggle('active');
+            verMasBtn.classList.toggle('active');
+            
+            if (telefonosExpandibles.classList.contains('active')) {
+                verMasBtn.innerHTML = 'Ocultar teléfonos <span class="flecha">▼</span>';
+            } else {
+                verMasBtn.innerHTML = 'Ver todos los teléfonos útiles <span class="flecha">▼</span>';
+            }
+        });
+
+        // Cerrar modales con tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (legalModal.classList.contains('active')) {
+                    legalModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+                if (telefonosModal.classList.contains('active')) {
+                    telefonosModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
             }
         });
     </script>
 
 </body>
+</html>
 </html>
