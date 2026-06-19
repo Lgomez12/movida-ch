@@ -164,6 +164,7 @@
         .comentario-textarea:focus { outline: none; border-color: #667eea; }
         .btn-enviar-valoracion { margin-top: 1.5rem; padding: 0.9rem 2.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); }
         .btn-enviar-valoracion:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4); }
+        .btn-enviar-valoracion:disabled { opacity: 0.6; cursor: not-allowed; }
         .mensaje-gracias { display: none; margin-top: 1.5rem; padding: 1.5rem; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-radius: 12px; color: #065f46; font-weight: 600; animation: fadeInUp 0.5s ease; }
         .mensaje-gracias.activo { display: block; }
         .valoracion-promedio { margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #f0f0f0; }
@@ -174,12 +175,13 @@
         /* COMENTARIOS PÚBLICOS */
         .comentarios-publicos { margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #f0f0f0; text-align: left; }
         .comentarios-titulo { font-size: 1.1rem; color: #2d3748; margin-bottom: 1rem; font-weight: 600; }
-        .comentario-item { background: #f9fafb; padding: 1rem; border-radius: 10px; margin-bottom: 0.8rem; border-left: 3px solid #667eea; }
+        .comentario-item { background: #f9fafb; padding: 1rem; border-radius: 10px; margin-bottom: 0.8rem; border-left: 3px solid #667eea; animation: fadeInUp 0.3s ease; }
         .comentario-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
         .comentario-estrellas { color: #fbbf24; font-size: 1rem; }
         .comentario-fecha { color: #9ca3af; font-size: 0.8rem; }
         .comentario-texto { color: #4b5563; font-size: 0.9rem; line-height: 1.5; }
         .sin-comentarios { text-align: center; color: #9ca3af; font-style: italic; padding: 1rem; }
+        .cargando-comentarios { text-align: center; color: #667eea; font-style: italic; padding: 1rem; }
 
         /* FOOTER COMPACTO */
         footer { background: #2d3748; color: white; padding: 1.5rem 1rem; margin-top: 3rem; }
@@ -454,7 +456,7 @@
                     <label for="comentario" class="comentario-label">¿Querés dejar un comentario? (opcional)</label>
                     <textarea id="comentario" class="comentario-textarea" placeholder="Contanos qué te parece la página..."></textarea>
                 </div>
-                <button type="submit" class="btn-enviar-valoracion">Enviar valoración</button>
+                <button type="submit" class="btn-enviar-valoracion" id="btnEnviarValoracion">Enviar valoración</button>
             </form>
 
             <div class="mensaje-gracias" id="mensajeGracias">
@@ -462,7 +464,7 @@
             </div>
 
             <div class="valoracion-promedio" id="valoracionPromedio" style="display: none;">
-                <p class="promedio-texto">Valoración promedio</p>
+                <p class="promedio-texto">Valoración promedio de la comunidad</p>
                 <span class="promedio-estrellas" id="estrellasPromedio"></span>
                 <span class="promedio-numero" id="numeroPromedio"></span>
             </div>
@@ -470,7 +472,7 @@
             <div class="comentarios-publicos" id="comentariosPublicos">
                 <h3 class="comentarios-titulo">💬 Comentarios de la comunidad</h3>
                 <div id="listaComentarios">
-                    <p class="sin-comentarios">Sé el primero en dejar un comentario</p>
+                    <p class="cargando-comentarios">Cargando comentarios...</p>
                 </div>
             </div>
         </div>
@@ -594,6 +596,136 @@
         </div>
     </div>
 
+    <!-- FIREBASE SDK -->
+    <script type="module">
+        // Import Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, push, onValue, query, orderByChild } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        // Tu configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBbVhsEfXV0BH_v_FNJ_0w0rws_kwGU6eM",
+            authDomain: "movida-chivilcoy.firebaseapp.com",
+            databaseURL: "https://movida-chivilcoy-default-rtdb.firebaseio.com",
+            projectId: "movida-chivilcoy",
+            storageBucket: "movida-chivilcoy.firebasestorage.app",
+            messagingSenderId: "686223187583",
+            appId: "1:686223187583:web:43c59be4da2b9854d5a94a"
+        };
+
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Variables globales
+        const formValoracion = document.getElementById('formValoracion');
+        const btnEnviarValoracion = document.getElementById('btnEnviarValoracion');
+        const mensajeGracias = document.getElementById('mensajeGracias');
+        const valoracionPromedio = document.getElementById('valoracionPromedio');
+        const estrellasPromedio = document.getElementById('estrellasPromedio');
+        const numeroPromedio = document.getElementById('numeroPromedio');
+        const listaComentarios = document.getElementById('listaComentarios');
+
+        // Verificar si ya valoró (localStorage)
+        const yaValoro = localStorage.getItem('yaValoroMovida');
+        if (yaValoro) {
+            formValoracion.style.display = 'none';
+            mensajeGracias.classList.add('activo');
+            mensajeGracias.innerHTML = '¡Ya dejaste tu valoración! 🎉 Gracias por tu opinión.';
+        }
+
+        // Cargar valoraciones en tiempo real
+        const valoracionesRef = ref(db, 'valoraciones');
+        const q = query(valoracionesRef, orderByChild('fecha'));
+
+        onValue(q, (snapshot) => {
+            const data = snapshot.val();
+            const valoraciones = [];
+            
+            if (data) {
+                Object.values(data).forEach(v => valoraciones.push(v));
+            }
+
+            if (valoraciones.length > 0) {
+                // Calcular promedio
+                const suma = valoraciones.reduce((acc, v) => acc + v.estrellas, 0);
+                const promedio = suma / valoraciones.length;
+                
+                // Mostrar promedio
+                valoracionPromedio.style.display = 'block';
+                estrellasPromedio.innerHTML = '★'.repeat(Math.round(promedio)) + '☆'.repeat(5 - Math.round(promedio));
+                numeroPromedio.textContent = promedio.toFixed(1) + ` (${valoraciones.length} valoraciones)`;
+
+                // Mostrar comentarios
+                const conComentario = valoraciones.filter(v => v.comentario && v.comentario.trim() !== '');
+                if (conComentario.length > 0) {
+                    listaComentarios.innerHTML = '';
+                    conComentario.slice().reverse().forEach(v => {
+                        const fecha = new Date(v.fecha).toLocaleDateString('es-AR', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                        const item = document.createElement('div');
+                        item.className = 'comentario-item';
+                        item.innerHTML = `
+                            <div class="comentario-header">
+                                <span class="comentario-estrellas">${'★'.repeat(v.estrellas)}${'☆'.repeat(5 - v.estrellas)}</span>
+                                <span class="comentario-fecha">${fecha}</span>
+                            </div>
+                            <p class="comentario-texto">${v.comentario}</p>
+                        `;
+                        listaComentarios.appendChild(item);
+                    });
+                } else {
+                    listaComentarios.innerHTML = '<p class="sin-comentarios">Sé el primero en dejar un comentario</p>';
+                }
+            } else {
+                listaComentarios.innerHTML = '<p class="sin-comentarios">Sé el primero en dejar un comentario</p>';
+            }
+        });
+
+        // Enviar valoración a Firebase
+        formValoracion.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const valoracionSeleccionada = document.querySelector('input[name="valoracion"]:checked');
+            const comentario = document.getElementById('comentario').value.trim();
+
+            if (!valoracionSeleccionada) {
+                alert('Por favor, seleccioná una cantidad de estrellas');
+                return;
+            }
+
+            btnEnviarValoracion.disabled = true;
+            btnEnviarValoracion.textContent = 'Enviando...';
+
+            try {
+                const estrellas = parseInt(valoracionSeleccionada.value);
+                await push(valoracionesRef, {
+                    estrellas: estrellas,
+                    comentario: comentario,
+                    fecha: new Date().toISOString()
+                });
+
+                // Guardar en localStorage para que no vote de nuevo
+                localStorage.setItem('yaValoroMovida', 'true');
+
+                formValoracion.style.display = 'none';
+                mensajeGracias.classList.add('activo');
+            } catch (error) {
+                console.error('Error al enviar valoración:', error);
+                alert('Hubo un error al enviar tu valoración. Intentá de nuevo.');
+                btnEnviarValoracion.disabled = false;
+                btnEnviarValoracion.textContent = 'Enviar valoración';
+            }
+        });
+
+        // Hacer funciones globales para otros scripts
+        window.firebaseApp = app;
+        window.firebaseDB = db;
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // 1. BOTÓN COMPARTIR POR WHATSAPP
@@ -697,81 +829,8 @@
                     }
                 }
             });
-
-            // 6. VALORACIÓN CON ESTRELLAS
-            const formValoracion = document.getElementById('formValoracion');
-            const mensajeGracias = document.getElementById('mensajeGracias');
-            const valoracionPromedio = document.getElementById('valoracionPromedio');
-            const estrellasPromedio = document.getElementById('estrellasPromedio');
-            const numeroPromedio = document.getElementById('numeroPromedio');
-            const listaComentarios = document.getElementById('listaComentarios');
-
-            function cargarValoraciones() {
-                const valoraciones = JSON.parse(localStorage.getItem('valoracionesMovida') || '[]');
-                
-                if (valoraciones.length > 0) {
-                    const suma = valoraciones.reduce((acc, v) => acc + v.estrellas, 0);
-                    const promedio = suma / valoraciones.length;
-                    valoracionPromedio.style.display = 'block';
-                    estrellasPromedio.innerHTML = '★'.repeat(Math.round(promedio)) + '☆'.repeat(5 - Math.round(promedio));
-                    numeroPromedio.textContent = promedio.toFixed(1) + ` (${valoraciones.length} valoraciones)`;
-
-                    // Mostrar comentarios
-                    const conComentario = valoraciones.filter(v => v.comentario && v.comentario.trim() !== '');
-                    if (conComentario.length > 0) {
-                        listaComentarios.innerHTML = '';
-                        conComentario.slice().reverse().forEach(v => {
-                            const fecha = new Date(v.fecha).toLocaleDateString('es-AR');
-                            const item = document.createElement('div');
-                            item.className = 'comentario-item';
-                            item.innerHTML = `
-                                <div class="comentario-header">
-                                    <span class="comentario-estrellas">${'★'.repeat(v.estrellas)}${'☆'.repeat(5 - v.estrellas)}</span>
-                                    <span class="comentario-fecha">${fecha}</span>
-                                </div>
-                                <p class="comentario-texto">${v.comentario}</p>
-                            `;
-                            listaComentarios.appendChild(item);
-                        });
-                    }
-                }
-
-                if (localStorage.getItem('yaValoroMovida')) {
-                    formValoracion.style.display = 'none';
-                    mensajeGracias.classList.add('activo');
-                    mensajeGracias.innerHTML = '¡Ya dejaste tu valoración! 🎉 Gracias por tu opinión.';
-                }
-            }
-
-            formValoracion.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const valoracionSeleccionada = document.querySelector('input[name="valoracion"]:checked');
-                const comentario = document.getElementById('comentario').value.trim();
-
-                if (!valoracionSeleccionada) {
-                    alert('Por favor, seleccioná una cantidad de estrellas');
-                    return;
-                }
-
-                const estrellas = parseInt(valoracionSeleccionada.value);
-                const valoraciones = JSON.parse(localStorage.getItem('valoracionesMovida') || '[]');
-                valoraciones.push({
-                    estrellas: estrellas,
-                    comentario: comentario,
-                    fecha: new Date().toISOString()
-                });
-                localStorage.setItem('valoracionesMovida', JSON.stringify(valoraciones));
-                localStorage.setItem('yaValoroMovida', 'true');
-
-                formValoracion.style.display = 'none';
-                mensajeGracias.classList.add('activo');
-                cargarValoraciones();
-            });
-
-            cargarValoraciones();
         });
     </script>
 
 </body>
-</html>
 </html>
