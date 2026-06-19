@@ -96,7 +96,7 @@
             padding: 2rem 1rem; 
             max-width: 1200px; 
             margin: 0 auto;
-            scroll-margin-top: 200px; /* Evita que el sticky tape el contenido */
+            scroll-margin-top: 200px;
         }
         .section-title { 
             font-size: clamp(1.5rem, 4vw, 2rem); 
@@ -363,25 +363,11 @@
             .estrella-label { font-size: 2.5rem; }
             .footer-content { grid-template-columns: 1fr; gap: 1rem; text-align: center; }
             
-            /* Filtros compactos en móvil */
-            .filters-section {
-                padding: 1rem 0.5rem;
-            }
-            .filters-container {
-                gap: 0.4rem;
-                padding-bottom: 0.5rem;
-            }
-            .filter-btn {
-                padding: 0.5rem 0.9rem;
-                font-size: 0.8rem;
-            }
-            .section-title {
-                font-size: 1.3rem;
-                margin-bottom: 1rem;
-            }
-            .agenda-section {
-                scroll-margin-top: 180px;
-            }
+            .filters-section { padding: 1rem 0.5rem; }
+            .filters-container { gap: 0.4rem; padding-bottom: 0.5rem; }
+            .filter-btn { padding: 0.5rem 0.9rem; font-size: 0.8rem; }
+            .section-title { font-size: 1.3rem; margin-bottom: 1rem; }
+            .agenda-section { scroll-margin-top: 180px; }
         }
         
         @media (max-width: 480px) {
@@ -389,24 +375,11 @@
             .estrella-label { font-size: 2rem; }
             .valoracion-card { padding: 1.5rem; }
             
-            /* Filtros más compactos en pantallas muy pequeñas */
-            .filters-section {
-                padding: 0.8rem 0.3rem;
-            }
-            .filters-container {
-                gap: 0.3rem;
-            }
-            .filter-btn {
-                padding: 0.4rem 0.7rem;
-                font-size: 0.75rem;
-            }
-            .section-title {
-                font-size: 1.2rem;
-                margin-bottom: 0.8rem;
-            }
-            .agenda-section {
-                scroll-margin-top: 150px;
-            }
+            .filters-section { padding: 0.8rem 0.3rem; }
+            .filters-container { gap: 0.3rem; }
+            .filter-btn { padding: 0.4rem 0.7rem; font-size: 0.75rem; }
+            .section-title { font-size: 1.2rem; margin-bottom: 0.8rem; }
+            .agenda-section { scroll-margin-top: 150px; }
         }
 
         a:focus-visible, button:focus-visible { outline: 3px solid #f97316; outline-offset: 2px; }
@@ -656,7 +629,7 @@
                 <h3>3. Exactitud de la información</h3>
                 <p>Recomendamos <strong>verificar siempre</strong> fecha, horario, lugar y costo en el enlace original de cada evento.</p>
                 <h3>4. Propiedad intelectual</h3>
-                <p>El diseño y contenido original son <strong>propiedad intelectual de la Lic. Leticia Gómez</strong>.</p>
+                <p>El diseño y contenido original son <strong>propiedad intelectual de la Lic. Leticia Gomez</strong>.</p>
                 <h3>5. Contacto</h3>
                 <div class="highlight-box">
                     📧 <a href="mailto:movidachivilcoy@gmail.com">movidachivilcoy@gmail.com</a><br>
@@ -734,13 +707,12 @@
         </div>
     </div>
 
-    <!-- FIREBASE SDK -->
-    <script type="module">
-        // Import Firebase
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, push, onValue, query, orderByChild } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    <!-- FIREBASE SDK (VERSIÓN COMPAT - MÁS ESTABLE) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
-        // Tu configuración de Firebase
+    <script>
+        // Configuración de Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBbVhsEfXV0BH_v_FNJ_0w0rws_kwGU6eM",
             authDomain: "movida-chivilcoy.firebaseapp.com",
@@ -752,10 +724,10 @@
         };
 
         // Inicializar Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
-        // Variables globales
+        // Variables
         const formValoracion = document.getElementById('formValoracion');
         const btnEnviarValoracion = document.getElementById('btnEnviarValoracion');
         const mensajeGracias = document.getElementById('mensajeGracias');
@@ -764,7 +736,7 @@
         const numeroPromedio = document.getElementById('numeroPromedio');
         const listaComentarios = document.getElementById('listaComentarios');
 
-        // Verificar si ya valoró (localStorage)
+        // Verificar si ya valoró
         const yaValoro = localStorage.getItem('yaValoroMovida');
         if (yaValoro) {
             formValoracion.style.display = 'none';
@@ -773,10 +745,9 @@
         }
 
         // Cargar valoraciones en tiempo real
-        const valoracionesRef = ref(db, 'valoraciones');
-        const q = query(valoracionesRef, orderByChild('fecha'));
-
-        onValue(q, (snapshot) => {
+        const valoracionesRef = db.ref('valoraciones');
+        
+        valoracionesRef.orderByChild('fecha').on('value', (snapshot) => {
             const data = snapshot.val();
             const valoraciones = [];
             
@@ -823,8 +794,8 @@
             }
         });
 
-        // Enviar valoración a Firebase
-        formValoracion.addEventListener('submit', async (e) => {
+        // Enviar valoración
+        formValoracion.addEventListener('submit', (e) => {
             e.preventDefault();
             
             const valoracionSeleccionada = document.querySelector('input[name="valoracion"]:checked');
@@ -838,30 +809,27 @@
             btnEnviarValoracion.disabled = true;
             btnEnviarValoracion.textContent = 'Enviando...';
 
-            try {
-                const estrellas = parseInt(valoracionSeleccionada.value);
-                await push(valoracionesRef, {
-                    estrellas: estrellas,
-                    comentario: comentario,
-                    fecha: new Date().toISOString()
+            const estrellas = parseInt(valoracionSeleccionada.value);
+            const nuevaValoracion = {
+                estrellas: estrellas,
+                comentario: comentario,
+                fecha: new Date().toISOString()
+            };
+
+            // Guardar en Firebase
+            valoracionesRef.push(nuevaValoracion)
+                .then(() => {
+                    localStorage.setItem('yaValoroMovida', 'true');
+                    formValoracion.style.display = 'none';
+                    mensajeGracias.classList.add('activo');
+                })
+                .catch((error) => {
+                    console.error('Error al enviar:', error);
+                    alert('Hubo un error al enviar tu valoración. Intentá de nuevo.');
+                    btnEnviarValoracion.disabled = false;
+                    btnEnviarValoracion.textContent = 'Enviar valoración';
                 });
-
-                // Guardar en localStorage para que no vote de nuevo
-                localStorage.setItem('yaValoroMovida', 'true');
-
-                formValoracion.style.display = 'none';
-                mensajeGracias.classList.add('activo');
-            } catch (error) {
-                console.error('Error al enviar valoración:', error);
-                alert('Hubo un error al enviar tu valoración. Intentá de nuevo.');
-                btnEnviarValoracion.disabled = false;
-                btnEnviarValoracion.textContent = 'Enviar valoración';
-            }
         });
-
-        // Hacer funciones globales para otros scripts
-        window.firebaseApp = app;
-        window.firebaseDB = db;
     </script>
 
     <script>
