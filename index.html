@@ -5,16 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movida Chivilcoy - Agenda Cultural y Comunitaria</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -23,7 +15,7 @@
             overflow-x: hidden;
         }
 
-        /* HERO SECTION */
+        /* HERO */
         .hero-section {
             position: relative;
             min-height: 55vh;
@@ -37,1133 +29,253 @@
             color: white;
             overflow: hidden;
         }
-
         .hero-section::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background: 
                 radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(255,255,255,0.08) 0%, transparent 50%);
             z-index: 1;
         }
+        .hero-content { position: relative; z-index: 2; max-width: 900px; animation: fadeInUp 0.8s ease; }
+        .main-title { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800; margin-bottom: 0.5rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.2); line-height: 1.1; letter-spacing: -1px; }
+        .subtitle { font-size: clamp(1rem, 3vw, 1.3rem); margin-bottom: 2rem; opacity: 0.95; font-weight: 300; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
-            animation: fadeInUp 0.8s ease;
-        }
+        .btn { display: inline-block; padding: 0.9rem 1.8rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 2px solid transparent; font-size: clamp(0.9rem, 2.5vw, 1rem); white-space: nowrap; cursor: pointer; }
+        .btn-primary { background: white; color: #667eea; }
+        .btn-primary:hover { background: #f0f0f0; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .btn-secondary { background: #f97316; color: white; }
+        .btn-secondary:hover { background: #ea580c; transform: translateY(-2px); }
+        .btn-outline { background: transparent; color: white; border: 2px solid white; }
+        .btn-outline:hover { background: white; color: #667eea; }
+        .btn-telefonos { background: #dc2626; color: white; border: 2px solid #dc2626; }
+        .btn-telefonos:hover { background: #b91c1c; border-color: #b91c1c; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3); }
 
-        .main-title {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
-            line-height: 1.1;
-            letter-spacing: -1px;
-        }
+        .cultural-section { padding: clamp(2rem, 5vw, 4rem) 1rem; max-width: 1200px; margin: 0 auto; }
+        .cultural-content { background: white; padding: clamp(1.5rem, 4vw, 2.5rem); border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+        .cultural-title { font-size: clamp(1.5rem, 4vw, 2.2rem); color: #667eea; text-align: center; margin-bottom: 1.5rem; line-height: 1.3; font-weight: 700; }
+        .cultural-content p { font-size: clamp(0.95rem, 2vw, 1.05rem); line-height: 1.8; color: #444; margin-bottom: 1rem; }
 
-        .subtitle {
-            font-size: clamp(1rem, 3vw, 1.3rem);
-            margin-bottom: 2rem;
-            opacity: 0.95;
-            font-weight: 300;
-        }
+        .filters-section { padding: 1.5rem 1rem; background: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .filters-container { max-width: 1200px; margin: 0 auto; display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+        .filter-btn { padding: 0.6rem 1.2rem; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 25px; cursor: pointer; transition: all 0.3s; font-size: clamp(0.85rem, 2vw, 0.95rem); white-space: nowrap; font-weight: 500; }
+        .filter-btn:hover, .filter-btn.active { background: #667eea; color: white; }
 
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
+        .agenda-section { padding: 2rem 1rem; max-width: 1200px; margin: 0 auto; }
+        .section-title { font-size: clamp(1.5rem, 4vw, 2rem); color: #2d3748; margin-bottom: 1.5rem; text-align: center; }
+        .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .event-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 3px 15px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s; padding: 1.5rem; border-left: 4px solid #667eea; }
+        .event-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
+        .event-tag { display: inline-block; padding: 0.3rem 0.8rem; background: #667eea; color: white; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.8rem; text-transform: uppercase; }
+        .event-card h3 { font-size: clamp(1.1rem, 2.5vw, 1.3rem); color: #2d3748; margin-bottom: 0.5rem; }
+        .event-info { color: #666; font-size: 0.9rem; margin-bottom: 0.3rem; }
+        .event-info strong { color: #667eea; }
+        .event-card p { margin: 1rem 0; color: #555; font-size: 0.95rem; }
+        .event-link { display: inline-block; color: #667eea; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .event-link:hover { text-decoration: underline; }
+        .no-events { text-align: center; padding: 3rem 1rem; color: #666; font-style: italic; background: white; border-radius: 15px; grid-column: 1 / -1; }
 
-        /* Botones */
-        .btn {
-            display: inline-block;
-            padding: 0.9rem 1.8rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-            white-space: nowrap;
+        /* BOTÓN COMPARTIR */
+        .btn-compartir-dinamico {
+            margin-top: 12px;
             cursor: pointer;
-        }
-
-        .btn-primary {
-            background: white;
-            color: #667eea;
-        }
-
-        .btn-primary:hover {
-            background: #f0f0f0;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .btn-secondary {
-            background: #f97316;
+            background: #25d366;
             color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #ea580c;
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-outline:hover {
-            background: white;
-            color: #667eea;
-        }
-
-        /* Botón especial Teléfonos Útiles */
-        .btn-telefonos {
-            background: #dc2626;
-            color: white;
-            border: 2px solid #dc2626;
-        }
-
-        .btn-telefonos:hover {
-            background: #b91c1c;
-            border-color: #b91c1c;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
-        }
-
-        /* Sección Cultural */
-        .cultural-section {
-            padding: clamp(2rem, 5vw, 4rem) 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .cultural-content {
-            background: white;
-            padding: clamp(1.5rem, 4vw, 2.5rem);
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-        }
-
-        .cultural-title {
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
-            color: #667eea;
-            text-align: center;
-            margin-bottom: 1.5rem;
-            line-height: 1.3;
-            font-weight: 700;
-        }
-
-        .cultural-content p {
-            font-size: clamp(0.95rem, 2vw, 1.05rem);
-            line-height: 1.8;
-            color: #444;
-            margin-bottom: 1rem;
-        }
-
-        /* Filtros */
-        .filters-section {
-            padding: 1.5rem 1rem;
-            background: white;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .filters-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .filter-btn {
-            padding: 0.6rem 1.2rem;
-            border: 2px solid #667eea;
-            background: white;
-            color: #667eea;
+            border: none;
+            padding: 8px 16px;
             border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: clamp(0.85rem, 2vw, 0.95rem);
-            white-space: nowrap;
-            font-weight: 500;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: #667eea;
-            color: white;
-        }
-
-        /* Agenda */
-        .agenda-section {
-            padding: 2rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: clamp(1.5rem, 4vw, 2rem);
-            color: #2d3748;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .event-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-            padding: 1.5rem;
-            border-left: 4px solid #667eea;
-        }
-
-        .event-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-        }
-
-        .event-tag {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: #667eea;
-            color: white;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 0.8rem;
-            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
         }
+        .btn-compartir-dinamico:hover { background: #128c7e; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); }
 
-        .event-card h3 {
-            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-            color: #2d3748;
-            margin-bottom: 0.5rem;
-        }
+        .teatros-section { padding: 2rem 1rem; max-width: 1200px; margin: 0 auto; }
+        .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; background: white; border-radius: 15px; box-shadow: 0 3px 15px rgba(0,0,0,0.08); }
+        .teatros-table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        .teatros-table th, .teatros-table td { padding: 1rem; text-align: left; border-bottom: 1px solid #eee; }
+        .teatros-table th { background: #667eea; color: white; font-weight: 600; position: sticky; top: 0; }
+        .teatros-table tr:hover { background: #f8f9fa; }
+        .teatros-table a { color: #667eea; text-decoration: none; font-weight: 500; }
+        .teatros-table a:hover { text-decoration: underline; }
 
-        .event-info {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 0.3rem;
-        }
+        .destacado-section { padding: 2rem 1rem; max-width: 1200px; margin: 0 auto; }
+        .destacado-card { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); color: white; padding: clamp(1.5rem, 4vw, 2.5rem); border-radius: 15px; box-shadow: 0 5px 20px rgba(249, 115, 22, 0.3); }
+        .destacado-card h2 { font-size: clamp(1.3rem, 3.5vw, 1.8rem); margin-bottom: 0.5rem; }
+        .destacado-card .fecha { font-size: 1rem; opacity: 0.9; margin-bottom: 1rem; }
+        .destacado-card p { margin-bottom: 1.5rem; line-height: 1.7; }
+        .destacado-card .btn { background: white; color: #f97316; }
 
-        .event-info strong {
-            color: #667eea;
-        }
+        .hospedajes-section { padding: 2rem 1rem; max-width: 1200px; margin: 0 auto; }
+        .hospedajes-intro { background: white; padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 3px 15px rgba(0,0,0,0.08); }
+        .hospedajes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .hospedaje-card { background: white; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #667eea; box-shadow: 0 3px 10px rgba(0,0,0,0.08); transition: transform 0.3s; }
+        .hospedaje-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+        .hospedaje-card h3 { color: #667eea; margin-bottom: 0.5rem; font-size: clamp(1.1rem, 2.5vw, 1.3rem); }
+        .hospedaje-card .tipo { display: inline-block; padding: 0.2rem 0.7rem; background: #f0f0f0; border-radius: 20px; font-size: 0.8rem; margin-right: 0.5rem; margin-bottom: 0.5rem; color: #555; }
+        .hospedaje-card .direccion { color: #666; font-size: 0.9rem; margin: 0.5rem 0; }
+        .hospedaje-card .info { font-size: 0.9rem; color: #555; margin-bottom: 0.3rem; }
+        .hospedaje-card a { display: inline-block; margin-top: 1rem; color: #667eea; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .hospedaje-card a:hover { text-decoration: underline; }
+        .tip-visitantes { background: #fff3e0; border-left: 4px solid #f97316; padding: 1rem 1.5rem; border-radius: 8px; margin-top: 2rem; font-size: 0.95rem; color: #555; }
 
-        .event-card p {
-            margin: 1rem 0;
-            color: #555;
-            font-size: 0.95rem;
-        }
+        .carteleras-section { padding: 2rem 1rem; max-width: 1200px; margin: 0 auto; }
+        .carteleras-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+        .cartelera-link { display: block; padding: 1.5rem; background: white; border-radius: 12px; text-align: center; text-decoration: none; color: #667eea; font-weight: 600; box-shadow: 0 3px 10px rgba(0,0,0,0.08); transition: all 0.3s; }
+        .cartelera-link:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); background: #667eea; color: white; }
 
-        .event-link {
-            display: inline-block;
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .event-link:hover {
-            text-decoration: underline;
-        }
-
-        .no-events {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: #666;
-            font-style: italic;
-            background: white;
-            border-radius: 15px;
-            grid-column: 1 / -1;
-        }
-
-        /* Tabla Teatros */
-        .teatros-section {
-            padding: 2rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .table-container {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-        }
-
-        .teatros-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 600px;
-        }
-
-        .teatros-table th,
-        .teatros-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-
-        .teatros-table th {
-            background: #667eea;
-            color: white;
-            font-weight: 600;
-            position: sticky;
-            top: 0;
-        }
-
-        .teatros-table tr:hover {
-            background: #f8f9fa;
-        }
-
-        .teatros-table a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .teatros-table a:hover {
-            text-decoration: underline;
-        }
-
-        /* Destacado */
-        .destacado-section {
-            padding: 2rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .destacado-card {
-            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-            color: white;
-            padding: clamp(1.5rem, 4vw, 2.5rem);
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(249, 115, 22, 0.3);
-        }
-
-        .destacado-card h2 {
-            font-size: clamp(1.3rem, 3.5vw, 1.8rem);
-            margin-bottom: 0.5rem;
-        }
-
-        .destacado-card .fecha {
-            font-size: 1rem;
-            opacity: 0.9;
-            margin-bottom: 1rem;
-        }
-
-        .destacado-card p {
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-        }
-
-        .destacado-card .btn {
-            background: white;
-            color: #f97316;
-        }
-
-        /* Hospedajes */
-        .hospedajes-section {
-            padding: 2rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .hospedajes-intro {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin-bottom: 2rem;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-        }
-
-        .hospedajes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .hospedaje-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            border-left: 4px solid #667eea;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            transition: transform 0.3s;
-        }
-
-        .hospedaje-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-
-        .hospedaje-card h3 {
-            color: #667eea;
-            margin-bottom: 0.5rem;
-            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-        }
-
-        .hospedaje-card .tipo {
-            display: inline-block;
-            padding: 0.2rem 0.7rem;
-            background: #f0f0f0;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-            color: #555;
-        }
-
-        .hospedaje-card .direccion {
-            color: #666;
-            font-size: 0.9rem;
-            margin: 0.5rem 0;
-        }
-
-        .hospedaje-card .info {
-            font-size: 0.9rem;
-            color: #555;
-            margin-bottom: 0.3rem;
-        }
-
-        .hospedaje-card a {
-            display: inline-block;
-            margin-top: 1rem;
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .hospedaje-card a:hover {
-            text-decoration: underline;
-        }
-
-        .tip-visitantes {
-            background: #fff3e0;
-            border-left: 4px solid #f97316;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            margin-top: 2rem;
-            font-size: 0.95rem;
-            color: #555;
-        }
-
-        /* Carteleras */
-        .carteleras-section {
-            padding: 2rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .carteleras-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .cartelera-link {
-            display: block;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 12px;
-            text-align: center;
-            text-decoration: none;
-            color: #667eea;
-            font-weight: 600;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-        }
-
-        .cartelera-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-            background: #667eea;
-            color: white;
-        }
-
-        /* Cómo llegar */
-        .como-llegar-section {
-            padding: 2rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
+        /* MAPA MÁS CHICO */
+        .como-llegar-section { padding: 2rem 1rem; max-width: 1200px; margin: 0 auto; }
         .mapa-container {
             background: white;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-            aspect-ratio: 16/9;
-        }
-
-        .mapa-container iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* Acciones */
-        .acciones-section {
-            padding: 2rem 1rem;
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .accion-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-            text-align: center;
-        }
-
-        .accion-card h3 {
-            color: #667eea;
-            margin-bottom: 1rem;
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-        }
-
-        .accion-card p {
-            color: #555;
-            margin-bottom: 1.5rem;
-        }
-
-        /* Footer */
-        footer {
-            background: #2d3748;
-            color: white;
-            padding: 3rem 1rem 2rem;
-            text-align: center;
-            margin-top: 3rem;
-        }
-
-        .footer-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .footer-content h3 {
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .footer-content p {
-            margin-bottom: 1rem;
-            line-height: 1.7;
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-
-        .footer-content a {
-            color: #f97316;
-            text-decoration: none;
-        }
-
-        .footer-content a:hover {
-            text-decoration: underline;
-        }
-
-        .footer-links {
-            margin: 1.5rem 0;
-        }
-
-        .footer-links a {
-            display: inline-block;
-            margin: 0 0.5rem;
-            color: white;
-        }
-
-        /* Créditos */
-        .footer-credits {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.15);
-            font-size: 0.9rem;
-        }
-
-        .footer-credits p {
-            margin-bottom: 0.5rem;
-            opacity: 0.95;
-        }
-
-        .footer-credits .autor {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #f97316;
-            margin-top: 0.5rem;
-        }
-
-        /* Link al aviso legal */
-        .legal-link {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.5rem 1.2rem;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 25px;
-            color: white;
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .legal-link:hover {
-            background: rgba(255,255,255,0.2);
-            text-decoration: none;
-        }
-
-        /* ========== MODAL LEGAL ========== */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 15px;
-            max-width: 800px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            animation: slideUp 0.4s ease;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1.5rem 2rem;
-            border-radius: 15px 15px 0 0;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h2 {
-            font-size: clamp(1.2rem, 3vw, 1.6rem);
-            margin: 0;
-        }
-
-        .modal-close {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1;
-        }
-
-        .modal-close:hover {
-            background: rgba(255,255,255,0.35);
-            transform: rotate(90deg);
-        }
-
-        .modal-body {
-            padding: 2rem;
-            color: #2d3748;
-        }
-
-        .modal-body h3 {
-            color: #667eea;
-            font-size: 1.2rem;
-            margin: 1.5rem 0 0.8rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .modal-body h3:first-child {
-            margin-top: 0;
-        }
-
-        .modal-body p {
-            margin-bottom: 1rem;
-            line-height: 1.8;
-            font-size: 0.95rem;
-            color: #444;
-        }
-
-        .modal-body strong {
-            color: #2d3748;
-        }
-
-        .modal-body a {
-            color: #f97316;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .modal-body a:hover {
-            text-decoration: underline;
-        }
-
-        .modal-body .highlight-box {
-            background: #fff3e0;
-            border-left: 4px solid #f97316;
-            padding: 1rem 1.2rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            font-size: 0.9rem;
-        }
-
-        .modal-footer-note {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #eee;
-            font-size: 0.85rem;
-            color: #888;
-            text-align: center;
-            font-style: italic;
-        }
-
-        /* ========== MODAL TELÉFONOS ÚTILES ========== */
-        .telefonos-modal-content {
-            max-width: 1100px;
-        }
-
-        .telefonos-modal-header {
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-        }
-
-        .telefonos-body {
-            padding: 1.5rem;
-            background: #f8f9fa;
-        }
-
-        .telefonos-intro-modal {
-            background: white;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        /* Emergencias destacadas */
-        .emergencias-destacadas {
-            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
-            border: 2px solid #dc2626;
-            box-shadow: 0 5px 20px rgba(220, 38, 38, 0.15);
-        }
-
-        .emergencias-destacadas h3 {
-            color: #dc2626;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .emergencias-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 0.8rem;
-        }
-
-        .emergencia-card {
-            background: white;
-            padding: 1rem 0.8rem;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            transition: transform 0.3s;
-            border-top: 3px solid #dc2626;
-        }
-
-        .emergencia-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.2);
-        }
-
-        .emergencia-icon {
-            font-size: 1.8rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .emergencia-card h4 {
-            color: #2d3748;
-            font-size: 0.85rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .emergencia-numero {
-            display: inline-block;
-            background: #dc2626;
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-decoration: none;
-            transition: all 0.3s;
-            letter-spacing: 1px;
-        }
-
-        .emergencia-numero:hover {
-            background: #b91c1c;
-            transform: scale(1.05);
-        }
-
-        /* Botón ver más */
-        .ver-mas-btn {
-            display: block;
-            margin: 1.5rem auto;
-            padding: 0.8rem 2rem;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
-        }
-
-        .ver-mas-btn:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .ver-mas-btn .flecha {
-            display: inline-block;
-            margin-left: 0.5rem;
-            transition: transform 0.3s;
-        }
-
-        .ver-mas-btn.active .flecha {
-            transform: rotate(180deg);
-        }
-
-        /* Sección expandible */
-        .telefonos-expandibles {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .telefonos-expandibles.active {
-            display: block;
-        }
-
-        .categoria-bloque {
-            margin-bottom: 1.5rem;
-        }
-
-        .categoria-titulo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.1rem;
-            color: #667eea;
-            margin-bottom: 0.8rem;
-            padding-bottom: 0.4rem;
-            border-bottom: 2px solid #667eea;
-        }
-
-        .telefonos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 0.8rem;
-        }
-
-        .telefono-card {
-            background: white;
-            padding: 0.8rem;
-            border-radius: 10px;
-            border-left: 3px solid #667eea;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .telefono-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .telefono-card.salud {
-            border-left-color: #16a34a;
-        }
-
-        .telefono-card.seguridad {
-            border-left-color: #2563eb;
-        }
-
-        .telefono-card.servicios {
-            border-left-color: #f97316;
-        }
-
-        .telefono-card h3 {
-            color: #2d3748;
-            font-size: 0.85rem;
-            margin-bottom: 0.4rem;
-            line-height: 1.3;
-            font-weight: 600;
-        }
-
-        .telefono-numero {
-            display: inline-block;
-            background: #f0f0f0;
-            padding: 0.25rem 0.6rem;
-            border-radius: 15px;
-            font-weight: 600;
-            color: #667eea;
-            font-size: 0.85rem;
-            text-decoration: none;
-            transition: all 0.2s;
-            margin-bottom: 0.3rem;
-        }
-
-        .telefono-numero:hover {
-            background: #667eea;
-            color: white;
-        }
-
-        .telefono-card.salud .telefono-numero {
-            color: #16a34a;
-        }
-
-        .telefono-card.salud .telefono-numero:hover {
-            background: #16a34a;
-            color: white;
-        }
-
-        .telefono-card.seguridad .telefono-numero {
-            color: #2563eb;
-        }
-
-        .telefono-card.seguridad .telefono-numero:hover {
-            background: #2563eb;
-            color: white;
-        }
-
-        .telefono-card.servicios .telefono-numero {
-            color: #f97316;
-        }
-
-        .telefono-card.servicios .telefono-numero:hover {
-            background: #f97316;
-            color: white;
-        }
-
-        .telefono-info {
-            color: #666;
-            font-size: 0.75rem;
-            line-height: 1.4;
-            margin-top: 0.2rem;
-        }
-
-        .tip-emergencia-modal {
-            background: #fee2e2;
-            border-left: 3px solid #dc2626;
-            padding: 0.8rem 1.2rem;
-            border-radius: 8px;
-            margin-top: 1.5rem;
-            font-size: 0.85rem;
-            color: #555;
-        }
-
-        /* Animaciones */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+            height: 350px;
+        }
+        .mapa-container iframe { width: 100%; height: 100%; border: 0; }
+
+        .acciones-section { padding: 2rem 1rem; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .accion-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 3px 15px rgba(0,0,0,0.08); text-align: center; }
+        .accion-card h3 { color: #667eea; margin-bottom: 1rem; font-size: clamp(1.2rem, 3vw, 1.5rem); }
+        .accion-card p { color: #555; margin-bottom: 1.5rem; }
+
+        /* VALORACIÓN */
+        .valoracion-section { padding: 3rem 1rem; max-width: 800px; margin: 0 auto; }
+        .valoracion-card { background: white; padding: clamp(2rem, 4vw, 3rem); border-radius: 20px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); text-align: center; position: relative; overflow: hidden; }
+        .valoracion-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%); }
+        .valoracion-titulo { font-size: clamp(1.5rem, 4vw, 2rem); color: #2d3748; margin-bottom: 0.5rem; font-weight: 700; }
+        .valoracion-subtitulo { color: #666; font-size: clamp(0.95rem, 2vw, 1.05rem); margin-bottom: 2rem; }
+        .estrellas-container { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1.5rem; direction: rtl; }
+        .estrella-input { display: none; }
+        .estrella-label { font-size: 3rem; color: #e5e7eb; cursor: pointer; transition: all 0.2s ease; text-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .estrella-label:hover, .estrella-label:hover ~ .estrella-label, .estrella-input:checked ~ .estrella-label { color: #fbbf24; transform: scale(1.1); }
+        .comentario-container { margin-top: 1.5rem; text-align: left; }
+        .comentario-label { display: block; color: #4a5568; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.95rem; }
+        .comentario-textarea { width: 100%; min-height: 100px; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 12px; font-family: inherit; font-size: 0.95rem; resize: vertical; transition: border-color 0.3s; }
+        .comentario-textarea:focus { outline: none; border-color: #667eea; }
+        .btn-enviar-valoracion { margin-top: 1.5rem; padding: 0.9rem 2.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); }
+        .btn-enviar-valoracion:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4); }
+        .mensaje-gracias { display: none; margin-top: 1.5rem; padding: 1.5rem; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-radius: 12px; color: #065f46; font-weight: 600; animation: fadeInUp 0.5s ease; }
+        .mensaje-gracias.activo { display: block; }
+        .valoracion-promedio { margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #f0f0f0; }
+        .promedio-texto { color: #666; font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .promedio-estrellas { color: #fbbf24; font-size: 1.5rem; letter-spacing: 2px; }
+        .promedio-numero { color: #2d3748; font-weight: 700; font-size: 1.2rem; margin-left: 0.5rem; }
+
+        /* COMENTARIOS PÚBLICOS */
+        .comentarios-publicos { margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #f0f0f0; text-align: left; }
+        .comentarios-titulo { font-size: 1.1rem; color: #2d3748; margin-bottom: 1rem; font-weight: 600; }
+        .comentario-item { background: #f9fafb; padding: 1rem; border-radius: 10px; margin-bottom: 0.8rem; border-left: 3px solid #667eea; }
+        .comentario-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
+        .comentario-estrellas { color: #fbbf24; font-size: 1rem; }
+        .comentario-fecha { color: #9ca3af; font-size: 0.8rem; }
+        .comentario-texto { color: #4b5563; font-size: 0.9rem; line-height: 1.5; }
+        .sin-comentarios { text-align: center; color: #9ca3af; font-style: italic; padding: 1rem; }
+
+        /* FOOTER COMPACTO */
+        footer { background: #2d3748; color: white; padding: 1.5rem 1rem; margin-top: 3rem; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: start; }
+        .footer-section h3 { margin-bottom: 0.5rem; font-size: 1rem; color: #f97316; }
+        .footer-section p { margin-bottom: 0.3rem; line-height: 1.4; font-size: 0.85rem; opacity: 0.9; }
+        .footer-section a { color: #f97316; text-decoration: none; font-size: 0.85rem; }
+        .footer-section a:hover { text-decoration: underline; }
+        .footer-bottom { max-width: 1200px; margin: 1rem auto 0; padding-top: 0.8rem; border-top: 1px solid rgba(255,255,255,0.15); text-align: center; font-size: 0.8rem; }
+        .footer-bottom p { margin-bottom: 0.2rem; opacity: 0.9; }
+        .footer-bottom .autor { font-weight: 600; color: #f97316; }
+        .legal-link { display: inline-block; margin-top: 0.4rem; padding: 0.3rem 0.9rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; color: white; text-decoration: none; font-size: 0.75rem; transition: all 0.3s; cursor: pointer; }
+        .legal-link:hover { background: rgba(255,255,255,0.2); }
+
+        /* MODAL LEGAL */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9999; justify-content: center; align-items: center; padding: 1rem; }
+        .modal-overlay.active { display: flex; }
+        .modal-content { background: white; border-radius: 15px; max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; animation: slideUp 0.4s ease; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .modal-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem 2rem; border-radius: 15px 15px 0 0; position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h2 { font-size: clamp(1.2rem, 3vw, 1.6rem); margin: 0; }
+        .modal-close { background: rgba(255,255,255,0.2); border: none; color: white; font-size: 1.5rem; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
+        .modal-close:hover { background: rgba(255,255,255,0.35); transform: rotate(90deg); }
+        .modal-body { padding: 2rem; color: #2d3748; }
+        .modal-body h3 { color: #667eea; font-size: 1.2rem; margin: 1.5rem 0 0.8rem; padding-bottom: 0.5rem; border-bottom: 2px solid #f0f0f0; }
+        .modal-body p { margin-bottom: 1rem; line-height: 1.8; font-size: 0.95rem; color: #444; }
+        .modal-body strong { color: #2d3748; }
+        .modal-body a { color: #f97316; text-decoration: none; font-weight: 600; }
+        .modal-body .highlight-box { background: #fff3e0; border-left: 4px solid #f97316; padding: 1rem 1.2rem; border-radius: 8px; margin: 1rem 0; font-size: 0.9rem; }
+
+        /* MODAL TELÉFONOS */
+        .telefonos-modal-content { max-width: 1100px; }
+        .telefonos-modal-header { background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); }
+        .telefonos-body { padding: 1.5rem; background: #f8f9fa; }
+        .telefonos-intro-modal { background: white; padding: 1rem 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 3px 15px rgba(0,0,0,0.08); text-align: center; font-size: 0.9rem; }
+        .emergencias-destacadas { background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); padding: 1.5rem; border-radius: 15px; margin-bottom: 1.5rem; border: 2px solid #dc2626; box-shadow: 0 5px 20px rgba(220, 38, 38, 0.15); }
+        .emergencias-destacadas h3 { color: #dc2626; font-size: 1.1rem; margin-bottom: 1rem; text-align: center; }
+        .emergencias-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.8rem; }
+        .emergencia-card { background: white; padding: 1rem 0.8rem; border-radius: 12px; text-align: center; box-shadow: 0 3px 10px rgba(0,0,0,0.08); transition: transform 0.3s; border-top: 3px solid #dc2626; }
+        .emergencia-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(220, 38, 38, 0.2); }
+        .emergencia-icon { font-size: 1.8rem; margin-bottom: 0.3rem; }
+        .emergencia-card h4 { color: #2d3748; font-size: 0.85rem; margin-bottom: 0.5rem; font-weight: 600; }
+        .emergencia-numero { display: inline-block; background: #dc2626; color: white; padding: 0.4rem 1rem; border-radius: 20px; font-weight: 700; font-size: 1.1rem; text-decoration: none; transition: all 0.3s; }
+        .emergencia-numero:hover { background: #b91c1c; transform: scale(1.05); }
+        .ver-mas-btn { display: block; margin: 1.5rem auto; padding: 0.8rem 2rem; background: #667eea; color: white; border: none; border-radius: 50px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3); }
+        .ver-mas-btn:hover { background: #5568d3; transform: translateY(-2px); }
+        .ver-mas-btn .flecha { display: inline-block; margin-left: 0.5rem; transition: transform 0.3s; }
+        .ver-mas-btn.active .flecha { transform: rotate(180deg); }
+        .telefonos-expandibles { display: none; animation: fadeIn 0.4s ease; }
+        .telefonos-expandibles.active { display: block; }
+        .categoria-bloque { margin-bottom: 1.5rem; }
+        .categoria-titulo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; color: #667eea; margin-bottom: 0.8rem; padding-bottom: 0.4rem; border-bottom: 2px solid #667eea; }
+        .telefonos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.8rem; }
+        .telefono-card { background: white; padding: 0.8rem; border-radius: 10px; border-left: 3px solid #667eea; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: transform 0.3s; }
+        .telefono-card:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .telefono-card.salud { border-left-color: #16a34a; }
+        .telefono-card.seguridad { border-left-color: #2563eb; }
+        .telefono-card.servicios { border-left-color: #f97316; }
+        .telefono-card h3 { color: #2d3748; font-size: 0.85rem; margin-bottom: 0.4rem; line-height: 1.3; font-weight: 600; }
+        .telefono-numero { display: inline-block; background: #f0f0f0; padding: 0.25rem 0.6rem; border-radius: 15px; font-weight: 600; color: #667eea; font-size: 0.85rem; text-decoration: none; transition: all 0.2s; margin-bottom: 0.3rem; }
+        .telefono-numero:hover { background: #667eea; color: white; }
+        .telefono-card.salud .telefono-numero { color: #16a34a; }
+        .telefono-card.salud .telefono-numero:hover { background: #16a34a; color: white; }
+        .telefono-card.seguridad .telefono-numero { color: #2563eb; }
+        .telefono-card.seguridad .telefono-numero:hover { background: #2563eb; color: white; }
+        .telefono-card.servicios .telefono-numero { color: #f97316; }
+        .telefono-card.servicios .telefono-numero:hover { background: #f97316; color: white; }
+        .telefono-info { color: #666; font-size: 0.75rem; line-height: 1.4; margin-top: 0.2rem; }
+        .tip-emergencia-modal { background: #fee2e2; border-left: 3px solid #dc2626; padding: 0.8rem 1.2rem; border-radius: 8px; margin-top: 1.5rem; font-size: 0.85rem; color: #555; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
         /* RESPONSIVE */
-        @media (max-width: 1024px) {
-            .events-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            }
-        }
-
         @media (max-width: 768px) {
-            .hero-section {
-                min-height: 50vh;
-                max-height: none;
-                padding: 3rem 1rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                width: 100%;
-                padding: 0 1rem;
-            }
-
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
-
-            .filters-container { gap: 0.4rem; }
-            .filter-btn { padding: 0.5rem 1rem; font-size: 0.85rem; }
-            .events-grid, .hospedajes-grid, .carteleras-grid, .acciones-section {
-                grid-template-columns: 1fr;
-            }
-            .cultural-section { padding: 2rem 1rem; }
-
-            .modal-body { padding: 1.5rem; }
-            .modal-header { padding: 1.2rem 1.5rem; }
-            .telefonos-body { padding: 1rem; }
-            .emergencias-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .telefonos-grid {
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-                gap: 0.6rem;
-            }
-            .telefono-card { padding: 0.7rem; }
-            .telefono-card h3 { font-size: 0.8rem; }
-            .telefono-numero { font-size: 0.8rem; padding: 0.2rem 0.5rem; }
-            .telefono-info { font-size: 0.7rem; }
+            .hero-section { min-height: 50vh; padding: 3rem 1rem; }
+            .hero-buttons { flex-direction: column; width: 100%; padding: 0 1rem; }
+            .btn { width: 100%; text-align: center; }
+            .events-grid, .hospedajes-grid, .carteleras-grid, .acciones-section { grid-template-columns: 1fr; }
+            .mapa-container { height: 280px; }
+            .estrella-label { font-size: 2.5rem; }
+            .footer-content { grid-template-columns: 1fr; gap: 1rem; text-align: center; }
         }
-
         @media (max-width: 480px) {
-            .hero-section { min-height: 45vh; padding: 2rem 0.8rem; }
-            .main-title { font-size: 2rem; margin-bottom: 0.8rem; }
-            .subtitle { font-size: 0.95rem; margin-bottom: 1.5rem; }
-            .btn { padding: 0.8rem 1.2rem; font-size: 0.9rem; }
-            .cultural-title { font-size: 1.4rem; }
-            .cultural-content { padding: 1.2rem; }
-            .filters-container {
-                overflow-x: auto;
-                flex-wrap: nowrap;
-                padding-bottom: 0.5rem;
-                -webkit-overflow-scrolling: touch;
-                justify-content: flex-start;
-            }
-            .filter-btn { flex-shrink: 0; padding: 0.5rem 0.9rem; font-size: 0.8rem; }
-            .section-title { font-size: 1.4rem; }
-            .event-card, .hospedaje-card { padding: 1.2rem; }
-            footer { padding: 2rem 1rem 1.5rem; }
-            .destacado-card, .accion-card { padding: 1.5rem; }
-
-            .modal-body h3 { font-size: 1.05rem; }
-            .modal-body p { font-size: 0.9rem; }
-
-            .emergencias-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.6rem;
-            }
-            .emergencia-card { padding: 0.8rem 0.5rem; }
-            .emergencia-icon { font-size: 1.5rem; }
-            .emergencia-card h4 { font-size: 0.75rem; }
-            .emergencia-numero { font-size: 1rem; padding: 0.35rem 0.8rem; }
-            .telefonos-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.5rem;
-            }
-            .telefono-card { padding: 0.6rem; }
-            .telefono-card h3 { font-size: 0.75rem; }
-            .telefono-numero { font-size: 0.75rem; padding: 0.2rem 0.4rem; }
-            .ver-mas-btn { width: 100%; font-size: 0.9rem; }
+            .mapa-container { height: 240px; }
+            .estrella-label { font-size: 2rem; }
+            .valoracion-card { padding: 1.5rem; }
         }
 
-        @media (max-width: 360px) {
-            .main-title { font-size: 1.8rem; }
-            .subtitle { font-size: 0.9rem; }
-            .btn { padding: 0.7rem 1rem; font-size: 0.85rem; }
-            .event-card, .hospedaje-card { padding: 1rem; }
-            .teatros-table th, .teatros-table td { padding: 0.7rem; font-size: 0.9rem; }
-            .emergencia-numero { font-size: 0.95rem; padding: 0.3rem 0.7rem; }
-            .emergencia-card h4 { font-size: 0.7rem; }
-        }
-
-        .filters-container::-webkit-scrollbar { height: 4px; }
-        .filters-container::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
-        .filters-container::-webkit-scrollbar-thumb { background: #667eea; border-radius: 10px; }
-
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        a:focus-visible, button:focus-visible {
-            outline: 3px solid #f97316;
-            outline-offset: 2px;
-        }
-
+        a:focus-visible, button:focus-visible { outline: 3px solid #f97316; outline-offset: 2px; }
         .text-center { text-align: center; }
         .mb-2 { margin-bottom: 2rem; }
     </style>
 </head>
 <body>
 
-    <!-- HERO SECTION -->
     <header class="hero-section">
         <div class="hero-content">
             <h1 class="main-title">Movida Chivilcoy</h1>
@@ -1178,7 +290,6 @@
         </div>
     </header>
 
-    <!-- SECCIÓN CULTURAL -->
     <section class="cultural-section">
         <div class="cultural-content">
             <h2 class="cultural-title">Chivilcoy: Cuna Cultural y Capital Provincial del Teatro</h2>
@@ -1187,7 +298,6 @@
         </div>
     </section>
 
-    <!-- FILTROS -->
     <section class="filters-section" id="agenda">
         <h2 class="section-title">Explorá la movida local</h2>
         <div class="filters-container">
@@ -1203,7 +313,6 @@
         </div>
     </section>
 
-    <!-- AGENDA -->
     <section class="agenda-section">
         <div class="events-grid" id="eventsGrid">
             <div class="event-card" data-category="teatro">
@@ -1242,63 +351,26 @@
         </div>
     </section>
 
-    <!-- TEATROS Y SALAS -->
     <section class="teatros-section" id="espacios">
         <h2 class="section-title">Teatros Independientes y Salas Principales</h2>
         <div class="table-container">
             <table class="teatros-table">
                 <thead>
-                    <tr>
-                        <th>Espacio / Sala</th>
-                        <th>Descripción</th>
-                        <th>Enlace de Acceso / Redes</th>
-                    </tr>
+                    <tr><th>Espacio / Sala</th><th>Descripción</th><th>Enlace de Acceso / Redes</th></tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><strong>Teatro El Chasqui</strong></td>
-                        <td>Institución teatral histórica con más de 60 años de trayectoria. Producciones locales y talleres.</td>
-                        <td><a href="https://teatroelchasqui.com/" target="_blank">Sitio Web</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Teatro La Cueva</strong></td>
-                        <td>Sala independiente con cartelera de obras dramáticas, comedias y ciclos de música.</td>
-                        <td><a href="https://www.facebook.com/teatrolacueva.chivilcoy/" target="_blank">Facebook</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>TRAC (Grupo Teatral)</strong></td>
-                        <td>Espacio de experimentación de vanguardia, ciclos de cine debate y formación escénica.</td>
-                        <td><a href="https://www.instagram.com/trachteatro/" target="_blank">Instagram</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Centro Cultural NK</strong></td>
-                        <td>Espacio multidisciplinario para peñas folclóricas, recitales acústicos y charlas.</td>
-                        <td><a href="https://www.facebook.com/CentroCulturalNestorKirchnerChivilcoy/" target="_blank">Facebook</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Agrupación Artística CEM</strong></td>
-                        <td>Espacio de arte dedicado a talleres de danza y teatro para todas las edades. Cuerpos en Movimiento.</td>
-                        <td>
-                            <a href="https://www.instagram.com/cem.espaciodearte/" target="_blank">Instagram</a> · 
-                            <a href="https://www.facebook.com/268563186992971" target="_blank">Facebook</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>El Portal del Tango</strong></td>
-                        <td>Espacio cultural dedicado al tango y eventos musicales. Milongas y shows en vivo.</td>
-                        <td><a href="https://www.instagram.com/elportaldeltango/" target="_blank">Instagram</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Los Marrones</strong></td>
-                        <td>Salón de eventos para actividades culturales, cumpleaños, reuniones empresariales y espectáculos.</td>
-                        <td><a href="https://www.instagram.com/marrones.ch/" target="_blank">Instagram</a></td>
-                    </tr>
+                    <tr><td><strong>Teatro El Chasqui</strong></td><td>Institución teatral histórica con más de 60 años de trayectoria.</td><td><a href="https://teatroelchasqui.com/" target="_blank">Sitio Web</a></td></tr>
+                    <tr><td><strong>Teatro La Cueva</strong></td><td>Sala independiente con cartelera de obras dramáticas y comedias.</td><td><a href="https://www.facebook.com/teatrolacueva.chivilcoy/" target="_blank">Facebook</a></td></tr>
+                    <tr><td><strong>TRAC (Grupo Teatral)</strong></td><td>Espacio de experimentación de vanguardia y formación escénica.</td><td><a href="https://www.instagram.com/trachteatro/" target="_blank">Instagram</a></td></tr>
+                    <tr><td><strong>Centro Cultural NK</strong></td><td>Espacio multidisciplinario para peñas folclóricas y recitales.</td><td><a href="https://www.facebook.com/CentroCulturalNestorKirchnerChivilcoy/" target="_blank">Facebook</a></td></tr>
+                    <tr><td><strong>Agrupación Artística CEM</strong></td><td>Talleres de danza y teatro para todas las edades.</td><td><a href="https://www.instagram.com/cem.espaciodearte/" target="_blank">Instagram</a> · <a href="https://www.facebook.com/268563186992971" target="_blank">Facebook</a></td></tr>
+                    <tr><td><strong>El Portal del Tango</strong></td><td>Espacio cultural dedicado al tango. Milongas y shows en vivo.</td><td><a href="https://www.instagram.com/elportaldeltango/" target="_blank">Instagram</a></td></tr>
+                    <tr><td><strong>Los Marrones</strong></td><td>Salón de eventos para actividades culturales y espectáculos.</td><td><a href="https://www.instagram.com/marrones.ch/" target="_blank">Instagram</a></td></tr>
                 </tbody>
             </table>
         </div>
     </section>
 
-    <!-- DESTACADO -->
     <section class="destacado-section">
         <div class="destacado-card">
             <h2>Destacado de la semana</h2>
@@ -1309,114 +381,28 @@
         </div>
     </section>
 
-    <!-- HOSPEDAJES -->
     <section class="hospedajes-section" id="hospedajes">
         <h2 class="section-title">Hospedajes en Chivilcoy</h2>
         <div class="hospedajes-intro">
-            <p>Una guía útil para quienes vienen a disfrutar la agenda cultural, visitar familia, participar de encuentros o pasar un fin de semana en la ciudad. Los valores son orientativos: recomendamos confirmar disponibilidad y tarifa actual en cada enlace.</p>
+            <p>Una guía útil para quienes vienen a disfrutar la agenda cultural. Los valores son orientativos: recomendamos confirmar disponibilidad y tarifa actual en cada enlace.</p>
         </div>
-
         <div class="hospedajes-grid">
-            <div class="hospedaje-card">
-                <h3>Hotel Tomaso</h3>
-                <span class="tipo">Hotel boutique</span>
-                <span class="tipo">Gama media / alta</span>
-                <p class="direccion">📍 Av. De Tomaso y Calle 556</p>
-                <p class="info">Clasificación: consultar en plataforma</p>
-                <p class="info">Tarifa: variable según fecha</p>
-                <a href="https://www.hoteltomaso.com.ar/" target="_blank">Ver sitio oficial →</a>
-            </div>
-
-            <div class="hospedaje-card">
-                <h3>Patri Hotel</h3>
-                <span class="tipo">Hotel 3 estrellas</span>
-                <span class="tipo">Céntrico</span>
-                <p class="direccion"> Av. Ceballos 163</p>
-                <p class="info">Clasificación: 3 estrellas</p>
-                <p class="info">Tarifa: variable según fecha</p>
-                <a href="https://www.facebook.com/patrihotel/" target="_blank">Ver contacto →</a>
-            </div>
-
-            <div class="hospedaje-card">
-                <h3>Petit Hotel</h3>
-                <span class="tipo">Hotel 2 estrellas</span>
-                <span class="tipo">Céntrico</span>
-                <p class="direccion"> Hipólito Yrigoyen 259</p>
-                <p class="info">Clasificación: 2 estrellas</p>
-                <p class="info">Tarifa: variable según fecha</p>
-                <a href="https://www.booking.com/hotel/ar/petit-chivilcoy.es-ar.html" target="_blank">Ver disponibilidad →</a>
-            </div>
-
-            <div class="hospedaje-card">
-                <h3>Hotel Mitre</h3>
-                <span class="tipo">Hotel 2 estrellas</span>
-                <span class="tipo">Av. principal</span>
-                <p class="direccion"> Av. Mitre 227</p>
-                <p class="info">Clasificación: 2 estrellas</p>
-                <p class="info">Tarifa: variable según fecha</p>
-                <a href="https://www.facebook.com/HotelMitreChivilcoy/" target="_blank">Ver contacto →</a>
-            </div>
-
-            <div class="hospedaje-card">
-                <h3>Falcone Hotel</h3>
-                <span class="tipo">Hotel tradicional</span>
-                <span class="tipo">Económico / medio</span>
-                <p class="direccion">📍 Belgrano 201</p>
-                <p class="info">Clasificación: consultar en plataforma</p>
-                <p class="info">Tarifa: variable según fecha</p>
-                <a href="https://www.paginasamarillas.com.ar/fichas/hotel-falcone_16843033" target="_blank">Ver datos →</a>
-            </div>
-
-            <div class="hospedaje-card">
-                <h3>Gran Hotel Chivilcoy</h3>
-                <span class="tipo">Hotel 3 estrellas</span>
-                <span class="tipo">Centro</span>
-                <p class="direccion">📍 Av. Sarmiento 125</p>
-                <p class="info">Clasificación: 3 estrellas</p>
-                <p class="info">Tarifa: variable según fecha</p>
-                <a href="https://www.facebook.com/p/Hotel-Gran-Hotel-Chivilcoy-100063639727923/" target="_blank">Ver contacto →</a>
-            </div>
-
-            <div class="hospedaje-card">
-                <h3>De Los Robles Hotel</h3>
-                <span class="tipo">Hotel</span>
-                <span class="tipo">Ruta 5</span>
-                <p class="direccion">📍 Ruta 5 y 30, Chivilcoy</p>
-                <p class="info">Clasificación: consultar en plataforma</p>
-                <p class="info">Tarifa: variable según fecha</p>
-                <a href="https://www.instagram.com/delosrobleshotel/" target="_blank">Ver Instagram →</a>
-            </div>
-
-            <div class="hospedaje-card">
-                <h3>RG Hotel Boutique</h3>
-                <span class="tipo">Hotel boutique</span>
-                <span class="tipo">Gama media</span>
-                <p class="direccion">📍 Chivilcoy</p>
-                <p class="info">WhatsApp: 2346-603399</p>
-                <p class="info">Tarifa: variable según fecha</p>
-                <a href="https://rghotel.com.ar/" target="_blank">Ver sitio oficial →</a>
-            </div>
-
-            <div class="hospedaje-card">
-                <h3>Don Hotel Chivilcoy</h3>
-                <span class="tipo">Hotel</span>
-                <span class="tipo">Céntrico</span>
-                <p class="direccion">📍 Chivilcoy</p>
-                <p class="info">Clasificación: consultar en plataforma</p>
-                <p class="info">Tarifa: variable según fecha</p>
-                <a href="https://www.instagram.com/donhotel.chivilcoy/" target="_blank">Ver Instagram →</a>
-            </div>
+            <div class="hospedaje-card"><h3>Hotel Tomaso</h3><span class="tipo">Hotel boutique</span><span class="tipo">Gama media / alta</span><p class="direccion">📍 Av. De Tomaso y Calle 556</p><a href="https://www.hoteltomaso.com.ar/" target="_blank">Ver sitio oficial →</a></div>
+            <div class="hospedaje-card"><h3>Patri Hotel</h3><span class="tipo">Hotel 3 estrellas</span><span class="tipo">Céntrico</span><p class="direccion">Av. Ceballos 163</p><a href="https://www.facebook.com/patrihotel/" target="_blank">Ver contacto →</a></div>
+            <div class="hospedaje-card"><h3>Petit Hotel</h3><span class="tipo">Hotel 2 estrellas</span><span class="tipo">Céntrico</span><p class="direccion">Hipólito Yrigoyen 259</p><a href="https://www.booking.com/hotel/ar/petit-chivilcoy.es-ar.html" target="_blank">Ver disponibilidad →</a></div>
+            <div class="hospedaje-card"><h3>Hotel Mitre</h3><span class="tipo">Hotel 2 estrellas</span><span class="tipo">Av. principal</span><p class="direccion">Av. Mitre 227</p><a href="https://www.facebook.com/HotelMitreChivilcoy/" target="_blank">Ver contacto →</a></div>
+            <div class="hospedaje-card"><h3>Falcone Hotel</h3><span class="tipo">Hotel tradicional</span><span class="tipo">Económico</span><p class="direccion">📍 Belgrano 201</p><a href="https://www.paginasamarillas.com.ar/fichas/hotel-falcone_16843033" target="_blank">Ver datos →</a></div>
+            <div class="hospedaje-card"><h3>Gran Hotel Chivilcoy</h3><span class="tipo">Hotel 3 estrellas</span><span class="tipo">Centro</span><p class="direccion">📍 Av. Sarmiento 125</p><a href="https://www.facebook.com/p/Hotel-Gran-Hotel-Chivilcoy-100063639727923/" target="_blank">Ver contacto →</a></div>
+            <div class="hospedaje-card"><h3>De Los Robles Hotel</h3><span class="tipo">Hotel</span><span class="tipo">Ruta 5</span><p class="direccion">📍 Ruta 5 y 30, Chivilcoy</p><a href="https://www.instagram.com/delosrobleshotel/" target="_blank">Ver Instagram →</a></div>
+            <div class="hospedaje-card"><h3>RG Hotel Boutique</h3><span class="tipo">Hotel boutique</span><span class="tipo">Gama media</span><p class="direccion">📍 Chivilcoy</p><p class="info">WhatsApp: 2346-603399</p><a href="https://rghotel.com.ar/" target="_blank">Ver sitio oficial →</a></div>
+            <div class="hospedaje-card"><h3>Don Hotel Chivilcoy</h3><span class="tipo">Hotel</span><span class="tipo">Céntrico</span><p class="direccion">📍 Chivilcoy</p><a href="https://www.instagram.com/donhotel.chivilcoy/" target="_blank">Ver Instagram →</a></div>
         </div>
-
-        <div class="tip-visitantes">
-            💡 <strong>Tip para visitantes:</strong> si venís por un evento puntual, reservá con anticipación. En fechas con encuentros, ferias o actividades deportivas la disponibilidad puede cambiar rápido.
-        </div>
+        <div class="tip-visitantes">💡 <strong>Tip para visitantes:</strong> si venís por un evento puntual, reservá con anticipación.</div>
     </section>
 
-    <!-- CARTELERAS -->
     <section class="carteleras-section">
         <h2 class="section-title">Carteleras Digitales y Entradas</h2>
-        <p class="text-center mb-2">¿Querés reservar o comprar online para los espectáculos en la ciudad? Consultá las plataformas principales:</p>
+        <p class="text-center mb-2">¿Querés reservar o comprar online? Consultá las plataformas principales:</p>
         <div class="carteleras-grid">
             <a href="https://www.alternativateatral.com/teatros.asp?pais=1&provincia=1&zona=79" target="_blank" class="cartelera-link">Alternativa Teatral Chivilcoy</a>
             <a href="https://planetaentrada.com/" target="_blank" class="cartelera-link">Planeta Entrada</a>
@@ -1424,58 +410,98 @@
         </div>
     </section>
 
-    <!-- CÓMO LLEGAR -->
     <section class="como-llegar-section">
-        <h2 class="section-title">¿ Cómo llegar ?</h2>
-        <p class="text-center mb-2">Te dejamos la ruta directa hasta la Plaza 25 de Mayo. El punto central de Chivilcoy para arrancar tu recorrido por la ciudad.</p>
+        <h2 class="section-title">¿Cómo llegar?</h2>
+        <p class="text-center mb-2">Te dejamos la ruta directa hasta la Plaza 25 de Mayo, el punto central de Chivilcoy.</p>
         <div class="mapa-container">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52788.69489123456!2d-60.0345!3d-34.8956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb5c5c5c5c5c5%3A0x0!2sChivilcoy%2C+Buenos+Aires!5e0!3m2!1ses!2sar!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
 
-    <!-- ACCIONES -->
     <section class="acciones-section" id="cargar">
         <div class="accion-card">
             <h3>Cargá tu evento</h3>
-            <p>¿Sos organizador, artista o formás parte de una institución en Chivilcoy? Compartinos tu propuesta de forma amigable para que la sumemos a la agenda.</p>
+            <p>¿Sos organizador, artista o formás parte de una institución en Chivilcoy? Compartinos tu propuesta.</p>
             <a href="https://forms.gle/vryqPWTYSAFBfjqh8" target="_blank" class="btn btn-secondary">Ir al formulario →</a>
         </div>
-
         <div class="accion-card">
             <h3>Apoyá este proyecto</h3>
-            <p>Movida Chivilcoy es una agenda independiente. Si esta página te resulta útil, podés colaborar con un cafecito para ayudar a sostener el tiempo de búsqueda.</p>
+            <p>Movida Chivilcoy es una agenda independiente. Si esta página te resulta útil, podés colaborar con un cafecito.</p>
             <a href="https://cafecito.app/movidachivilcoy" target="_blank" class="btn btn-primary" style="background: #667eea; color: white;">Invitar un cafecito ☕</a>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-content">
-            <h3>Aclaración importante</h3>
-            <p>La información publicada se recopila desde fuentes públicas, redes sociales de organizadores, instituciones, espacios culturales y medios locales. Recomendamos verificar fecha, horario, lugar y condiciones de acceso en el enlace original de cada evento.</p>
-            <p>Para más información institucional, visitá el <a href="https://chivilcoy.gov.ar/category/cultura/" target="_blank">Área de Cultura Municipal</a>.</p>
+    <!-- VALORACIÓN CON ESTRELLAS -->
+    <section class="valoracion-section" id="valoracion">
+        <div class="valoracion-card">
+            <h2 class="valoracion-titulo">¿Te gusta Movida Chivilcoy?</h2>
+            <p class="valoracion-subtitulo">Tu opinión nos ayuda a mejorar. ¡Dejanos tu valoración!</p>
             
-            <div class="footer-links">
-                <h3>Contacto</h3>
-                <p>Para sumar actividades, correcciones o consultas, escribinos a:</p>
-                <p>
-                    <a href="https://mail.google.com/mail/u/6/#inbox?compose=new">Email:movidachivilcoy@gmail.com</a> · 
-                    <a href="https://instagram.com/movidachivilcoy" target="_blank">@movidachivilcoy/</a>
-                </p>
+            <form id="formValoracion">
+                <div class="estrellas-container">
+                    <input type="radio" id="estrella5" name="valoracion" value="5" class="estrella-input">
+                    <label for="estrella5" class="estrella-label">★</label>
+                    <input type="radio" id="estrella4" name="valoracion" value="4" class="estrella-input">
+                    <label for="estrella4" class="estrella-label">★</label>
+                    <input type="radio" id="estrella3" name="valoracion" value="3" class="estrella-input">
+                    <label for="estrella3" class="estrella-label">★</label>
+                    <input type="radio" id="estrella2" name="valoracion" value="2" class="estrella-input">
+                    <label for="estrella2" class="estrella-label">★</label>
+                    <input type="radio" id="estrella1" name="valoracion" value="1" class="estrella-input">
+                    <label for="estrella1" class="estrella-label">★</label>
+                </div>
+                <div class="comentario-container">
+                    <label for="comentario" class="comentario-label">¿Querés dejar un comentario? (opcional)</label>
+                    <textarea id="comentario" class="comentario-textarea" placeholder="Contanos qué te parece la página..."></textarea>
+                </div>
+                <button type="submit" class="btn-enviar-valoracion">Enviar valoración</button>
+            </form>
+
+            <div class="mensaje-gracias" id="mensajeGracias">
+                ¡Gracias por tu valoración! 🎉 Tu opinión es muy importante para nosotros.
             </div>
 
-            <!-- Créditos -->
-            <div class="footer-credits">
-                <p>&copy; 2026 <strong>Movida Chivilcoy</strong>. Todos los derechos reservados.</p>
-                <p class="autor">Desarrollado por Lic. Leticia Gomez</p>
-                
-                <!-- Botón que abre el modal legal -->
-                <a href="#" class="legal-link" id="openLegalModal">📋 Aviso legal y términos de uso</a>
+            <div class="valoracion-promedio" id="valoracionPromedio" style="display: none;">
+                <p class="promedio-texto">Valoración promedio</p>
+                <span class="promedio-estrellas" id="estrellasPromedio"></span>
+                <span class="promedio-numero" id="numeroPromedio"></span>
             </div>
+
+            <div class="comentarios-publicos" id="comentariosPublicos">
+                <h3 class="comentarios-titulo">💬 Comentarios de la comunidad</h3>
+                <div id="listaComentarios">
+                    <p class="sin-comentarios">Sé el primero en dejar un comentario</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER COMPACTO -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Aclaración</h3>
+                <p>La información se recopila de fuentes públicas. Verificá siempre los datos en el enlace original.</p>
+                <p><a href="https://chivilcoy.gov.ar/category/cultura/" target="_blank">Cultura Municipal →</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><a href="mailto:movidachivilcoy@gmail.com">movidachivilcoy@gmail.com</a></p>
+                <p><a href="https://instagram.com/movidachivilcoy" target="_blank">@movidachivilcoy</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <p>&copy; 2026 Movida Chivilcoy</p>
+                <p class="autor">Lic. Leticia Gomez</p>
+                <a href="#" class="legal-link" id="openLegalModal">📋 Aviso legal</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Proyecto independiente, cultural y comunitario, sin fines de lucro.</p>
         </div>
     </footer>
 
-    <!-- ========== MODAL LEGAL ========== -->
+    <!-- MODAL LEGAL -->
     <div class="modal-overlay" id="legalModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1484,45 +510,25 @@
             </div>
             <div class="modal-body">
                 <h3>1. Naturaleza del proyecto</h3>
-                <p><strong>Movida Chivilcoy</strong> es un proyecto independiente, de carácter <strong>informativo, cultural y comunitario</strong>, sin fines de lucro. Su objetivo es difundir la agenda de actividades culturales, artísticas, deportivas y sociales que se desarrollan en la ciudad de Chivilcoy, Provincia de Buenos Aires, República Argentina.</p>
-
-                <h3>2. Descargo de responsabilidad sobre terceros</h3>
-                <p>La mención de hoteles, espacios culturales, teatros, salas, restaurantes, organizadores de eventos y otros establecimientos tiene <strong>carácter meramente informativo y de utilidad pública</strong> para visitantes y residentes.</p>
-                <div class="highlight-box">
-                    <strong>⚠️ Aclaración:</strong> No mantenemos relación comercial con los establecimientos listados, ni recibimos compensación económica alguna por su inclusión, ni contamos con autorización expresa previa de cada uno de ellos para aparecer en esta plataforma.
-                </div>
-                <p>Todos los enlaces externos dirigen a <strong>fuentes oficiales y públicas</strong> (sitios web, redes sociales, plataformas de venta de entradas) pertenecientes a cada institución o comercio.</p>
-
+                <p><strong>Movida Chivilcoy</strong> es un proyecto independiente, de carácter <strong>informativo, cultural y comunitario</strong>, sin fines de lucro.</p>
+                <h3>2. Descargo de responsabilidad</h3>
+                <p>La mención de hoteles, espacios culturales y organizadores tiene <strong>carácter meramente informativo</strong>. No mantenemos relación comercial con los establecimientos listados.</p>
                 <h3>3. Exactitud de la información</h3>
-                <p>La información publicada se recopila desde fuentes públicas, redes sociales de organizadores, instituciones, espacios culturales y medios locales. <strong>Recomendamos verificar siempre</strong> fecha, horario, lugar, costo y condiciones de acceso en el enlace original de cada evento o establecimiento.</p>
-                <p>Movida Chivilcoy <strong>no se responsabiliza</strong> por cambios de última hora, cancelaciones, errores en la difusión original o modificaciones realizadas por los propios organizadores.</p>
-
+                <p>Recomendamos <strong>verificar siempre</strong> fecha, horario, lugar y costo en el enlace original de cada evento.</p>
                 <h3>4. Propiedad intelectual</h3>
-                <p>El diseño, código fuente, estructura y contenido original de esta plataforma son <strong>propiedad intelectual de la Lic. Leticia Gomez</strong>. Queda prohibida su reproducción total o parcial sin autorización previa por escrito.</p>
-                <p>Las marcas, logotipos, nombres comerciales e imágenes de terceros que pudieran aparecer pertenecen a sus respectivos propietarios y se utilizan únicamente con fines informativos.</p>
-
-                <h3>5. Política de imágenes y contenido</h3>
-                <p>En caso de utilizar imágenes, textos o materiales protegidos por derechos de autor de terceros, estos se emplean bajo el amparo del <strong>uso justo con fines informativos y culturales</strong>, respetando en todo momento la autoría original y enlazando a la fuente correspondiente.</p>
-
-                <h3>6. Solicitud de corrección o remoción</h3>
-                <p>Si algún establecimiento, organizador o titular de derechos prefiere <strong>no aparecer en esta agenda</strong>, solicita la corrección de alguna información o considera que algún contenido vulnera sus derechos, puede contactarse a:</p>
+                <p>El diseño y contenido original son <strong>propiedad intelectual de la Lic. Leticia Gomez</strong>.</p>
+                <h3>5. Contacto</h3>
                 <div class="highlight-box">
                     📧 <a href="mailto:movidachivilcoy@gmail.com">movidachivilcoy@gmail.com</a><br>
-                    📱 Instagram: <a href="https://instagram.com/movidachivilcoy" target="_blank">@movidachivilcoy</a>
+                    📱 <a href="https://instagram.com/movidachivilcoy" target="_blank">@movidachivilcoy</a>
                 </div>
-                <p>Procederemos a <strong>retirar o modificar la información de manera inmediata</strong> tras recibir la solicitud correspondiente.</p>
-
-                <h3>7. Legislación aplicable</h3>
-                <p>Este aviso se rige por las leyes de la <strong>República Argentina</strong>, en particular la Ley 25.326 de Protección de Datos Personales, la Ley 11.723 de Propiedad Intelectual y la Ley 24.240 de Defensa del Consumidor (en lo que resulte aplicable). Cualquier controversia se resolverá ante los tribunales competentes de la Provincia de Buenos Aires.</p>
-
-                <div class="modal-footer-note">
-                    Última actualización: Junio 2026
-                </div>
+                <h3>6. Legislación</h3>
+                <p>Se rige por las leyes de la <strong>República Argentina</strong>.</p>
             </div>
         </div>
     </div>
 
-    <!-- ========== MODAL TELÉFONOS ÚTILES ========== -->
+    <!-- MODAL TELÉFONOS -->
     <div class="modal-overlay" id="telefonosModal">
         <div class="modal-content telefonos-modal-content">
             <div class="modal-header telefonos-modal-header">
@@ -1531,310 +537,238 @@
             </div>
             <div class="telefonos-body">
                 <div class="telefonos-intro-modal">
-                    <p>Guía de contactos de emergencia y servicios públicos de la ciudad. <strong>En caso de emergencia inmediata, llamá al 911.</strong></p>
+                    <p>Guía de contactos de emergencia. <strong>En caso de emergencia inmediata, llamá al 911.</strong></p>
                 </div>
-
-                <!-- EMERGENCIAS DESTACADAS -->
                 <div class="emergencias-destacadas">
                     <h3>🚨 Emergencias Inmediatas</h3>
                     <div class="emergencias-grid">
-                        <div class="emergencia-card">
-                            <div class="emergencia-icon">🚨</div>
-                            <h4>Policía / Emergencias</h4>
-                            <a href="tel:911" class="emergencia-numero">911</a>
-                        </div>
-                        <div class="emergencia-card">
-                            <div class="emergencia-icon">🚒</div>
-                            <h4>Bomberos</h4>
-                            <a href="tel:100" class="emergencia-numero">100</a>
-                        </div>
-                        <div class="emergencia-card">
-                            <div class="emergencia-icon">🚑</div>
-                            <h4>SAME / Ambulancia</h4>
-                            <a href="tel:107" class="emergencia-numero">107</a>
-                        </div>
-                        <div class="emergencia-card">
-                            <div class="emergencia-icon">⛑️</div>
-                            <h4>Defensa Civil</h4>
-                            <a href="tel:103" class="emergencia-numero">103</a>
-                        </div>
+                        <div class="emergencia-card"><div class="emergencia-icon">🚨</div><h4>Policía</h4><a href="tel:911" class="emergencia-numero">911</a></div>
+                        <div class="emergencia-card"><div class="emergencia-icon">🚒</div><h4>Bomberos</h4><a href="tel:100" class="emergencia-numero">100</a></div>
+                        <div class="emergencia-card"><div class="emergencia-icon">🚑</div><h4>Ambulancia</h4><a href="tel:107" class="emergencia-numero">107</a></div>
+                        <div class="emergencia-card"><div class="emergencia-icon">⛑️</div><h4>Defensa Civil</h4><a href="tel:103" class="emergencia-numero">103</a></div>
                     </div>
                 </div>
-
-                <!-- BOTÓN VER MÁS -->
-                <button class="ver-mas-btn" id="verMasBtn">
-                    Ver todos los teléfonos útiles <span class="flecha">▼</span>
-                </button>
-
-                <!-- SECCIÓN EXPANDIBLE -->
+                <button class="ver-mas-btn" id="verMasBtn">Ver todos los teléfonos útiles <span class="flecha">▼</span></button>
                 <div class="telefonos-expandibles" id="telefonosExpandibles">
-                    
-                    <!-- SALUD -->
                     <div class="categoria-bloque">
                         <h3 class="categoria-titulo">🏥 Salud</h3>
                         <div class="telefonos-grid">
-                            <div class="telefono-card salud">
-                                <h3>Hospital Municipal "Santiago Fornos"</h3>
-                                <a href="tel:02346439100" class="telefono-numero">(02346) 439100</a>
-                                <p class="telefono-info">Central telefónica</p>
-                            </div>
-                            <div class="telefono-card salud">
-                                <h3>Turnos Hospital (0800)</h3>
-                                <a href="tel:08001221020" class="telefono-numero">0800-122-1020</a>
-                                <p class="telefono-info">Turnos médicos gratuitos</p>
-                            </div>
-                            <div class="telefono-card salud">
-                                <h3>Cruz Roja Chivilcoy</h3>
-                                <a href="tel:02346428461" class="telefono-numero">(02346) 428461</a>
-                                <p class="telefono-info">Av. Güemes y Belgrano</p>
-                            </div>
-                            <div class="telefono-card salud">
-                                <h3>Turnos Pediatría</h3>
-                                <a href="tel:02346559964" class="telefono-numero">(02346) 559964</a>
-                                <p class="telefono-info">Atención pediátrica</p>
-                            </div>
+                            <div class="telefono-card salud"><h3>Hospital Municipal</h3><a href="tel:02346439100" class="telefono-numero">(02346) 439100</a><p class="telefono-info">Central telefónica</p></div>
+                            <div class="telefono-card salud"><h3>Turnos Hospital</h3><a href="tel:08001221020" class="telefono-numero">0800-122-1020</a><p class="telefono-info">Turnos gratuitos</p></div>
+                            <div class="telefono-card salud"><h3>Cruz Roja</h3><a href="tel:02346428461" class="telefono-numero">(02346) 428461</a><p class="telefono-info">Av. Güemes y Belgrano</p></div>
                         </div>
                     </div>
-
-                    <!-- SEGURIDAD -->
                     <div class="categoria-bloque">
                         <h3 class="categoria-titulo">👮 Seguridad</h3>
                         <div class="telefonos-grid">
-                            <div class="telefono-card seguridad">
-                                <h3>Comisaría Primera</h3>
-                                <a href="tel:02346422016" class="telefono-numero">(02346) 422016</a>
-                                <p class="telefono-info">San Martín 75</p>
-                            </div>
-                            <div class="telefono-card seguridad">
-                                <h3>Comisaría de la Mujer</h3>
-                                <a href="tel:02346435786" class="telefono-numero">(02346) 435786</a>
-                                <p class="telefono-info">Av. Mitre casi esq. 110</p>
-                            </div>
-                            <div class="telefono-card seguridad">
-                                <h3>Subcomisaría Garelli</h3>
-                                <a href="tel:02346428636" class="telefono-numero">(02346) 428636</a>
-                                <p class="telefono-info">Localidad de Garelli</p>
-                            </div>
-                            <div class="telefono-card seguridad">
-                                <h3>Bomberos (Administración)</h3>
-                                <a href="tel:02346424319" class="telefono-numero">(02346) 424319</a>
-                                <p class="telefono-info">Gral. Pueyrredón 162</p>
-                            </div>
+                            <div class="telefono-card seguridad"><h3>Comisaría Primera</h3><a href="tel:02346422016" class="telefono-numero">(02346) 422016</a><p class="telefono-info">San Martín 75</p></div>
+                            <div class="telefono-card seguridad"><h3>Comisaría de la Mujer</h3><a href="tel:02346435786" class="telefono-numero">(02346) 435786</a><p class="telefono-info">Av. Mitre</p></div>
                         </div>
                     </div>
-
-                    <!-- MUNICIPALIDAD -->
                     <div class="categoria-bloque">
-                        <h3 class="categoria-titulo">🏛️ Municipalidad y Trámites</h3>
+                        <h3 class="categoria-titulo">🏛️ Municipalidad</h3>
                         <div class="telefonos-grid">
-                            <div class="telefono-card">
-                                <h3>Municipalidad (Conmutador)</h3>
-                                <a href="tel:02346439000" class="telefono-numero">(02346) 439000</a>
-                                <p class="telefono-info">25 de Mayo 35</p>
-                            </div>
-                            <div class="telefono-card">
-                                <h3>Reclamos Vecinales (0800)</h3>
-                                <a href="tel:08009996864" class="telefono-numero">0800-999-6864</a>
-                                <p class="telefono-info">Línea gratuita de reclamos</p>
-                            </div>
-                            <div class="telefono-card">
-                                <h3>Dirección de Tránsito</h3>
-                                <a href="tel:02346439043" class="telefono-numero">(02346) 439043</a>
-                                <p class="telefono-info">Int. 1613 - Belgrano 271</p>
-                            </div>
-                            <div class="telefono-card">
-                                <h3>WhatsApp Tránsito</h3>
-                                <a href="https://wa.me/542346559912" class="telefono-numero">(02346) 559912</a>
-                                <p class="telefono-info">Consultas por WhatsApp</p>
-                            </div>
+                            <div class="telefono-card"><h3>Municipalidad</h3><a href="tel:02346439000" class="telefono-numero">(02346) 439000</a><p class="telefono-info">25 de Mayo 35</p></div>
+                            <div class="telefono-card"><h3>Reclamos Vecinales</h3><a href="tel:08009996864" class="telefono-numero">0800-999-6864</a><p class="telefono-info">Línea gratuita</p></div>
                         </div>
                     </div>
-
-                    <!-- SERVICIOS PÚBLICOS -->
                     <div class="categoria-bloque">
                         <h3 class="categoria-titulo">⚡ Servicios Públicos</h3>
                         <div class="telefonos-grid">
-                            <div class="telefono-card servicios">
-                                <h3>EDEN - Técnico 24hs</h3>
-                                <a href="tel:08009993336" class="telefono-numero">0800-999-3336</a>
-                                <p class="telefono-info">Cortes de luz y emergencias</p>
-                            </div>
-                            <div class="telefono-card servicios">
-                                <h3>EDEN - Comercial</h3>
-                                <a href="tel:08109993336" class="telefono-numero">0810-999-3336</a>
-                                <p class="telefono-info">Reclamos y trámites</p>
-                            </div>
-                            <div class="telefono-card servicios">
-                                <h3>EDEN WhatsApp</h3>
-                                <a href="https://wa.me/5493364526944" class="telefono-numero">+54 9 336 452-6944</a>
-                                <p class="telefono-info">Atención por WhatsApp</p>
-                            </div>
-                            <div class="telefono-card servicios">
-                                <h3>ABSA - Asistencia 24hs</h3>
-                                <a href="tel:08009992272" class="telefono-numero">0800-999-2272</a>
-                                <p class="telefono-info">Cortes de agua y emergencias</p>
-                            </div>
-                            <div class="telefono-card servicios">
-                                <h3>ABSA - Comercial</h3>
-                                <a href="tel:08109992272" class="telefono-numero">0810-999-2272</a>
-                                <p class="telefono-info">Reclamos y trámites</p>
-                            </div>
-                            <div class="telefono-card servicios">
-                                <h3>Camuzzi Gas - Emergencias</h3>
-                                <a href="tel:08007771808" class="telefono-numero">0800-777-1808</a>
-                                <p class="telefono-info">Fugas de gas y emergencias</p>
-                            </div>
+                            <div class="telefono-card servicios"><h3>EDEN - Técnico 24hs</h3><a href="tel:08009993336" class="telefono-numero">0800-999-3336</a><p class="telefono-info">Cortes de luz</p></div>
+                            <div class="telefono-card servicios"><h3>ABSA - Asistencia 24hs</h3><a href="tel:08009992272" class="telefono-numero">0800-999-2272</a><p class="telefono-info">Cortes de agua</p></div>
+                            <div class="telefono-card servicios"><h3>Camuzzi Gas</h3><a href="tel:08007771808" class="telefono-numero">0800-777-1808</a><p class="telefono-info">Fugas de gas</p></div>
                         </div>
                     </div>
-
-                    <!-- LÍNEAS DE AYUDA -->
                     <div class="categoria-bloque">
-                        <h3 class="categoria-titulo">🆘 Líneas de Ayuda Nacional</h3>
+                        <h3 class="categoria-titulo">🆘 Líneas de Ayuda</h3>
                         <div class="telefonos-grid">
-                            <div class="telefono-card">
-                                <h3>Violencia de Género</h3>
-                                <a href="tel:144" class="telefono-numero">144</a>
-                                <p class="telefono-info">Atención las 24hs, todos los días</p>
-                            </div>
-                            <div class="telefono-card">
-                                <h3>Violencia Familiar</h3>
-                                <a href="tel:137" class="telefono-numero">137</a>
-                                <p class="telefono-info">Atención inmediata</p>
-                            </div>
-                            <div class="telefono-card">
-                                <h3>Ayuda al Niño</h3>
-                                <a href="tel:102" class="telefono-numero">102</a>
-                                <p class="telefono-info">Niñez y adolescencia</p>
-                            </div>
-                            <div class="telefono-card">
-                                <h3>Adicciones</h3>
-                                <a href="tel:141" class="telefono-numero">141</a>
-                                <p class="telefono-info">Orientación y contención</p>
-                            </div>
-                            <div class="telefono-card">
-                                <h3>ANSES</h3>
-                                <a href="tel:130" class="telefono-numero">130</a>
-                                <p class="telefono-info">Consultas y trámites</p>
-                            </div>
-                            <div class="telefono-card">
-                                <h3>Emergencia Ambiental</h3>
-                                <a href="tel:105" class="telefono-numero">105</a>
-                                <p class="telefono-info">Contaminación y derrames</p>
-                            </div>
+                            <div class="telefono-card"><h3>Violencia de Género</h3><a href="tel:144" class="telefono-numero">144</a><p class="telefono-info">24hs</p></div>
+                            <div class="telefono-card"><h3>Ayuda al Niño</h3><a href="tel:102" class="telefono-numero">102</a></div>
+                            <div class="telefono-card"><h3>Adicciones</h3><a href="tel:141" class="telefono-numero">141</a></div>
                         </div>
                     </div>
                 </div>
-
-                <div class="tip-emergencia-modal">
-                    💡 <strong>Importante:</strong> Los números de emergencia (911, 100, 103, 107) son <strong>gratuitos</strong> desde cualquier teléfono, fijo o celular, incluso sin saldo.
-                </div>
+                <div class="tip-emergencia-modal">💡 <strong>Importante:</strong> Los números de emergencia son <strong>gratuitos</strong> desde cualquier teléfono.</div>
             </div>
         </div>
     </div>
 
     <script>
-        // Filtros de categorías
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const eventCards = document.querySelectorAll('.event-card');
-        const noEvents = document.getElementById('noEvents');
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. BOTÓN COMPARTIR POR WHATSAPP
+            const tarjetas = document.querySelectorAll('.event-card');
+            tarjetas.forEach(tarjeta => {
+                const btn = document.createElement('button');
+                btn.innerHTML = '📱 Compartir';
+                btn.className = 'btn-compartir-dinamico';
+                tarjeta.appendChild(btn);
+            });
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                const filter = btn.getAttribute('data-filter');
-                let visibleCount = 0;
-
-                eventCards.forEach(card => {
-                    if (filter === 'todos' || card.getAttribute('data-category') === filter) {
-                        card.style.display = 'block';
-                        visibleCount++;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-
-                if (visibleCount === 0) {
-                    noEvents.style.display = 'block';
-                } else {
-                    noEvents.style.display = 'none';
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('btn-compartir-dinamico')) {
+                    const tarjeta = e.target.closest('.event-card');
+                    const titulo = tarjeta.querySelector('h3').innerText;
+                    const url = window.location.href;
+                    const mensaje = `¡Mirá esto en Movida Chivilcoy: ${titulo}! ${url}`;
+                    window.open(`https://wa.me/?text=${encodeURIComponent(mensaje)}`, '_blank');
                 }
             });
-        });
 
-        // ========== MODAL LEGAL ==========
-        const legalModal = document.getElementById('legalModal');
-        const openLegalBtn = document.getElementById('openLegalModal');
-        const closeLegalBtn = document.getElementById('closeLegalModal');
+            // 2. FILTROS
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const eventCards = document.querySelectorAll('.event-card');
+            const noEvents = document.getElementById('noEvents');
 
-        openLegalBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            legalModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const filter = btn.getAttribute('data-filter');
+                    let visibleCount = 0;
+                    eventCards.forEach(card => {
+                        if (filter === 'todos' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    noEvents.style.display = visibleCount === 0 ? 'block' : 'none';
+                });
+            });
 
-        closeLegalBtn.addEventListener('click', () => {
-            legalModal.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-
-        legalModal.addEventListener('click', (e) => {
-            if (e.target === legalModal) {
+            // 3. MODAL LEGAL
+            const legalModal = document.getElementById('legalModal');
+            document.getElementById('openLegalModal').addEventListener('click', (e) => {
+                e.preventDefault();
+                legalModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            document.getElementById('closeLegalModal').addEventListener('click', () => {
                 legalModal.classList.remove('active');
                 document.body.style.overflow = '';
-            }
-        });
-
-        // ========== MODAL TELÉFONOS ÚTILES ==========
-        const telefonosModal = document.getElementById('telefonosModal');
-        const openTelBtn = document.getElementById('openTelefonosBtn');
-        const closeTelBtn = document.getElementById('closeTelefonosModal');
-
-        openTelBtn.addEventListener('click', () => {
-            telefonosModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-
-        closeTelBtn.addEventListener('click', () => {
-            telefonosModal.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-
-        telefonosModal.addEventListener('click', (e) => {
-            if (e.target === telefonosModal) {
-                telefonosModal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-
-        // Botón "Ver más" dentro del modal de teléfonos
-        const verMasBtn = document.getElementById('verMasBtn');
-        const telefonosExpandibles = document.getElementById('telefonosExpandibles');
-
-        verMasBtn.addEventListener('click', () => {
-            telefonosExpandibles.classList.toggle('active');
-            verMasBtn.classList.toggle('active');
-            
-            if (telefonosExpandibles.classList.contains('active')) {
-                verMasBtn.innerHTML = 'Ocultar teléfonos <span class="flecha">▼</span>';
-            } else {
-                verMasBtn.innerHTML = 'Ver todos los teléfonos útiles <span class="flecha">▼</span>';
-            }
-        });
-
-        // Cerrar modales con tecla Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                if (legalModal.classList.contains('active')) {
+            });
+            legalModal.addEventListener('click', (e) => {
+                if (e.target === legalModal) {
                     legalModal.classList.remove('active');
                     document.body.style.overflow = '';
                 }
-                if (telefonosModal.classList.contains('active')) {
+            });
+
+            // 4. MODAL TELÉFONOS
+            const telefonosModal = document.getElementById('telefonosModal');
+            document.getElementById('openTelefonosBtn').addEventListener('click', () => {
+                telefonosModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            document.getElementById('closeTelefonosModal').addEventListener('click', () => {
+                telefonosModal.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            telefonosModal.addEventListener('click', (e) => {
+                if (e.target === telefonosModal) {
                     telefonosModal.classList.remove('active');
                     document.body.style.overflow = '';
                 }
+            });
+
+            // Botón ver más teléfonos
+            const verMasBtn = document.getElementById('verMasBtn');
+            const telefonosExpandibles = document.getElementById('telefonosExpandibles');
+            verMasBtn.addEventListener('click', () => {
+                telefonosExpandibles.classList.toggle('active');
+                verMasBtn.classList.toggle('active');
+                verMasBtn.innerHTML = telefonosExpandibles.classList.contains('active') 
+                    ? 'Ocultar teléfonos <span class="flecha">▼</span>' 
+                    : 'Ver todos los teléfonos útiles <span class="flecha">▼</span>';
+            });
+
+            // 5. ESCAPE para cerrar modales
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (legalModal.classList.contains('active')) {
+                        legalModal.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                    if (telefonosModal.classList.contains('active')) {
+                        telefonosModal.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                }
+            });
+
+            // 6. VALORACIÓN CON ESTRELLAS
+            const formValoracion = document.getElementById('formValoracion');
+            const mensajeGracias = document.getElementById('mensajeGracias');
+            const valoracionPromedio = document.getElementById('valoracionPromedio');
+            const estrellasPromedio = document.getElementById('estrellasPromedio');
+            const numeroPromedio = document.getElementById('numeroPromedio');
+            const listaComentarios = document.getElementById('listaComentarios');
+
+            function cargarValoraciones() {
+                const valoraciones = JSON.parse(localStorage.getItem('valoracionesMovida') || '[]');
+                
+                if (valoraciones.length > 0) {
+                    const suma = valoraciones.reduce((acc, v) => acc + v.estrellas, 0);
+                    const promedio = suma / valoraciones.length;
+                    valoracionPromedio.style.display = 'block';
+                    estrellasPromedio.innerHTML = '★'.repeat(Math.round(promedio)) + '☆'.repeat(5 - Math.round(promedio));
+                    numeroPromedio.textContent = promedio.toFixed(1) + ` (${valoraciones.length} valoraciones)`;
+
+                    // Mostrar comentarios
+                    const conComentario = valoraciones.filter(v => v.comentario && v.comentario.trim() !== '');
+                    if (conComentario.length > 0) {
+                        listaComentarios.innerHTML = '';
+                        conComentario.slice().reverse().forEach(v => {
+                            const fecha = new Date(v.fecha).toLocaleDateString('es-AR');
+                            const item = document.createElement('div');
+                            item.className = 'comentario-item';
+                            item.innerHTML = `
+                                <div class="comentario-header">
+                                    <span class="comentario-estrellas">${'★'.repeat(v.estrellas)}${'☆'.repeat(5 - v.estrellas)}</span>
+                                    <span class="comentario-fecha">${fecha}</span>
+                                </div>
+                                <p class="comentario-texto">${v.comentario}</p>
+                            `;
+                            listaComentarios.appendChild(item);
+                        });
+                    }
+                }
+
+                if (localStorage.getItem('yaValoroMovida')) {
+                    formValoracion.style.display = 'none';
+                    mensajeGracias.classList.add('activo');
+                    mensajeGracias.innerHTML = '¡Ya dejaste tu valoración! 🎉 Gracias por tu opinión.';
+                }
             }
+
+            formValoracion.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const valoracionSeleccionada = document.querySelector('input[name="valoracion"]:checked');
+                const comentario = document.getElementById('comentario').value.trim();
+
+                if (!valoracionSeleccionada) {
+                    alert('Por favor, seleccioná una cantidad de estrellas');
+                    return;
+                }
+
+                const estrellas = parseInt(valoracionSeleccionada.value);
+                const valoraciones = JSON.parse(localStorage.getItem('valoracionesMovida') || '[]');
+                valoraciones.push({
+                    estrellas: estrellas,
+                    comentario: comentario,
+                    fecha: new Date().toISOString()
+                });
+                localStorage.setItem('valoracionesMovida', JSON.stringify(valoraciones));
+                localStorage.setItem('yaValoroMovida', 'true');
+
+                formValoracion.style.display = 'none';
+                mensajeGracias.classList.add('activo');
+                cargarValoraciones();
+            });
+
+            cargarValoraciones();
         });
     </script>
 
