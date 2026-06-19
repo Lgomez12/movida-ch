@@ -58,24 +58,118 @@
         .cultural-title { font-size: clamp(1.5rem, 4vw, 2.2rem); color: #667eea; text-align: center; margin-bottom: 1.5rem; line-height: 1.3; font-weight: 700; }
         .cultural-content p { font-size: clamp(0.95rem, 2vw, 1.05rem); line-height: 1.8; color: #444; margin-bottom: 1rem; }
 
-        .filters-section { padding: 1.5rem 1rem; background: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .filters-container { max-width: 1200px; margin: 0 auto; display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
-        .filter-btn { padding: 0.6rem 1.2rem; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 25px; cursor: pointer; transition: all 0.3s; font-size: clamp(0.85rem, 2vw, 0.95rem); white-space: nowrap; font-weight: 500; }
-        .filter-btn:hover, .filter-btn.active { background: #667eea; color: white; }
+        /* FILTROS - AJUSTADOS PARA MÓVIL */
+        .filters-section { 
+            padding: 1.5rem 1rem; 
+            background: white; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .filters-container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            display: flex; 
+            gap: 0.5rem; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+        }
+        .filter-btn { 
+            padding: 0.6rem 1.2rem; 
+            border: 2px solid #667eea; 
+            background: white; 
+            color: #667eea; 
+            border-radius: 25px; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            font-size: clamp(0.85rem, 2vw, 0.95rem); 
+            white-space: nowrap; 
+            font-weight: 500; 
+        }
+        .filter-btn:hover, .filter-btn.active { 
+            background: #667eea; 
+            color: white; 
+        }
 
-        .agenda-section { padding: 2rem 1rem; max-width: 1200px; margin: 0 auto; }
-        .section-title { font-size: clamp(1.5rem, 4vw, 2rem); color: #2d3748; margin-bottom: 1.5rem; text-align: center; }
-        .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .event-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 3px 15px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s; padding: 1.5rem; border-left: 4px solid #667eea; }
-        .event-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
-        .event-tag { display: inline-block; padding: 0.3rem 0.8rem; background: #667eea; color: white; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.8rem; text-transform: uppercase; }
-        .event-card h3 { font-size: clamp(1.1rem, 2.5vw, 1.3rem); color: #2d3748; margin-bottom: 0.5rem; }
-        .event-info { color: #666; font-size: 0.9rem; margin-bottom: 0.3rem; }
-        .event-info strong { color: #667eea; }
-        .event-card p { margin: 1rem 0; color: #555; font-size: 0.95rem; }
-        .event-link { display: inline-block; color: #667eea; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
-        .event-link:hover { text-decoration: underline; }
-        .no-events { text-align: center; padding: 3rem 1rem; color: #666; font-style: italic; background: white; border-radius: 15px; grid-column: 1 / -1; }
+        .agenda-section { 
+            padding: 2rem 1rem; 
+            max-width: 1200px; 
+            margin: 0 auto;
+            scroll-margin-top: 200px; /* Evita que el sticky tape el contenido */
+        }
+        .section-title { 
+            font-size: clamp(1.5rem, 4vw, 2rem); 
+            color: #2d3748; 
+            margin-bottom: 1.5rem; 
+            text-align: center; 
+        }
+        .events-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 1.5rem; 
+        }
+        .event-card { 
+            background: white; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08); 
+            transition: transform 0.3s, box-shadow 0.3s; 
+            padding: 1.5rem; 
+            border-left: 4px solid #667eea; 
+        }
+        .event-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12); 
+        }
+        .event-tag { 
+            display: inline-block; 
+            padding: 0.3rem 0.8rem; 
+            background: #667eea; 
+            color: white; 
+            border-radius: 20px; 
+            font-size: 0.8rem; 
+            font-weight: 600; 
+            margin-bottom: 0.8rem; 
+            text-transform: uppercase; 
+        }
+        .event-card h3 { 
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem); 
+            color: #2d3748; 
+            margin-bottom: 0.5rem; 
+        }
+        .event-info { 
+            color: #666; 
+            font-size: 0.9rem; 
+            margin-bottom: 0.3rem; 
+        }
+        .event-info strong { 
+            color: #667eea; 
+        }
+        .event-card p { 
+            margin: 1rem 0; 
+            color: #555; 
+            font-size: 0.95rem; 
+        }
+        .event-link { 
+            display: inline-block; 
+            color: #667eea; 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 0.9rem; 
+        }
+        .event-link:hover { 
+            text-decoration: underline; 
+        }
+        .no-events { 
+            text-align: center; 
+            padding: 3rem 1rem; 
+            color: #666; 
+            font-style: italic; 
+            background: white; 
+            border-radius: 15px; 
+            grid-column: 1 / -1; 
+        }
 
         /* BOTÓN COMPARTIR */
         .btn-compartir-dinamico {
@@ -94,7 +188,11 @@
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
         }
-        .btn-compartir-dinamico:hover { background: #128c7e; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); }
+        .btn-compartir-dinamico:hover { 
+            background: #128c7e; 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); 
+        }
 
         .teatros-section { padding: 2rem 1rem; max-width: 1200px; margin: 0 auto; }
         .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; background: white; border-radius: 15px; box-shadow: 0 3px 15px rgba(0,0,0,0.08); }
@@ -255,7 +353,7 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* RESPONSIVE */
+        /* RESPONSIVE - AJUSTES PARA MÓVIL */
         @media (max-width: 768px) {
             .hero-section { min-height: 50vh; padding: 3rem 1rem; }
             .hero-buttons { flex-direction: column; width: 100%; padding: 0 1rem; }
@@ -264,11 +362,51 @@
             .mapa-container { height: 280px; }
             .estrella-label { font-size: 2.5rem; }
             .footer-content { grid-template-columns: 1fr; gap: 1rem; text-align: center; }
+            
+            /* Filtros compactos en móvil */
+            .filters-section {
+                padding: 1rem 0.5rem;
+            }
+            .filters-container {
+                gap: 0.4rem;
+                padding-bottom: 0.5rem;
+            }
+            .filter-btn {
+                padding: 0.5rem 0.9rem;
+                font-size: 0.8rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+            .agenda-section {
+                scroll-margin-top: 180px;
+            }
         }
+        
         @media (max-width: 480px) {
             .mapa-container { height: 240px; }
             .estrella-label { font-size: 2rem; }
             .valoracion-card { padding: 1.5rem; }
+            
+            /* Filtros más compactos en pantallas muy pequeñas */
+            .filters-section {
+                padding: 0.8rem 0.3rem;
+            }
+            .filters-container {
+                gap: 0.3rem;
+            }
+            .filter-btn {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.75rem;
+            }
+            .section-title {
+                font-size: 1.2rem;
+                margin-bottom: 0.8rem;
+            }
+            .agenda-section {
+                scroll-margin-top: 150px;
+            }
         }
 
         a:focus-visible, button:focus-visible { outline: 3px solid #f97316; outline-offset: 2px; }
@@ -828,6 +966,20 @@
                         document.body.style.overflow = '';
                     }
                 }
+            });
+
+            // 6. SCROLL SUAVE CON OFFSET PARA EL STICKY
+            document.querySelectorAll('a[href="#agenda"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const filtersSection = document.querySelector('#agenda');
+                    const offsetTop = filtersSection.offsetTop - 200;
+                    
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                });
             });
         });
     </script>
