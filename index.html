@@ -152,16 +152,14 @@
     }
     </script>
     
-    <!-- GOOGLE ANALYTICS (REEMPLAZAR G-XXXXXXXXXX CON TU ID) -->
-    <!-- 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <!-- GOOGLE ANALYTICS - CORRECTAMENTE UBICADO -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-REBP12F5BK"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
+        gtag('config', 'G-REBP12F5BK');
     </script>
-    -->
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -431,7 +429,6 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
-        /* BOTÓN VOLVER ARRIBA */
         .btn-volver-arriba {
             position: fixed;
             bottom: 2rem;
@@ -973,7 +970,7 @@
         }
 
         // ============================================
-        // FIREBASE CONFIGURATION
+        // FIREBASE CONFIGURATION - CON MANEJO DE ERRORES
         // ============================================
         
         const firebaseConfig = {
@@ -986,8 +983,16 @@
             appId: "1:686223187583:web:43c59be4da2b9854d5a94a"
         };
 
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
+        // Inicializar Firebase con manejo de errores
+        let db;
+        try {
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.database();
+            console.log('✅ Firebase inicializado correctamente');
+        } catch (error) {
+            console.error('❌ Error al inicializar Firebase:', error);
+            showToast('Error de conexión con Firebase. Recargá la página.', 'error');
+        }
 
         // ============================================
         // VARIABLES GLOBALES
@@ -1037,74 +1042,85 @@
         // CARGAR VALORACIONES EN TIEMPO REAL
         // ============================================
         
-        const valoracionesRef = db.ref('valoraciones');
-        
-        valoracionesRef.orderByChild('fecha').limitToLast(50).on('value', (snapshot) => {
-            const data = snapshot.val();
-            const valoraciones = [];
+        if (db) {
+            const valoracionesRef = db.ref('valoraciones');
             
-            if (data) {
-                Object.values(data).forEach(v => valoraciones.push(v));
-            }
-
-            if (valoraciones.length > 0) {
-                const suma = valoraciones.reduce((acc, v) => acc + v.estrellas, 0);
-                const promedio = suma / valoraciones.length;
+            valoracionesRef.orderByChild('fecha').limitToLast(50).on('value', (snapshot) => {
+                const data = snapshot.val();
+                const valoraciones = [];
                 
-                valoracionPromedio.style.display = 'block';
-                estrellasPromedio.innerHTML = '★'.repeat(Math.round(promedio)) + '☆'.repeat(5 - Math.round(promedio));
-                numeroPromedio.textContent = promedio.toFixed(1) + ` (${valoraciones.length} valoraciones)`;
+                if (data) {
+                    Object.values(data).forEach(v => valoraciones.push(v));
+                }
 
-                const conComentario = valoraciones.filter(v => v.comentario && v.comentario.trim() !== '');
-                if (conComentario.length > 0) {
-                    listaComentarios.innerHTML = '';
-                    conComentario.slice().reverse().forEach(v => {
-                        const fecha = new Date(v.fecha).toLocaleDateString('es-AR', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
+                if (valoraciones.length > 0) {
+                    const suma = valoraciones.reduce((acc, v) => acc + v.estrellas, 0);
+                    const promedio = suma / valoraciones.length;
+                    
+                    valoracionPromedio.style.display = 'block';
+                    estrellasPromedio.innerHTML = '★'.repeat(Math.round(promedio)) + '☆'.repeat(5 - Math.round(promedio));
+                    numeroPromedio.textContent = promedio.toFixed(1) + ` (${valoraciones.length} valoraciones)`;
+
+                    const conComentario = valoraciones.filter(v => v.comentario && v.comentario.trim() !== '');
+                    if (conComentario.length > 0) {
+                        listaComentarios.innerHTML = '';
+                        conComentario.slice().reverse().forEach(v => {
+                            const fecha = new Date(v.fecha).toLocaleDateString('es-AR', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            });
+                            const item = document.createElement('article');
+                            item.className = 'comentario-item';
+                            
+                            const header = document.createElement('div');
+                            header.className = 'comentario-header';
+                            
+                            const estrellas = document.createElement('span');
+                            estrellas.className = 'comentario-estrellas';
+                            estrellas.setAttribute('aria-label', `${v.estrellas} de 5 estrellas`);
+                            estrellas.textContent = '★'.repeat(v.estrellas) + '☆'.repeat(5 - v.estrellas);
+                            
+                            const fechaSpan = document.createElement('time');
+                            fechaSpan.className = 'comentario-fecha';
+                            fechaSpan.textContent = fecha;
+                            fechaSpan.setAttribute('datetime', v.fecha);
+                            
+                            header.appendChild(estrellas);
+                            header.appendChild(fechaSpan);
+                            
+                            const texto = document.createElement('p');
+                            texto.className = 'comentario-texto';
+                            texto.textContent = v.comentario;
+                            
+                            item.appendChild(header);
+                            item.appendChild(texto);
+                            listaComentarios.appendChild(item);
                         });
-                        const item = document.createElement('article');
-                        item.className = 'comentario-item';
-                        
-                        const header = document.createElement('div');
-                        header.className = 'comentario-header';
-                        
-                        const estrellas = document.createElement('span');
-                        estrellas.className = 'comentario-estrellas';
-                        estrellas.setAttribute('aria-label', `${v.estrellas} de 5 estrellas`);
-                        estrellas.textContent = '★'.repeat(v.estrellas) + '☆'.repeat(5 - v.estrellas);
-                        
-                        const fechaSpan = document.createElement('time');
-                        fechaSpan.className = 'comentario-fecha';
-                        fechaSpan.textContent = fecha;
-                        fechaSpan.setAttribute('datetime', v.fecha);
-                        
-                        header.appendChild(estrellas);
-                        header.appendChild(fechaSpan);
-                        
-                        const texto = document.createElement('p');
-                        texto.className = 'comentario-texto';
-                        texto.textContent = v.comentario;
-                        
-                        item.appendChild(header);
-                        item.appendChild(texto);
-                        listaComentarios.appendChild(item);
-                    });
+                    } else {
+                        listaComentarios.innerHTML = '<p class="sin-comentarios">Sé el primero en dejar un comentario</p>';
+                    }
                 } else {
                     listaComentarios.innerHTML = '<p class="sin-comentarios">Sé el primero en dejar un comentario</p>';
                 }
-            } else {
-                listaComentarios.innerHTML = '<p class="sin-comentarios">Sé el primero en dejar un comentario</p>';
-            }
-        });
+            }, (error) => {
+                console.error('Error al cargar valoraciones:', error);
+                listaComentarios.innerHTML = '<p class="sin-comentarios">Error al cargar comentarios</p>';
+            });
+        }
 
         // ============================================
-        // ENVIAR VALORACIÓN
+        // ENVIAR VALORACIÓN - CON MANEJO DE ERRORES MEJORADO
         // ============================================
         
         formValoracion.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // Verificar que Firebase esté inicializado
+            if (!db) {
+                showToast('Error de conexión. Recargá la página.', 'error');
+                return;
+            }
             
             const valoracionSeleccionada = document.querySelector('input[name="valoracion"]:checked');
             const comentario = comentarioTextarea.value.trim();
@@ -1116,7 +1132,7 @@
 
             const estrellas = parseInt(valoracionSeleccionada.value);
             
-            if (estrellas < 1 || estrellas > 5) {
+            if (isNaN(estrellas) || estrellas < 1 || estrellas > 5) {
                 showToast('Valoración inválida', 'error');
                 return;
             }
@@ -1136,14 +1152,35 @@
             };
 
             try {
+                console.log('📤 Enviando valoración:', nuevaValoracion);
+                
+                const valoracionesRef = db.ref('valoraciones');
                 await valoracionesRef.push(nuevaValoracion);
+                
+                console.log('✅ Valoración enviada correctamente');
+                
                 localStorage.setItem('yaValoroMovida', 'true');
                 formValoracion.style.display = 'none';
                 mensajeGracias.classList.add('activo');
                 showToast('¡Gracias por tu valoración!', 'success');
+                
             } catch (error) {
-                console.error('Error al enviar:', error);
-                showToast('Hubo un error al enviar tu valoración. Intentá de nuevo.', 'error');
+                console.error('❌ Error al enviar:', error);
+                
+                // Mensajes de error más específicos
+                let mensajeError = 'Hubo un error al enviar tu valoración. Intentá de nuevo.';
+                
+                if (error.code === 'PERMISSION_DENIED') {
+                    mensajeError = 'Error de permisos. Contactanos por favor.';
+                    console.error('🔒 PERMISSION_DENIED: Verificá las reglas de Firebase');
+                } else if (error.code === 'NETWORK_ERROR') {
+                    mensajeError = 'Error de conexión. Verificá tu internet.';
+                } else if (error.code === 'INVALID_ARGUMENT') {
+                    mensajeError = 'Datos inválidos. Verificá la información.';
+                }
+                
+                showToast(mensajeError, 'error');
+                
                 btnEnviarValoracion.disabled = false;
                 btnText.textContent = 'Enviar valoración';
             }
