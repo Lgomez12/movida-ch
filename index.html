@@ -4,6 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movida Chivilcoy - Agenda Cultural y Comunitaria</title>
+    
+    <!-- SEO META TAGS -->
+    <meta name="description" content="Agenda cultural de Chivilcoy: teatro, música, ferias, talleres y más. Todo lo que pasa en la ciudad, en un solo lugar.">
+    <meta name="keywords" content="Chivilcoy, agenda cultural, teatro, música, eventos, Buenos Aires, Argentina">
+    <meta name="author" content="Lic. Leticia Gomez">
+    <link rel="canonical" href="https://movidachivilcoy.com/">
+    
+    <!-- OPEN GRAPH (Facebook, WhatsApp, LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Movida Chivilcoy - Agenda Cultural y Comunitaria">
+    <meta property="og:description" content="Descubrí eventos, teatros, hospedajes y teléfonos útiles en Chivilcoy. Todo lo que pasa en la ciudad, en un solo lugar.">
+    <meta property="og:image" content="https://movidachivilcoy.com/og-image.jpg">
+    <meta property="og:url" content="https://movidachivilcoy.com/">
+    <meta property="og:locale" content="es_AR">
+    
+    <!-- TWITTER CARD -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Movida Chivilcoy - Agenda Cultural">
+    <meta name="twitter:description" content="Todo lo que pasa en Chivilcoy, en un solo lugar.">
+    <meta name="twitter:image" content="https://movidachivilcoy.com/og-image.jpg">
+    
+    <!-- ROBOTS -->
+    <meta name="robots" content="index, follow">
+    
+    <!-- SCHEMA.ORG - EVENTOS -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": "La Verdad de las Mentiras",
+        "startDate": "2026-06-27T20:00:00-03:00",
+        "endDate": "2026-06-27T22:00:00-03:00",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "location": {
+            "@type": "Place",
+            "name": "Teatro El Chasqui",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Chivilcoy",
+                "addressRegion": "Buenos Aires",
+                "addressCountry": "AR"
+            }
+        },
+        "description": "Función de la aclamada comedia dramática local en Teatro El Chasqui.",
+        "organizer": {
+            "@type": "Organization",
+            "name": "El Chasqui Cía Teatral",
+            "url": "https://teatroelchasqui.com/"
+        }
+    }
+    </script>
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -13,6 +65,21 @@
             color: #2d3748;
             background: #f8f9fa;
             overflow-x: hidden;
+        }
+
+        /* SKIP LINK - ACCESIBILIDAD */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #667eea;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 10000;
+        }
+        .skip-link:focus {
+            top: 0;
         }
 
         /* HERO */
@@ -74,6 +141,7 @@
             gap: 0.5rem; 
             flex-wrap: wrap; 
             justify-content: center; 
+            margin-bottom: 1rem;
         }
         .filter-btn { 
             padding: 0.6rem 1.2rem; 
@@ -90,6 +158,34 @@
         .filter-btn:hover, .filter-btn.active { 
             background: #667eea; 
             color: white; 
+        }
+        
+        /* BÚSQUEDA DE EVENTOS */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 1.2rem 0.8rem 3rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 1.2rem;
         }
 
         .agenda-section { 
@@ -260,9 +356,21 @@
         .comentario-label { display: block; color: #4a5568; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.95rem; }
         .comentario-textarea { width: 100%; min-height: 100px; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 12px; font-family: inherit; font-size: 0.95rem; resize: vertical; transition: border-color 0.3s; }
         .comentario-textarea:focus { outline: none; border-color: #667eea; }
-        .btn-enviar-valoracion { margin-top: 1.5rem; padding: 0.9rem 2.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); }
+        .comentario-counter { text-align: right; font-size: 0.8rem; color: #9ca3af; margin-top: 0.3rem; }
+        .comentario-counter.warning { color: #f59e0b; }
+        .comentario-counter.error { color: #dc2626; }
+        .btn-enviar-valoracion { margin-top: 1.5rem; padding: 0.9rem 2.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); display: inline-flex; align-items: center; gap: 0.5rem; }
         .btn-enviar-valoracion:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4); }
         .btn-enviar-valoracion:disabled { opacity: 0.6; cursor: not-allowed; }
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
         .mensaje-gracias { display: none; margin-top: 1.5rem; padding: 1.5rem; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-radius: 12px; color: #065f46; font-weight: 600; animation: fadeInUp 0.5s ease; }
         .mensaje-gracias.activo { display: block; }
         .valoracion-promedio { margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #f0f0f0; }
@@ -277,9 +385,35 @@
         .comentario-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
         .comentario-estrellas { color: #fbbf24; font-size: 1rem; }
         .comentario-fecha { color: #9ca3af; font-size: 0.8rem; }
-        .comentario-texto { color: #4b5563; font-size: 0.9rem; line-height: 1.5; }
+        .comentario-texto { color: #4b5563; font-size: 0.9rem; line-height: 1.5; word-wrap: break-word; }
         .sin-comentarios { text-align: center; color: #9ca3af; font-style: italic; padding: 1rem; }
         .cargando-comentarios { text-align: center; color: #667eea; font-style: italic; padding: 1rem; }
+
+        /* TOAST NOTIFICATIONS */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            z-index: 10000;
+            animation: slideInRight 0.3s ease;
+            max-width: 400px;
+        }
+        .toast.success { border-left: 4px solid #10b981; }
+        .toast.error { border-left: 4px solid #dc2626; }
+        .toast.warning { border-left: 4px solid #f59e0b; }
+        .toast-icon { font-size: 1.5rem; }
+        .toast-message { color: #2d3748; font-size: 0.9rem; }
+        @keyframes slideInRight {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
 
         /* FOOTER COMPACTO */
         footer { background: #2d3748; color: white; padding: 1.5rem 1rem; margin-top: 3rem; }
@@ -368,6 +502,13 @@
             .filter-btn { padding: 0.5rem 0.9rem; font-size: 0.8rem; }
             .section-title { font-size: 1.3rem; margin-bottom: 1rem; }
             .agenda-section { scroll-margin-top: 180px; }
+            
+            .toast {
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+                max-width: none;
+            }
         }
         
         @media (max-width: 480px) {
@@ -388,6 +529,8 @@
     </style>
 </head>
 <body>
+    <!-- SKIP LINK - ACCESIBILIDAD -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
     <header class="hero-section">
         <div class="hero-content">
@@ -396,198 +539,207 @@
             <div class="hero-buttons">
                 <a href="#agenda" class="btn btn-primary">Ver agenda</a>
                 <a href="#espacios" class="btn btn-outline">Salas y Espacios</a>
-                <button class="btn btn-telefonos" id="openTelefonosBtn">📞 Teléfonos Útiles</button>
+                <button class="btn btn-telefonos" id="openTelefonosBtn" aria-label="Abrir teléfonos útiles">📞 Teléfonos Útiles</button>
                 <a href="#cargar" class="btn btn-secondary">Cargar un evento</a>
                 <a href="#hospedajes" class="btn btn-outline">Hospedajes</a>
             </div>
         </div>
     </header>
 
-    <section class="cultural-section">
-        <div class="cultural-content">
-            <h2 class="cultural-title">Chivilcoy: Cuna Cultural y Capital Provincial del Teatro</h2>
-            <p>Chivilcoy posee una de las identidades culturales más ricas de la Provincia de Buenos Aires. Conocida históricamente como "La Perla del Oeste", la ciudad supo ganarse el título oficial de Capital Provincial del Teatro. Este reconocimiento artístico es el fruto de una tradición profunda ligada a las artes escénicas. El hito fundacional ocurrió en 1886, cuando los hermanos Podestá estrenaron aquí la versión hablada de "Juan Moreira", acontecimiento considerado como el nacimiento del Teatro Nacional Argentino.</p>
-            <p>A lo largo de las décadas, esa chispa encendió un movimiento de teatro independiente inigualable. Generaciones de directores, actores y vecinos sostienen numerosas salas propias con esfuerzo comunitario, brindando una cartelera constante que combina clásicos, experimentación y talleres.</p>
-        </div>
-    </section>
-
-    <section class="filters-section" id="agenda">
-        <h2 class="section-title">Explorá la movida local</h2>
-        <div class="filters-container">
-            <button class="filter-btn active" data-filter="todos">Todos</button>
-            <button class="filter-btn" data-filter="teatro">Teatro</button>
-            <button class="filter-btn" data-filter="musica">Música</button>
-            <button class="filter-btn" data-filter="ferias">Ferias</button>
-            <button class="filter-btn" data-filter="talleres">Colectividades</button>
-            <button class="filter-btn" data-filter="muestras">Muestras</button>
-            <button class="filter-btn" data-filter="fiestas">Fiestas</button>
-            <button class="filter-btn" data-filter="gastronomia">Gastronomía</button>
-            <button class="filter-btn" data-filter="chicos">Para Niños</button>
-        </div>
-    </section>
-
-    <section class="agenda-section">
-        <div class="events-grid" id="eventsGrid">
-            <div class="event-card" data-category="teatro">
-                <span class="event-tag">Teatro</span>
-                <h3>La Verdad de las Mentiras</h3>
-                <p class="event-info"><strong>Próximo Fin de Semana</strong> · 20:00 hs</p>
-                <p class="event-info">📍 Teatro El Chasqui</p>
-                <p class="event-info">Organiza: El Chasqui Cía Teatral</p>
-                <p>Función de la aclamada comedia dramática local. Asegurá tu lugar revisando la boletería digital.</p>
-                <a href="https://teatroelchasqui.com/" target="_blank" class="event-link">Ver sitio oficial →</a>
+    <main id="main-content">
+        <section class="cultural-section">
+            <div class="cultural-content">
+                <h2 class="cultural-title">Chivilcoy: Cuna Cultural y Capital Provincial del Teatro</h2>
+                <p>Chivilcoy posee una de las identidades culturales más ricas de la Provincia de Buenos Aires. Conocida históricamente como "La Perla del Oeste", la ciudad supo ganarse el título oficial de Capital Provincial del Teatro. Este reconocimiento artístico es el fruto de una tradición profunda ligada a las artes escénicas. El hito fundacional ocurrió en 1886, cuando los hermanos Podestá estrenaron aquí la versión hablada de "Juan Moreira", acontecimiento considerado como el nacimiento del Teatro Nacional Argentino.</p>
+                <p>A lo largo de las décadas, esa chispa encendió un movimiento de teatro independiente inigualable. Generaciones de directores, actores y vecinos sostienen numerosas salas propias con esfuerzo comunitario, brindando una cartelera constante que combina clásicos, experimentación y talleres.</p>
             </div>
+        </section>
 
-            <div class="event-card" data-category="teatro">
-                <span class="event-tag">Teatro</span>
-                <h3>Ciclo de Obras Dramáticas y Comedias</h3>
-                <p class="event-info"><strong>Sábado y Domingo</strong> · 21:30 hs</p>
-                <p class="event-info">📍 Teatro La Cueva</p>
-                <p class="event-info">Organiza: Comisión La Cueva</p>
-                <p>Disfrutá de la cartelera de producciones independientes, comedias y ciclos de música en nuestra sala histórica.</p>
-                <a href="https://www.facebook.com/teatrolacueva.chivilcoy/" target="_blank" class="event-link">Ver Facebook Oficial →</a>
+        <section class="filters-section" id="agenda">
+            <h2 class="section-title">Explorá la movida local</h2>
+            <div class="filters-container" role="group" aria-label="Filtros de eventos">
+                <button class="filter-btn active" data-filter="todos" aria-pressed="true">Todos</button>
+                <button class="filter-btn" data-filter="teatro" aria-pressed="false">Teatro</button>
+                <button class="filter-btn" data-filter="musica" aria-pressed="false">Música</button>
+                <button class="filter-btn" data-filter="ferias" aria-pressed="false">Ferias</button>
+                <button class="filter-btn" data-filter="talleres" aria-pressed="false">Colectividades</button>
+                <button class="filter-btn" data-filter="muestras" aria-pressed="false">Muestras</button>
+                <button class="filter-btn" data-filter="fiestas" aria-pressed="false">Fiestas</button>
+                <button class="filter-btn" data-filter="gastronomia" aria-pressed="false">Gastronomía</button>
+                <button class="filter-btn" data-filter="chicos" aria-pressed="false">Para Niños</button>
             </div>
-
-            <div class="event-card" data-category="musica">
-                <span class="event-tag">Música</span>
-                <h3>Peña Folclórica Estudiantil</h3>
-                <p class="event-info"><strong>Viernes</strong> · 21:00 hs</p>
-                <p class="event-info">📍 Centro Cultural NK</p>
-                <p class="event-info">Organiza: Centro de Estudiantes</p>
-                <p>Una noche a puro folclore con artistas locales en vivo, servicio de cantina y espacio para bailar en familia en un espacio multidisciplinario.</p>
-                <a href="https://www.facebook.com/CentroCulturalNestorKirchnerChivilcoy/" target="_blank" class="event-link">Ver espacio cultural →</a>
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input" placeholder="Buscar eventos..." aria-label="Buscar eventos por texto">
             </div>
+        </section>
 
-            <div class="no-events" id="noEvents" style="display: none;">
-                <p>Por el momento no hay eventos programados en esta categoría. ¡Volvé a consultar pronto!</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="teatros-section" id="espacios">
-        <h2 class="section-title">Teatros Independientes y Salas Principales</h2>
-        <div class="table-container">
-            <table class="teatros-table">
-                <thead>
-                    <tr><th>Espacio / Sala</th><th>Descripción</th><th>Enlace de Acceso / Redes</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><strong>Teatro El Chasqui</strong></td><td>Institución teatral histórica con más de 60 años de trayectoria.</td><td><a href="https://teatroelchasqui.com/" target="_blank">Sitio Web</a></td></tr>
-                    <tr><td><strong>Teatro La Cueva</strong></td><td>Sala independiente con cartelera de obras dramáticas y comedias.</td><td><a href="https://www.facebook.com/teatrolacueva.chivilcoy/" target="_blank">Facebook</a></td></tr>
-                    <tr><td><strong>TRAC (Grupo Teatral)</strong></td><td>Espacio de experimentación de vanguardia y formación escénica.</td><td><a href="https://www.instagram.com/trachteatro/" target="_blank">Instagram</a></td></tr>
-                    <tr><td><strong>Centro Cultural NK</strong></td><td>Espacio multidisciplinario para peñas folclóricas y recitales.</td><td><a href="https://www.facebook.com/CentroCulturalNestorKirchnerChivilcoy/" target="_blank">Facebook</a></td></tr>
-                    <tr><td><strong>Agrupación Artística CEM</strong></td><td>Talleres de danza y teatro para todas las edades.</td><td><a href="https://www.instagram.com/cem.espaciodearte/" target="_blank">Instagram</a> · <a href="https://www.facebook.com/268563186992971" target="_blank">Facebook</a></td></tr>
-                    <tr><td><strong>El Portal del Tango</strong></td><td>Espacio cultural dedicado al tango. Milongas y shows en vivo.</td><td><a href="https://www.instagram.com/elportaldeltango/" target="_blank">Instagram</a></td></tr>
-                    <tr><td><strong>Los Marrones</strong></td><td>Salón de eventos para actividades culturales y espectáculos.</td><td><a href="https://www.instagram.com/marrones.ch/" target="_blank">Instagram</a></td></tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <section class="destacado-section">
-        <div class="destacado-card">
-            <h2>Destacado de la semana</h2>
-            <p class="fecha">Gran Fiesta del Encuentro Chivilcoyano · Próximo Sábado - 22:00 hs</p>
-            <p>El evento tradicionalista y comunitario más esperado llega con patio gastronómico gigante, artesanos, desfiles de campo y entrada libre y gratuita.</p>
-            <p><strong>📍 Predio del Centro Tradicionalista El Fogón</strong></p>
-            <a href="https://www.instagram.com/elfogonctro.tradicionalista/" target="_blank" class="btn">Más información del Predio →</a>
-        </div>
-    </section>
-
-    <section class="hospedajes-section" id="hospedajes">
-        <h2 class="section-title">Hospedajes en Chivilcoy</h2>
-        <div class="hospedajes-intro">
-            <p>Una guía útil para quienes vienen a disfrutar la agenda cultural. Los valores son orientativos: recomendamos confirmar disponibilidad y tarifa actual en cada enlace.</p>
-        </div>
-        <div class="hospedajes-grid">
-            <div class="hospedaje-card"><h3>Hotel Tomaso</h3><span class="tipo">Hotel boutique</span><span class="tipo">Gama media / alta</span><p class="direccion">📍 Av. De Tomaso y Calle 556</p><a href="https://www.hoteltomaso.com.ar/" target="_blank">Ver sitio oficial →</a></div>
-            <div class="hospedaje-card"><h3>Patri Hotel</h3><span class="tipo">Hotel 3 estrellas</span><span class="tipo">Céntrico</span><p class="direccion">Av. Ceballos 163</p><a href="https://www.facebook.com/patrihotel/" target="_blank">Ver contacto →</a></div>
-            <div class="hospedaje-card"><h3>Petit Hotel</h3><span class="tipo">Hotel 2 estrellas</span><span class="tipo">Céntrico</span><p class="direccion">Hipólito Yrigoyen 259</p><a href="https://www.booking.com/hotel/ar/petit-chivilcoy.es-ar.html" target="_blank">Ver disponibilidad →</a></div>
-            <div class="hospedaje-card"><h3>Hotel Mitre</h3><span class="tipo">Hotel 2 estrellas</span><span class="tipo">Av. principal</span><p class="direccion">Av. Mitre 227</p><a href="https://www.facebook.com/HotelMitreChivilcoy/" target="_blank">Ver contacto →</a></div>
-            <div class="hospedaje-card"><h3>Falcone Hotel</h3><span class="tipo">Hotel tradicional</span><span class="tipo">Económico</span><p class="direccion">📍 Belgrano 201</p><a href="https://www.paginasamarillas.com.ar/fichas/hotel-falcone_16843033" target="_blank">Ver datos →</a></div>
-            <div class="hospedaje-card"><h3>Gran Hotel Chivilcoy</h3><span class="tipo">Hotel 3 estrellas</span><span class="tipo">Centro</span><p class="direccion">📍 Av. Sarmiento 125</p><a href="https://www.facebook.com/p/Hotel-Gran-Hotel-Chivilcoy-100063639727923/" target="_blank">Ver contacto →</a></div>
-            <div class="hospedaje-card"><h3>De Los Robles Hotel</h3><span class="tipo">Hotel</span><span class="tipo">Ruta 5</span><p class="direccion">📍 Ruta 5 y 30, Chivilcoy</p><a href="https://www.instagram.com/delosrobleshotel/" target="_blank">Ver Instagram →</a></div>
-            <div class="hospedaje-card"><h3>RG Hotel Boutique</h3><span class="tipo">Hotel boutique</span><span class="tipo">Gama media</span><p class="direccion">📍 Chivilcoy</p><p class="info">WhatsApp: 2346-603399</p><a href="https://rghotel.com.ar/" target="_blank">Ver sitio oficial →</a></div>
-            <div class="hospedaje-card"><h3>Don Hotel Chivilcoy</h3><span class="tipo">Hotel</span><span class="tipo">Céntrico</span><p class="direccion">📍 Chivilcoy</p><a href="https://www.instagram.com/donhotel.chivilcoy/" target="_blank">Ver Instagram →</a></div>
-        </div>
-        <div class="tip-visitantes">💡 <strong>Tip para visitantes:</strong> si venís por un evento puntual, reservá con anticipación.</div>
-    </section>
-
-    <section class="carteleras-section">
-        <h2 class="section-title">Carteleras Digitales y Entradas</h2>
-        <p class="text-center mb-2">¿Querés reservar o comprar online? Consultá las plataformas principales:</p>
-        <div class="carteleras-grid">
-            <a href="https://www.alternativateatral.com/teatros.asp?pais=1&provincia=1&zona=79" target="_blank" class="cartelera-link">Alternativa Teatral Chivilcoy</a>
-            <a href="https://planetaentrada.com/" target="_blank" class="cartelera-link">Planeta Entrada</a>
-            <a href="https://www.eventbrite.com.ar/d/argentina--chivilcoy/chivilcoy/" target="_blank" class="cartelera-link">Eventbrite Chivilcoy</a>
-        </div>
-    </section>
-
-    <section class="como-llegar-section">
-        <h2 class="section-title">¿Cómo llegar?</h2>
-        <p class="text-center mb-2">Te dejamos la ruta directa hasta la Plaza 25 de Mayo, el punto central de Chivilcoy.</p>
-        <div class="mapa-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52788.69489123456!2d-60.0345!3d-34.8956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb5c5c5c5c5c5%3A0x0!2sChivilcoy%2C+Buenos+Aires!5e0!3m2!1ses!2sar!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-    </section>
-
-    <section class="acciones-section" id="cargar">
-        <div class="accion-card">
-            <h3>Cargá tu evento</h3>
-            <p>¿Sos organizador, artista o formás parte de una institución en Chivilcoy? Compartinos tu propuesta.</p>
-            <a href="https://forms.gle/vryqPWTYSAFBfjqh8" target="_blank" class="btn btn-secondary">Ir al formulario →</a>
-        </div>
-        <div class="accion-card">
-            <h3>Apoyá este proyecto</h3>
-            <p>Movida Chivilcoy es una agenda independiente. Si esta página te resulta útil, podés colaborar con un cafecito.</p>
-            <a href="https://cafecito.app/movidachivilcoy" target="_blank" class="btn btn-primary" style="background: #667eea; color: white;">Invitar un cafecito ☕</a>
-        </div>
-    </section>
-
-    <!-- VALORACIÓN CON ESTRELLAS -->
-    <section class="valoracion-section" id="valoracion">
-        <div class="valoracion-card">
-            <h2 class="valoracion-titulo">¿Te gusta Movida Chivilcoy?</h2>
-            <p class="valoracion-subtitulo">Tu opinión nos ayuda a mejorar. ¡Dejanos tu valoración!</p>
-            
-            <form id="formValoracion">
-                <div class="estrellas-container">
-                    <input type="radio" id="estrella5" name="valoracion" value="5" class="estrella-input">
-                    <label for="estrella5" class="estrella-label">★</label>
-                    <input type="radio" id="estrella4" name="valoracion" value="4" class="estrella-input">
-                    <label for="estrella4" class="estrella-label">★</label>
-                    <input type="radio" id="estrella3" name="valoracion" value="3" class="estrella-input">
-                    <label for="estrella3" class="estrella-label">★</label>
-                    <input type="radio" id="estrella2" name="valoracion" value="2" class="estrella-input">
-                    <label for="estrella2" class="estrella-label">★</label>
-                    <input type="radio" id="estrella1" name="valoracion" value="1" class="estrella-input">
-                    <label for="estrella1" class="estrella-label">★</label>
+        <section class="agenda-section">
+            <div class="events-grid" id="eventsGrid">
+                <div class="event-card" data-category="teatro">
+                    <span class="event-tag">Teatro</span>
+                    <h3>La Verdad de las Mentiras</h3>
+                    <p class="event-info"><strong>Próximo Fin de Semana</strong> · 20:00 hs</p>
+                    <p class="event-info">📍 Teatro El Chasqui</p>
+                    <p class="event-info">Organiza: El Chasqui Cía Teatral</p>
+                    <p>Función de la aclamada comedia dramática local. Asegurá tu lugar revisando la boletería digital.</p>
+                    <a href="https://teatroelchasqui.com/" target="_blank" class="event-link">Ver sitio oficial →</a>
                 </div>
-                <div class="comentario-container">
-                    <label for="comentario" class="comentario-label">¿Querés dejar un comentario? (opcional)</label>
-                    <textarea id="comentario" class="comentario-textarea" placeholder="Contanos qué te parece la página..."></textarea>
+
+                <div class="event-card" data-category="teatro">
+                    <span class="event-tag">Teatro</span>
+                    <h3>Ciclo de Obras Dramáticas y Comedias</h3>
+                    <p class="event-info"><strong>Sábado y Domingo</strong> · 21:30 hs</p>
+                    <p class="event-info">📍 Teatro La Cueva</p>
+                    <p class="event-info">Organiza: Comisión La Cueva</p>
+                    <p>Disfrutá de la cartelera de producciones independientes, comedias y ciclos de música en nuestra sala histórica.</p>
+                    <a href="https://www.facebook.com/teatrolacueva.chivilcoy/" target="_blank" class="event-link">Ver Facebook Oficial →</a>
                 </div>
-                <button type="submit" class="btn-enviar-valoracion" id="btnEnviarValoracion">Enviar valoración</button>
-            </form>
 
-            <div class="mensaje-gracias" id="mensajeGracias">
-                ¡Gracias por tu valoración! 🎉 Tu opinión es muy importante para nosotros.
-            </div>
+                <div class="event-card" data-category="musica">
+                    <span class="event-tag">Música</span>
+                    <h3>Peña Folclórica Estudiantil</h3>
+                    <p class="event-info"><strong>Viernes</strong> · 21:00 hs</p>
+                    <p class="event-info">📍 Centro Cultural NK</p>
+                    <p class="event-info">Organiza: Centro de Estudiantes</p>
+                    <p>Una noche a puro folclore con artistas locales en vivo, servicio de cantina y espacio para bailar en familia en un espacio multidisciplinario.</p>
+                    <a href="https://www.facebook.com/CentroCulturalNestorKirchnerChivilcoy/" target="_blank" class="event-link">Ver espacio cultural →</a>
+                </div>
 
-            <div class="valoracion-promedio" id="valoracionPromedio" style="display: none;">
-                <p class="promedio-texto">Valoración promedio de la comunidad</p>
-                <span class="promedio-estrellas" id="estrellasPromedio"></span>
-                <span class="promedio-numero" id="numeroPromedio"></span>
-            </div>
-
-            <div class="comentarios-publicos" id="comentariosPublicos">
-                <h3 class="comentarios-titulo">💬 Comentarios de la comunidad</h3>
-                <div id="listaComentarios">
-                    <p class="cargando-comentarios">Cargando comentarios...</p>
+                <div class="no-events" id="noEvents" style="display: none;">
+                    <p>Por el momento no hay eventos programados en esta categoría. ¡Volvé a consultar pronto!</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <section class="teatros-section" id="espacios">
+            <h2 class="section-title">Teatros Independientes y Salas Principales</h2>
+            <div class="table-container">
+                <table class="teatros-table">
+                    <thead>
+                        <tr><th>Espacio / Sala</th><th>Descripción</th><th>Enlace de Acceso / Redes</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Teatro El Chasqui</strong></td><td>Institución teatral histórica con más de 60 años de trayectoria.</td><td><a href="https://teatroelchasqui.com/" target="_blank">Sitio Web</a></td></tr>
+                        <tr><td><strong>Teatro La Cueva</strong></td><td>Sala independiente con cartelera de obras dramáticas y comedias.</td><td><a href="https://www.facebook.com/teatrolacueva.chivilcoy/" target="_blank">Facebook</a></td></tr>
+                        <tr><td><strong>TRAC (Grupo Teatral)</strong></td><td>Espacio de experimentación de vanguardia y formación escénica.</td><td><a href="https://www.instagram.com/trachteatro/" target="_blank">Instagram</a></td></tr>
+                        <tr><td><strong>Centro Cultural NK</strong></td><td>Espacio multidisciplinario para peñas folclóricas y recitales.</td><td><a href="https://www.facebook.com/CentroCulturalNestorKirchnerChivilcoy/" target="_blank">Facebook</a></td></tr>
+                        <tr><td><strong>Agrupación Artística CEM</strong></td><td>Talleres de danza y teatro para todas las edades.</td><td><a href="https://www.instagram.com/cem.espaciodearte/" target="_blank">Instagram</a> · <a href="https://www.facebook.com/268563186992971" target="_blank">Facebook</a></td></tr>
+                        <tr><td><strong>El Portal del Tango</strong></td><td>Espacio cultural dedicado al tango. Milongas y shows en vivo.</td><td><a href="https://www.instagram.com/elportaldeltango/" target="_blank">Instagram</a></td></tr>
+                        <tr><td><strong>Los Marrones</strong></td><td>Salón de eventos para actividades culturales y espectáculos.</td><td><a href="https://www.instagram.com/marrones.ch/" target="_blank">Instagram</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="destacado-section">
+            <div class="destacado-card">
+                <h2>Destacado de la semana</h2>
+                <p class="fecha">Gran Fiesta del Encuentro Chivilcoyano · Próximo Sábado - 22:00 hs</p>
+                <p>El evento tradicionalista y comunitario más esperado llega con patio gastronómico gigante, artesanos, desfiles de campo y entrada libre y gratuita.</p>
+                <p><strong>📍 Predio del Centro Tradicionalista El Fogón</strong></p>
+                <a href="https://www.instagram.com/elfogonctro.tradicionalista/" target="_blank" class="btn">Más información del Predio →</a>
+            </div>
+        </section>
+
+        <section class="hospedajes-section" id="hospedajes">
+            <h2 class="section-title">Hospedajes en Chivilcoy</h2>
+            <div class="hospedajes-intro">
+                <p>Una guía útil para quienes vienen a disfrutar la agenda cultural. Los valores son orientativos: recomendamos confirmar disponibilidad y tarifa actual en cada enlace.</p>
+            </div>
+            <div class="hospedajes-grid">
+                <div class="hospedaje-card"><h3>Hotel Tomaso</h3><span class="tipo">Hotel boutique</span><span class="tipo">Gama media / alta</span><p class="direccion">📍 Av. De Tomaso y Calle 556</p><a href="https://www.hoteltomaso.com.ar/" target="_blank">Ver sitio oficial →</a></div>
+                <div class="hospedaje-card"><h3>Patri Hotel</h3><span class="tipo">Hotel 3 estrellas</span><span class="tipo">Céntrico</span><p class="direccion">Av. Ceballos 163</p><a href="https://www.facebook.com/patrihotel/" target="_blank">Ver contacto →</a></div>
+                <div class="hospedaje-card"><h3>Petit Hotel</h3><span class="tipo">Hotel 2 estrellas</span><span class="tipo">Céntrico</span><p class="direccion">Hipólito Yrigoyen 259</p><a href="https://www.booking.com/hotel/ar/petit-chivilcoy.es-ar.html" target="_blank">Ver disponibilidad →</a></div>
+                <div class="hospedaje-card"><h3>Hotel Mitre</h3><span class="tipo">Hotel 2 estrellas</span><span class="tipo">Av. principal</span><p class="direccion">Av. Mitre 227</p><a href="https://www.facebook.com/HotelMitreChivilcoy/" target="_blank">Ver contacto →</a></div>
+                <div class="hospedaje-card"><h3>Falcone Hotel</h3><span class="tipo">Hotel tradicional</span><span class="tipo">Económico</span><p class="direccion">📍 Belgrano 201</p><a href="https://www.paginasamarillas.com.ar/fichas/hotel-falcone_16843033" target="_blank">Ver datos →</a></div>
+                <div class="hospedaje-card"><h3>Gran Hotel Chivilcoy</h3><span class="tipo">Hotel 3 estrellas</span><span class="tipo">Centro</span><p class="direccion">📍 Av. Sarmiento 125</p><a href="https://www.facebook.com/p/Hotel-Gran-Hotel-Chivilcoy-100063639727923/" target="_blank">Ver contacto →</a></div>
+                <div class="hospedaje-card"><h3>De Los Robles Hotel</h3><span class="tipo">Hotel</span><span class="tipo">Ruta 5</span><p class="direccion">📍 Ruta 5 y 30, Chivilcoy</p><a href="https://www.instagram.com/delosrobleshotel/" target="_blank">Ver Instagram →</a></div>
+                <div class="hospedaje-card"><h3>RG Hotel Boutique</h3><span class="tipo">Hotel boutique</span><span class="tipo">Gama media</span><p class="direccion">📍 Chivilcoy</p><p class="info">WhatsApp: 2346-603399</p><a href="https://rghotel.com.ar/" target="_blank">Ver sitio oficial →</a></div>
+                <div class="hospedaje-card"><h3>Don Hotel Chivilcoy</h3><span class="tipo">Hotel</span><span class="tipo">Céntrico</span><p class="direccion">📍 Chivilcoy</p><a href="https://www.instagram.com/donhotel.chivilcoy/" target="_blank">Ver Instagram →</a></div>
+            </div>
+            <div class="tip-visitantes">💡 <strong>Tip para visitantes:</strong> si venís por un evento puntual, reservá con anticipación.</div>
+        </section>
+
+        <section class="carteleras-section">
+            <h2 class="section-title">Carteleras Digitales y Entradas</h2>
+            <p class="text-center mb-2">¿Querés reservar o comprar online? Consultá las plataformas principales:</p>
+            <div class="carteleras-grid">
+                <a href="https://www.alternativateatral.com/teatros.asp?pais=1&provincia=1&zona=79" target="_blank" class="cartelera-link">Alternativa Teatral Chivilcoy</a>
+                <a href="https://planetaentrada.com/" target="_blank" class="cartelera-link">Planeta Entrada</a>
+                <a href="https://www.eventbrite.com.ar/d/argentina--chivilcoy/chivilcoy/" target="_blank" class="cartelera-link">Eventbrite Chivilcoy</a>
+            </div>
+        </section>
+
+        <section class="como-llegar-section">
+            <h2 class="section-title">¿Cómo llegar?</h2>
+            <p class="text-center mb-2">Te dejamos la ruta directa hasta la Plaza 25 de Mayo, el punto central de Chivilcoy.</p>
+            <div class="mapa-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52788.69489123456!2d-60.0345!3d-34.8956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb5c5c5c5c5c5%3A0x0!2sChivilcoy%2C+Buenos+Aires!5e0!3m2!1ses!2sar!4v1234567890" allowfullscreen="" loading="lazy" title="Mapa de Chivilcoy"></iframe>
+            </div>
+        </section>
+
+        <section class="acciones-section" id="cargar">
+            <div class="accion-card">
+                <h3>Cargá tu evento</h3>
+                <p>¿Sos organizador, artista o formás parte de una institución en Chivilcoy? Compartinos tu propuesta.</p>
+                <a href="https://forms.gle/vryqPWTYSAFBfjqh8" target="_blank" class="btn btn-secondary">Ir al formulario →</a>
+            </div>
+            <div class="accion-card">
+                <h3>Apoyá este proyecto</h3>
+                <p>Movida Chivilcoy es una agenda independiente. Si esta página te resulta útil, podés colaborar con un cafecito.</p>
+                <a href="https://cafecito.app/movidachivilcoy" target="_blank" class="btn btn-primary" style="background: #667eea; color: white;">Invitar un cafecito ☕</a>
+            </div>
+        </section>
+
+        <!-- VALORACIÓN CON ESTRELLAS -->
+        <section class="valoracion-section" id="valoracion">
+            <div class="valoracion-card">
+                <h2 class="valoracion-titulo">¿Te gusta Movida Chivilcoy?</h2>
+                <p class="valoracion-subtitulo">Tu opinión nos ayuda a mejorar. ¡Dejanos tu valoración!</p>
+                
+                <form id="formValoracion" novalidate>
+                    <div class="estrellas-container" role="radiogroup" aria-label="Seleccioná una valoración de 1 a 5 estrellas">
+                        <input type="radio" id="estrella5" name="valoracion" value="5" class="estrella-input">
+                        <label for="estrella5" class="estrella-label" aria-label="5 estrellas - Excelente">★</label>
+                        <input type="radio" id="estrella4" name="valoracion" value="4" class="estrella-input">
+                        <label for="estrella4" class="estrella-label" aria-label="4 estrellas - Muy bueno">★</label>
+                        <input type="radio" id="estrella3" name="valoracion" value="3" class="estrella-input">
+                        <label for="estrella3" class="estrella-label" aria-label="3 estrellas - Bueno">★</label>
+                        <input type="radio" id="estrella2" name="valoracion" value="2" class="estrella-input">
+                        <label for="estrella2" class="estrella-label" aria-label="2 estrellas - Regular">★</label>
+                        <input type="radio" id="estrella1" name="valoracion" value="1" class="estrella-input">
+                        <label for="estrella1" class="estrella-label" aria-label="1 estrella - Malo">★</label>
+                    </div>
+                    <div class="comentario-container">
+                        <label for="comentario" class="comentario-label">¿Querés dejar un comentario? (opcional)</label>
+                        <textarea id="comentario" class="comentario-textarea" placeholder="Contanos qué te parece la página..." maxlength="500" aria-describedby="comentarioCounter"></textarea>
+                        <div id="comentarioCounter" class="comentario-counter">0/500 caracteres</div>
+                    </div>
+                    <button type="submit" class="btn-enviar-valoracion" id="btnEnviarValoracion">
+                        <span id="btnText">Enviar valoración</span>
+                    </button>
+                </form>
+
+                <div class="mensaje-gracias" id="mensajeGracias">
+                    ¡Gracias por tu valoración! 🎉 Tu opinión es muy importante para nosotros.
+                </div>
+
+                <div class="valoracion-promedio" id="valoracionPromedio" style="display: none;">
+                    <p class="promedio-texto">Valoración promedio de la comunidad</p>
+                    <span class="promedio-estrellas" id="estrellasPromedio"></span>
+                    <span class="promedio-numero" id="numeroPromedio"></span>
+                </div>
+
+                <div class="comentarios-publicos" id="comentariosPublicos">
+                    <h3 class="comentarios-titulo">💬 Comentarios de la comunidad</h3>
+                    <div id="listaComentarios">
+                        <p class="cargando-comentarios">Cargando comentarios...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- FOOTER COMPACTO -->
     <footer>
@@ -606,7 +758,7 @@
                 <h3>Legal</h3>
                 <p>&copy; 2026 Movida Chivilcoy</p>
                 <p class="autor">Lic. Leticia Gomez</p>
-                <a href="#" class="legal-link" id="openLegalModal">📋 Aviso legal</a>
+                <a href="#" class="legal-link" id="openLegalModal" role="button">📋 Aviso legal</a>
             </div>
         </div>
         <div class="footer-bottom">
@@ -615,11 +767,11 @@
     </footer>
 
     <!-- MODAL LEGAL -->
-    <div class="modal-overlay" id="legalModal">
+    <div class="modal-overlay" id="legalModal" role="dialog" aria-modal="true" aria-labelledby="legalModalTitle">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>📋 Aviso Legal y Términos de Uso</h2>
-                <button class="modal-close" id="closeLegalModal" aria-label="Cerrar">&times;</button>
+                <h2 id="legalModalTitle">📋 Aviso Legal y Términos de Uso</h2>
+                <button class="modal-close" id="closeLegalModal" aria-label="Cerrar modal">&times;</button>
             </div>
             <div class="modal-body">
                 <h3>1. Naturaleza del proyecto</h3>
@@ -642,11 +794,11 @@
     </div>
 
     <!-- MODAL TELÉFONOS -->
-    <div class="modal-overlay" id="telefonosModal">
+    <div class="modal-overlay" id="telefonosModal" role="dialog" aria-modal="true" aria-labelledby="telefonosModalTitle">
         <div class="modal-content telefonos-modal-content">
             <div class="modal-header telefonos-modal-header">
-                <h2>📞 Teléfonos Útiles de Chivilcoy</h2>
-                <button class="modal-close" id="closeTelefonosModal" aria-label="Cerrar">&times;</button>
+                <h2 id="telefonosModalTitle">📞 Teléfonos Útiles de Chivilcoy</h2>
+                <button class="modal-close" id="closeTelefonosModal" aria-label="Cerrar modal">&times;</button>
             </div>
             <div class="telefonos-body">
                 <div class="telefonos-intro-modal">
@@ -712,7 +864,71 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
     <script>
-        // Configuración de Firebase
+        // ============================================
+        // UTILIDADES
+        // ============================================
+        
+        /**
+         * Sanitiza texto para prevenir XSS
+         * @param {string} text - Texto a sanitizar
+         * @returns {string} - Texto sanitizado
+         */
+        function sanitizeText(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        /**
+         * Muestra notificación toast
+         * @param {string} message - Mensaje a mostrar
+         * @param {string} type - Tipo: 'success', 'error', 'warning'
+         */
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icons = {
+                success: '✅',
+                error: '❌',
+                warning: '⚠️'
+            };
+            
+            toast.innerHTML = `
+                <span class="toast-icon">${icons[type]}</span>
+                <span class="toast-message">${sanitizeText(message)}</span>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideInRight 0.3s ease reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        /**
+         * Debounce para optimizar búsquedas
+         * @param {Function} func - Función a ejecutar
+         * @param {number} wait - Milisegundos de espera
+         * @returns {Function}
+         */
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // ============================================
+        // FIREBASE CONFIGURATION
+        // ============================================
+        
         const firebaseConfig = {
             apiKey: "AIzaSyBbVhsEfXV0BH_v_FNJ_0w0rws_kwGU6eM",
             authDomain: "movida-chivilcoy.firebaseapp.com",
@@ -723,20 +939,28 @@
             appId: "1:686223187583:web:43c59be4da2b9854d5a94a"
         };
 
-        // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // Variables
+        // ============================================
+        // VARIABLES GLOBALES
+        // ============================================
+        
         const formValoracion = document.getElementById('formValoracion');
         const btnEnviarValoracion = document.getElementById('btnEnviarValoracion');
+        const btnText = document.getElementById('btnText');
         const mensajeGracias = document.getElementById('mensajeGracias');
         const valoracionPromedio = document.getElementById('valoracionPromedio');
         const estrellasPromedio = document.getElementById('estrellasPromedio');
         const numeroPromedio = document.getElementById('numeroPromedio');
         const listaComentarios = document.getElementById('listaComentarios');
+        const comentarioTextarea = document.getElementById('comentario');
+        const comentarioCounter = document.getElementById('comentarioCounter');
 
-        // Verificar si ya valoró
+        // ============================================
+        // VERIFICAR SI YA VALORÓ
+        // ============================================
+        
         const yaValoro = localStorage.getItem('yaValoroMovida');
         if (yaValoro) {
             formValoracion.style.display = 'none';
@@ -744,10 +968,32 @@
             mensajeGracias.innerHTML = '¡Ya dejaste tu valoración! 🎉 Gracias por tu opinión.';
         }
 
-        // Cargar valoraciones en tiempo real
+        // ============================================
+        // CONTADOR DE CARACTERES
+        // ============================================
+        
+        comentarioTextarea.addEventListener('input', () => {
+            const length = comentarioTextarea.value.length;
+            const maxLength = 500;
+            
+            comentarioCounter.textContent = `${length}/${maxLength} caracteres`;
+            
+            comentarioCounter.classList.remove('warning', 'error');
+            if (length > maxLength * 0.9) {
+                comentarioCounter.classList.add('error');
+            } else if (length > maxLength * 0.7) {
+                comentarioCounter.classList.add('warning');
+            }
+        });
+
+        // ============================================
+        // CARGAR VALORACIONES EN TIEMPO REAL
+        // ============================================
+        
         const valoracionesRef = db.ref('valoraciones');
         
-        valoracionesRef.orderByChild('fecha').on('value', (snapshot) => {
+        // OPTIMIZACIÓN: Cargar solo las últimas 50 valoraciones
+        valoracionesRef.orderByChild('fecha').limitToLast(50).on('value', (snapshot) => {
             const data = snapshot.val();
             const valoraciones = [];
             
@@ -765,7 +1011,7 @@
                 estrellasPromedio.innerHTML = '★'.repeat(Math.round(promedio)) + '☆'.repeat(5 - Math.round(promedio));
                 numeroPromedio.textContent = promedio.toFixed(1) + ` (${valoraciones.length} valoraciones)`;
 
-                // Mostrar comentarios
+                // Mostrar comentarios (PROTEGIDO CONTRA XSS)
                 const conComentario = valoraciones.filter(v => v.comentario && v.comentario.trim() !== '');
                 if (conComentario.length > 0) {
                     listaComentarios.innerHTML = '';
@@ -777,13 +1023,28 @@
                         });
                         const item = document.createElement('div');
                         item.className = 'comentario-item';
-                        item.innerHTML = `
-                            <div class="comentario-header">
-                                <span class="comentario-estrellas">${'★'.repeat(v.estrellas)}${'☆'.repeat(5 - v.estrellas)}</span>
-                                <span class="comentario-fecha">${fecha}</span>
-                            </div>
-                            <p class="comentario-texto">${v.comentario}</p>
-                        `;
+                        
+                        // CREAR ELEMENTOS DE FORMA SEGURA
+                        const header = document.createElement('div');
+                        header.className = 'comentario-header';
+                        
+                        const estrellas = document.createElement('span');
+                        estrellas.className = 'comentario-estrellas';
+                        estrellas.textContent = '★'.repeat(v.estrellas) + '☆'.repeat(5 - v.estrellas);
+                        
+                        const fechaSpan = document.createElement('span');
+                        fechaSpan.className = 'comentario-fecha';
+                        fechaSpan.textContent = fecha;
+                        
+                        header.appendChild(estrellas);
+                        header.appendChild(fechaSpan);
+                        
+                        const texto = document.createElement('p');
+                        texto.className = 'comentario-texto';
+                        texto.textContent = v.comentario; // ✅ SEGURO: textContent sanitiza automáticamente
+                        
+                        item.appendChild(header);
+                        item.appendChild(texto);
                         listaComentarios.appendChild(item);
                     });
                 } else {
@@ -794,52 +1055,71 @@
             }
         });
 
-        // Enviar valoración
-        formValoracion.addEventListener('submit', (e) => {
+        // ============================================
+        // ENVIAR VALORACIÓN
+        // ============================================
+        
+        formValoracion.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const valoracionSeleccionada = document.querySelector('input[name="valoracion"]:checked');
-            const comentario = document.getElementById('comentario').value.trim();
+            const comentario = comentarioTextarea.value.trim();
 
+            // VALIDACIONES
             if (!valoracionSeleccionada) {
-                alert('Por favor, seleccioná una cantidad de estrellas');
+                showToast('Por favor, seleccioná una cantidad de estrellas', 'warning');
                 return;
             }
 
-            btnEnviarValoracion.disabled = true;
-            btnEnviarValoracion.textContent = 'Enviando...';
-
             const estrellas = parseInt(valoracionSeleccionada.value);
+            
+            if (estrellas < 1 || estrellas > 5) {
+                showToast('Valoración inválida', 'error');
+                return;
+            }
+
+            if (comentario.length > 500) {
+                showToast('El comentario no puede exceder 500 caracteres', 'warning');
+                return;
+            }
+
+            // FEEDBACK VISUAL
+            btnEnviarValoracion.disabled = true;
+            btnText.innerHTML = '<span class="spinner"></span> Enviando...';
+
             const nuevaValoracion = {
                 estrellas: estrellas,
                 comentario: comentario,
                 fecha: new Date().toISOString()
             };
 
-            // Guardar en Firebase
-            valoracionesRef.push(nuevaValoracion)
-                .then(() => {
-                    localStorage.setItem('yaValoroMovida', 'true');
-                    formValoracion.style.display = 'none';
-                    mensajeGracias.classList.add('activo');
-                })
-                .catch((error) => {
-                    console.error('Error al enviar:', error);
-                    alert('Hubo un error al enviar tu valoración. Intentá de nuevo.');
-                    btnEnviarValoracion.disabled = false;
-                    btnEnviarValoracion.textContent = 'Enviar valoración';
-                });
+            try {
+                await valoracionesRef.push(nuevaValoracion);
+                localStorage.setItem('yaValoroMovida', 'true');
+                formValoracion.style.display = 'none';
+                mensajeGracias.classList.add('activo');
+                showToast('¡Gracias por tu valoración!', 'success');
+            } catch (error) {
+                console.error('Error al enviar:', error);
+                showToast('Hubo un error al enviar tu valoración. Intentá de nuevo.', 'error');
+                btnEnviarValoracion.disabled = false;
+                btnText.textContent = 'Enviar valoración';
+            }
         });
     </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // ============================================
             // 1. BOTÓN COMPARTIR POR WHATSAPP
+            // ============================================
+            
             const tarjetas = document.querySelectorAll('.event-card');
             tarjetas.forEach(tarjeta => {
                 const btn = document.createElement('button');
                 btn.innerHTML = '📱 Compartir';
                 btn.className = 'btn-compartir-dinamico';
+                btn.setAttribute('aria-label', 'Compartir evento por WhatsApp');
                 tarjeta.appendChild(btn);
             });
 
@@ -853,61 +1133,139 @@
                 }
             });
 
-            // 2. FILTROS
+            // ============================================
+            // 2. FILTROS Y BÚSQUEDA
+            // ============================================
+            
             const filterBtns = document.querySelectorAll('.filter-btn');
             const eventCards = document.querySelectorAll('.event-card');
             const noEvents = document.getElementById('noEvents');
+            const searchInput = document.getElementById('searchInput');
+            
+            let currentFilter = 'todos';
+            let currentSearch = '';
+
+            function filterEvents() {
+                let visibleCount = 0;
+                
+                eventCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    const title = card.querySelector('h3').innerText.toLowerCase();
+                    const description = card.querySelector('p').innerText.toLowerCase();
+                    
+                    const matchesFilter = currentFilter === 'todos' || category === currentFilter;
+                    const matchesSearch = currentSearch === '' || 
+                                         title.includes(currentSearch) || 
+                                         description.includes(currentSearch);
+                    
+                    if (matchesFilter && matchesSearch) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                noEvents.style.display = visibleCount === 0 ? 'block' : 'none';
+            }
 
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    const filter = btn.getAttribute('data-filter');
-                    let visibleCount = 0;
-                    eventCards.forEach(card => {
-                        if (filter === 'todos' || card.getAttribute('data-category') === filter) {
-                            card.style.display = 'block';
-                            visibleCount++;
-                        } else {
-                            card.style.display = 'none';
-                        }
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active');
+                        b.setAttribute('aria-pressed', 'false');
                     });
-                    noEvents.style.display = visibleCount === 0 ? 'block' : 'none';
+                    btn.classList.add('active');
+                    btn.setAttribute('aria-pressed', 'true');
+                    currentFilter = btn.getAttribute('data-filter');
+                    filterEvents();
                 });
             });
 
+            // BÚSQUEDA CON DEBOUNCE
+            const debouncedSearch = debounce((value) => {
+                currentSearch = value.toLowerCase();
+                filterEvents();
+            }, 300);
+
+            searchInput.addEventListener('input', (e) => {
+                debouncedSearch(e.target.value);
+            });
+
+            // ============================================
             // 3. MODAL LEGAL
+            // ============================================
+            
             const legalModal = document.getElementById('legalModal');
-            document.getElementById('openLegalModal').addEventListener('click', (e) => {
-                e.preventDefault();
-                legalModal.classList.add('active');
+            const openLegalModal = document.getElementById('openLegalModal');
+            const closeLegalModal = document.getElementById('closeLegalModal');
+            
+            function openModal(modal) {
+                modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
-            });
-            document.getElementById('closeLegalModal').addEventListener('click', () => {
-                legalModal.classList.remove('active');
+                // Focus trap
+                const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                const firstFocusable = focusableElements[0];
+                const lastFocusable = focusableElements[focusableElements.length - 1];
+                
+                modal.addEventListener('keydown', function(e) {
+                    if (e.key === 'Tab') {
+                        if (e.shiftKey) {
+                            if (document.activeElement === firstFocusable) {
+                                lastFocusable.focus();
+                                e.preventDefault();
+                            }
+                        } else {
+                            if (document.activeElement === lastFocusable) {
+                                firstFocusable.focus();
+                                e.preventDefault();
+                            }
+                        }
+                    }
+                });
+                
+                firstFocusable.focus();
+            }
+            
+            function closeModal(modal) {
+                modal.classList.remove('active');
                 document.body.style.overflow = '';
+            }
+
+            openLegalModal.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal(legalModal);
             });
+            
+            closeLegalModal.addEventListener('click', () => {
+                closeModal(legalModal);
+            });
+            
             legalModal.addEventListener('click', (e) => {
                 if (e.target === legalModal) {
-                    legalModal.classList.remove('active');
-                    document.body.style.overflow = '';
+                    closeModal(legalModal);
                 }
             });
 
+            // ============================================
             // 4. MODAL TELÉFONOS
+            // ============================================
+            
             const telefonosModal = document.getElementById('telefonosModal');
-            document.getElementById('openTelefonosBtn').addEventListener('click', () => {
-                telefonosModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
+            const openTelefonosBtn = document.getElementById('openTelefonosBtn');
+            const closeTelefonosModal = document.getElementById('closeTelefonosModal');
+
+            openTelefonosBtn.addEventListener('click', () => {
+                openModal(telefonosModal);
             });
-            document.getElementById('closeTelefonosModal').addEventListener('click', () => {
-                telefonosModal.classList.remove('active');
-                document.body.style.overflow = '';
+            
+            closeTelefonosModal.addEventListener('click', () => {
+                closeModal(telefonosModal);
             });
+            
             telefonosModal.addEventListener('click', (e) => {
                 if (e.target === telefonosModal) {
-                    telefonosModal.classList.remove('active');
-                    document.body.style.overflow = '';
+                    closeModal(telefonosModal);
                 }
             });
 
@@ -922,26 +1280,31 @@
                     : 'Ver todos los teléfonos útiles <span class="flecha">▼</span>';
             });
 
-            // 5. ESCAPE para cerrar modales
+            // ============================================
+            // 5. ESCAPE PARA CERRAR MODALES
+            // ============================================
+            
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     if (legalModal.classList.contains('active')) {
-                        legalModal.classList.remove('active');
-                        document.body.style.overflow = '';
+                        closeModal(legalModal);
                     }
                     if (telefonosModal.classList.contains('active')) {
-                        telefonosModal.classList.remove('active');
-                        document.body.style.overflow = '';
+                        closeModal(telefonosModal);
                     }
                 }
             });
 
-            // 6. SCROLL SUAVE CON OFFSET PARA EL STICKY
+            // ============================================
+            // 6. SCROLL SUAVE CON OFFSET DINÁMICO
+            // ============================================
+            
             document.querySelectorAll('a[href="#agenda"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
                     const filtersSection = document.querySelector('#agenda');
-                    const offsetTop = filtersSection.offsetTop - 200;
+                    const filtersHeight = document.querySelector('.filters-section').offsetHeight;
+                    const offsetTop = filtersSection.offsetTop - filtersHeight - 20;
                     
                     window.scrollTo({
                         top: offsetTop,
