@@ -138,7 +138,13 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        
+        /* Scroll padding global para compensar sticky */
+        html { 
+            scroll-behavior: smooth;
+            scroll-padding-top: 180px;
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -569,7 +575,7 @@
         }
 
         .section-title { font-size: clamp(1.5rem, 4vw, 2rem); color: var(--text-primary); margin-bottom: 1.5rem; text-align: center; }
-        .agenda-section { padding: 2rem 1rem; max-width: 1200px; margin: 0 auto; scroll-margin-top: 200px; }
+        .agenda-section { padding: 2rem 1rem; max-width: 1200px; margin: 0 auto; }
         .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
         .event-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; box-shadow: var(--shadow-md); transition: transform 0.3s, box-shadow 0.3s, background 0.3s ease; padding: 1.5rem; border-left: 4px solid var(--accent-primary); }
         .event-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
@@ -869,40 +875,85 @@
         @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ============================================
-           RESPONSIVE
+           RESPONSIVE MEJORADO
            ============================================ */
+        
         @media (max-width: 768px) {
-            .hero-section {
-                min-height: 500px;
-                height: 80vh;
+            html {
+                scroll-padding-top: 160px;
             }
+            
+            .hero-section {
+                min-height: 450px;
+                height: 85vh;
+                max-height: 700px;
+            }
+            
+            .hero-content {
+                padding: 2rem 1rem;
+            }
+            
             .carousel-btn {
-                width: 40px;
-                height: 40px;
+                width: 42px;
+                height: 42px;
                 font-size: 1.2rem;
             }
-            .carousel-btn.prev { left: 1rem; }
-            .carousel-btn.next { right: 1rem; }
+            .carousel-btn.prev { left: 0.8rem; }
+            .carousel-btn.next { right: 0.8rem; }
             .carousel-dots {
-                bottom: 1.5rem;
+                bottom: 1.2rem;
             }
             
-            .events-grid, .hospedajes-grid, .carteleras-grid, .acciones-section { grid-template-columns: 1fr; }
+            .events-grid, .hospedajes-grid, .carteleras-grid { 
+                grid-template-columns: 1fr; 
+            }
+            
+            .acciones-section {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
             .mapa-container { height: 280px; }
             .estrella-label { font-size: 2.5rem; }
-            .footer-content { grid-template-columns: 1fr; gap: 1rem; text-align: center; }
             
-            .filters-section { padding: 1rem 0.5rem; }
-            .filters-container { gap: 0.4rem; padding-bottom: 0.5rem; }
-            .filter-btn { padding: 0.5rem 0.9rem; font-size: 0.8rem; }
-            .section-title { font-size: 1.3rem; margin-bottom: 1rem; }
-            .agenda-section { scroll-margin-top: 180px; }
+            .footer-content { 
+                grid-template-columns: 1fr; 
+                gap: 1.5rem; 
+                text-align: center; 
+            }
+            
+            .filters-section { 
+                padding: 1rem 0.5rem; 
+            }
+            .filters-container { 
+                gap: 0.4rem; 
+                padding-bottom: 0.5rem;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                justify-content: flex-start;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            .filters-container::-webkit-scrollbar {
+                display: none;
+            }
+            .filter-btn { 
+                padding: 0.5rem 0.9rem; 
+                font-size: 0.8rem; 
+                flex-shrink: 0;
+            }
+            .section-title { 
+                font-size: 1.3rem; 
+                margin-bottom: 1rem; 
+            }
             
             .hamburger-btn {
                 top: 1rem;
                 right: 1rem;
-                width: 50px;
-                height: 50px;
+                width: 48px;
+                height: 48px;
             }
             .hamburger-icon {
                 width: 22px;
@@ -918,8 +969,9 @@
                 transform: translateY(-7.5px) rotate(-45deg);
             }
             
+            /* Toast y botón volver arriba NO se superponen */
             .toast {
-                bottom: 1rem;
+                bottom: 5rem;
                 right: 1rem;
                 left: 1rem;
                 max-width: none;
@@ -936,44 +988,175 @@
             .telefonos-simplificado {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            /* Mejorar tarjetas en móvil */
+            .event-card {
+                padding: 1.2rem;
+            }
+            
+            .hospedaje-card {
+                padding: 1.2rem;
+            }
+            
+            /* Modal en móvil */
+            .modal-content {
+                max-height: 95vh;
+                margin: 0.5rem;
+            }
+            .modal-header {
+                padding: 1.2rem 1.5rem;
+            }
+            .modal-body {
+                padding: 1.5rem;
+            }
+            
+            /* Nav panel más angosto en móvil pequeño */
+            .nav-panel {
+                width: 280px;
+                padding: 4.5rem 1.2rem 2rem;
+            }
         }
         
         @media (max-width: 480px) {
+            html {
+                scroll-padding-top: 150px;
+            }
+            
             .hero-section {
-                min-height: 400px;
-                height: 70vh;
+                min-height: 380px;
+                height: 75vh;
+                max-height: 600px;
             }
             .main-title {
-                font-size: 2rem;
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
             }
             .subtitle {
-                font-size: 0.95rem;
+                font-size: clamp(0.9rem, 3vw, 1.1rem);
             }
             .carousel-btn {
                 width: 36px;
                 height: 36px;
                 font-size: 1rem;
             }
+            .carousel-btn.prev { left: 0.5rem; }
+            .carousel-btn.next { right: 0.5rem; }
             .carousel-dot {
                 width: 10px;
                 height: 10px;
             }
             .carousel-dot.active {
-                width: 28px;
+                width: 25px;
             }
             
             .mapa-container { height: 240px; }
             .estrella-label { font-size: 2rem; }
-            .valoracion-card { padding: 1.5rem; }
+            .valoracion-card { padding: 1.5rem 1rem; }
             
             .filters-section { padding: 0.8rem 0.3rem; }
             .filters-container { gap: 0.3rem; }
             .filter-btn { padding: 0.4rem 0.7rem; font-size: 0.75rem; }
             .section-title { font-size: 1.2rem; margin-bottom: 0.8rem; }
-            .agenda-section { scroll-margin-top: 150px; }
             
             .telefonos-simplificado {
                 grid-template-columns: 1fr;
+            }
+            
+            /* Ajustar toast en pantallas muy pequeñas */
+            .toast {
+                bottom: 4.5rem;
+                font-size: 0.85rem;
+                padding: 0.8rem 1.2rem;
+            }
+            
+            .event-card h3 {
+                font-size: 1.05rem;
+            }
+            
+            .accion-card {
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        /* Pantallas muy pequeñas (iPhone SE, etc) */
+        @media (max-width: 360px) {
+            .hero-section {
+                min-height: 350px;
+                height: 70vh;
+            }
+            .main-title {
+                font-size: 1.6rem;
+            }
+            .carousel-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
+            .nav-panel {
+                width: 260px;
+            }
+            .hamburger-btn {
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        /* Landscape en móvil */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero-section {
+                height: 100vh;
+                min-height: 300px;
+                max-height: none;
+            }
+            .hero-content {
+                padding: 1rem;
+            }
+            .main-title {
+                font-size: 2rem;
+                margin-bottom: 0.3rem;
+            }
+            .carousel-dots {
+                bottom: 0.8rem;
+            }
+        }
+
+        /* Corrección para que el sticky filter no tape contenido */
+        @media (min-width: 769px) {
+            html {
+                scroll-padding-top: 200px;
+            }
+        }
+
+        /* Mejorar focus visible en móvil */
+        @media (hover: none) {
+            .filter-btn:active {
+                background: var(--accent-primary);
+                color: white;
+            }
+            
+            .event-card:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* Soporte para modo alto contraste */
+        @media (prefers-contrast: high) {
+            :root {
+                --border-color: #000000;
+                --text-secondary: #000000;
+            }
+            [data-theme="dark"] {
+                --border-color: #ffffff;
+                --text-secondary: #ffffff;
+            }
+            .filter-btn {
+                border-width: 3px;
+            }
+        }
+
+        /* Animación más suave para el carrusel */
+        @media (prefers-reduced-motion: no-preference) {
+            .carousel-track {
+                transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             }
         }
 
@@ -1032,16 +1215,25 @@
     <!-- HEADER / HERO CON CARRUSEL DE FONDO -->
     <header class="hero-section">
         <!-- Carrusel como fondo -->
-        <div class="hero-carousel" id="heroCarousel">
-            <div class="carousel-track" id="carouselTrack">
-                <div class="carousel-slide">
-                    <img src="https://images.unsplash.com/photo-1503095396549-807759245b35?w=1920&h=1080&fit=crop" alt="Teatro en escena" loading="lazy">
+        <div class="hero-carousel" id="heroCarousel" aria-roledescription="carousel" aria-label="Imágenes destacadas">
+            <div class="carousel-track" id="carouselTrack" aria-live="off">
+                <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="Imagen 1 de 3">
+                    <img src="https://images.unsplash.com/photo-1503095396549-807759245b35?w=1920&h=1080&fit=crop" 
+                         alt="Teatro en escena" 
+                         fetchpriority="high"
+                         decoding="async">
                 </div>
-                <div class="carousel-slide">
-                    <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=1920&h=1080&fit=crop" alt="Música en vivo" loading="lazy">
+                <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="Imagen 2 de 3">
+                    <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=1920&h=1080&fit=crop" 
+                         alt="Música en vivo" 
+                         loading="lazy"
+                         decoding="async">
                 </div>
-                <div class="carousel-slide">
-                    <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=1920&h=1080&fit=crop" alt="Eventos culturales" loading="lazy">
+                <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="Imagen 3 de 3">
+                    <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=1920&h=1080&fit=crop" 
+                         alt="Eventos culturales" 
+                         loading="lazy"
+                         decoding="async">
                 </div>
             </div>
         </div>
@@ -1672,6 +1864,13 @@
                 });
             });
 
+            // Cerrar menú al redimensionar a desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 1024 && navPanel.classList.contains('active')) {
+                    closeNav();
+                }
+            });
+
             // ============================================
             // 2. MODO OSCURO - TOGGLE
             // ============================================
@@ -1720,7 +1919,7 @@
             });
 
             // ============================================
-            // 3. CARRUSEL DE IMÁGENES (HEADER)
+            // 3. CARRUSEL DE IMÁGENES (MEJORADO)
             // ============================================
             
             const carouselTrack = document.getElementById('carouselTrack');
@@ -1730,6 +1929,7 @@
             const nextBtn = document.getElementById('carouselNext');
             let currentSlide = 0;
             let autoplayInterval;
+            let isPageVisible = true;
 
             // Crear dots
             slides.forEach((_, index) => {
@@ -1737,6 +1937,7 @@
                 dot.className = 'carousel-dot' + (index === 0 ? ' active' : '');
                 dot.setAttribute('aria-label', `Ir a imagen ${index + 1}`);
                 dot.setAttribute('role', 'tab');
+                dot.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
                 dot.addEventListener('click', () => goToSlide(index));
                 dotsContainer.appendChild(dot);
             });
@@ -1747,7 +1948,14 @@
                 currentSlide = (index + slides.length) % slides.length;
                 carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
                 dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === currentSlide);
+                    const isActive = i === currentSlide;
+                    dot.classList.toggle('active', isActive);
+                    dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                });
+                
+                // Actualizar aria-label de slides
+                slides.forEach((slide, i) => {
+                    slide.setAttribute('aria-hidden', i !== currentSlide ? 'true' : 'false');
                 });
             }
 
@@ -1770,13 +1978,25 @@
             });
 
             function startAutoplay() {
-                autoplayInterval = setInterval(nextSlide, 5000);
+                if (isPageVisible) {
+                    autoplayInterval = setInterval(nextSlide, 5000);
+                }
             }
 
             function resetAutoplay() {
                 clearInterval(autoplayInterval);
                 startAutoplay();
             }
+
+            // Page Visibility API - Pausar cuando la pestaña no está visible
+            document.addEventListener('visibilitychange', () => {
+                isPageVisible = !document.hidden;
+                if (document.hidden) {
+                    clearInterval(autoplayInterval);
+                } else {
+                    startAutoplay();
+                }
+            });
 
             startAutoplay();
 
@@ -1785,23 +2005,30 @@
             heroCarousel.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
             heroCarousel.addEventListener('mouseleave', startAutoplay);
 
-            // Soporte para swipe en móviles
+            // Soporte para swipe en móviles (mejorado)
             let touchStartX = 0;
             let touchEndX = 0;
+            let touchStartY = 0;
+            let touchEndY = 0;
 
             heroCarousel.addEventListener('touchstart', (e) => {
                 touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
             }, { passive: true });
 
             heroCarousel.addEventListener('touchend', (e) => {
                 touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
                 handleSwipe();
             }, { passive: true });
 
             function handleSwipe() {
-                const diff = touchStartX - touchEndX;
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0) {
+                const diffX = touchStartX - touchEndX;
+                const diffY = touchStartY - touchEndY;
+                
+                // Solo si el swipe horizontal es mayor que el vertical (evitar conflictos con scroll)
+                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
                         nextSlide();
                     } else {
                         prevSlide();
@@ -1810,8 +2037,19 @@
                 }
             }
 
+            // Navegación con teclado en el carrusel
+            heroCarousel.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                    resetAutoplay();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlide();
+                    resetAutoplay();
+                }
+            });
+
             // ============================================
-            // 4. BOTÓN COMPARTIR POR WHATSAPP
+            // 4. BOTÓN COMPARTIR POR WHATSAPP (MEJORADO)
             // ============================================
             
             const tarjetas = document.querySelectorAll('.event-card');
@@ -1819,7 +2057,8 @@
                 const btn = document.createElement('button');
                 btn.innerHTML = '📱 Compartir';
                 btn.className = 'btn-compartir-dinamico';
-                btn.setAttribute('aria-label', 'Compartir evento por WhatsApp');
+                const titulo = tarjeta.querySelector('h3').innerText;
+                btn.setAttribute('aria-label', `Compartir evento "${titulo}" por WhatsApp`);
                 tarjeta.appendChild(btn);
             });
 
@@ -1827,14 +2066,15 @@
                 if (e.target.classList.contains('btn-compartir-dinamico')) {
                     const tarjeta = e.target.closest('.event-card');
                     const titulo = tarjeta.querySelector('h3').innerText;
+                    const lugar = tarjeta.querySelector('.event-info')?.innerText || '';
                     const url = window.location.href;
-                    const mensaje = `¡Mirá esto en Movida Chivilcoy: ${titulo}! ${url}`;
+                    const mensaje = `¡Mirá esto en Movida Chivilcoy!\n\n📅 ${titulo}\n${lugar}\n\n${url}`;
                     window.open(`https://wa.me/?text=${encodeURIComponent(mensaje)}`, '_blank', 'noopener,noreferrer');
                 }
             });
 
             // ============================================
-            // 5. FILTROS Y BÚSQUEDA
+            // 5. FILTROS Y BÚSQUEDA (CORREGIDO)
             // ============================================
             
             const filterBtns = document.querySelectorAll('.filter-btn');
@@ -1851,12 +2091,16 @@
                 eventCards.forEach(card => {
                     const category = card.getAttribute('data-category');
                     const title = card.querySelector('h3').innerText.toLowerCase();
-                    const description = card.querySelector('p').innerText.toLowerCase();
+                    
+                    // Buscar en TODOS los párrafos de la tarjeta
+                    const allText = Array.from(card.querySelectorAll('p'))
+                        .map(p => p.innerText.toLowerCase())
+                        .join(' ');
                     
                     const matchesFilter = currentFilter === 'todos' || category === currentFilter;
                     const matchesSearch = currentSearch === '' || 
                                          title.includes(currentSearch) || 
-                                         description.includes(currentSearch);
+                                         allText.includes(currentSearch);
                     
                     if (matchesFilter && matchesSearch) {
                         card.style.display = 'block';
@@ -1883,7 +2127,7 @@
             });
 
             const debouncedSearch = debounce((value) => {
-                currentSearch = value.toLowerCase();
+                currentSearch = value.toLowerCase().trim();
                 filterEvents();
             }, 300);
 
@@ -1892,7 +2136,7 @@
             });
 
             // ============================================
-            // 6. MODALES (LEGAL Y TELÉFONOS)
+            // 6. MODALES (LEGAL Y TELÉFONOS) - CORREGIDO
             // ============================================
             
             const legalModal = document.getElementById('legalModal');
@@ -1903,14 +2147,24 @@
             const openTelefonosBtnNav = document.getElementById('openTelefonosBtnNav');
             const closeTelefonosModal = document.getElementById('closeTelefonosModal');
 
+            // Guardar referencia al listener de trapFocus para poder removerlo
+            let currentTrapFocusHandler = null;
+
             function openModal(modal) {
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                
                 const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
                 const firstFocusable = focusableElements[0];
                 const lastFocusable = focusableElements[focusableElements.length - 1];
                 
-                modal.addEventListener('keydown', function trapFocus(e) {
+                // Remover listener anterior si existe
+                if (currentTrapFocusHandler) {
+                    modal.removeEventListener('keydown', currentTrapFocusHandler);
+                }
+                
+                // Crear nuevo handler
+                currentTrapFocusHandler = function(e) {
                     if (e.key === 'Tab') {
                         if (e.shiftKey) {
                             if (document.activeElement === firstFocusable) {
@@ -1924,14 +2178,22 @@
                             }
                         }
                     }
-                });
+                };
                 
-                firstFocusable.focus();
+                modal.addEventListener('keydown', currentTrapFocusHandler);
+                
+                setTimeout(() => firstFocusable.focus(), 100);
             }
             
             function closeModal(modal) {
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
+                
+                // Remover listener de trap focus
+                if (currentTrapFocusHandler) {
+                    modal.removeEventListener('keydown', currentTrapFocusHandler);
+                    currentTrapFocusHandler = null;
+                }
             }
 
             openLegalModal.addEventListener('click', (e) => {
@@ -1950,12 +2212,8 @@
             });
 
             openTelefonosBtnNav.addEventListener('click', () => {
-                hamburgerBtn.classList.remove('active');
-                navPanel.classList.remove('active');
-                navOverlay.classList.remove('active');
-                hamburgerBtn.setAttribute('aria-expanded', 'false');
-                navPanel.setAttribute('aria-hidden', 'true');
-                openModal(telefonosModal);
+                closeNav();
+                setTimeout(() => openModal(telefonosModal), 100);
             });
             
             closeTelefonosModal.addEventListener('click', () => {
@@ -1981,18 +2239,13 @@
                         closeModal(telefonosModal);
                     }
                     if (navPanel.classList.contains('active')) {
-                        hamburgerBtn.classList.remove('active');
-                        navPanel.classList.remove('active');
-                        navOverlay.classList.remove('active');
-                        hamburgerBtn.setAttribute('aria-expanded', 'false');
-                        navPanel.setAttribute('aria-hidden', 'true');
-                        document.body.style.overflow = '';
+                        closeNav();
                     }
                 }
             });
 
             // ============================================
-            // 8. SCROLL SUAVE CON OFFSET DINÁMICO
+            // 8. SCROLL SUAVE CON OFFSET DINÁMICO (MEJORADO)
             // ============================================
             
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2004,15 +2257,26 @@
                     if (!target) return;
                     
                     e.preventDefault();
-                    const filtersHeight = document.querySelector('.filters-section').offsetHeight;
-                    const offsetTop = target.offsetTop - filtersHeight - 20;
+                    
+                    // Calcular offset dinámicamente
+                    const filtersSection = document.querySelector('.filters-section');
+                    const filtersHeight = filtersSection ? filtersSection.offsetHeight : 0;
+                    const offset = filtersHeight + 20;
+                    
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
                     
                     window.scrollTo({
-                        top: offsetTop,
+                        top: targetPosition,
                         behavior: 'smooth'
                     });
                     
+                    // Actualizar URL sin recargar
                     history.pushState(null, null, href);
+                    
+                    // Cerrar menú si está abierto
+                    if (navPanel.classList.contains('active')) {
+                        closeNav();
+                    }
                 });
             });
 
@@ -2021,12 +2285,19 @@
             // ============================================
             
             const btnVolverArriba = document.getElementById('btnVolverArriba');
+            let scrollTicking = false;
             
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 400) {
-                    btnVolverArriba.classList.add('visible');
-                } else {
-                    btnVolverArriba.classList.remove('visible');
+                if (!scrollTicking) {
+                    window.requestAnimationFrame(() => {
+                        if (window.scrollY > 400) {
+                            btnVolverArriba.classList.add('visible');
+                        } else {
+                            btnVolverArriba.classList.remove('visible');
+                        }
+                        scrollTicking = false;
+                    });
+                    scrollTicking = true;
                 }
             }, { passive: true });
             
@@ -2035,6 +2306,20 @@
                     top: 0,
                     behavior: 'smooth'
                 });
+            });
+
+            // ============================================
+            // 10. DETECCIÓN DE ORIENTACIÓN (MEJORA UX)
+            // ============================================
+            
+            window.addEventListener('orientationchange', () => {
+                setTimeout(() => {
+                    // Recalcular posiciones después de cambiar orientación
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'auto'
+                    });
+                }, 200);
             });
         });
     </script>
