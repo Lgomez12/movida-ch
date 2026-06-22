@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movida Chivilcoy - Agenda Cultural y Comunitaria | Teatro, Música y Eventos</title>
     
+    <!-- CONTENT SECURITY POLICY - FASE 1: SEGURIDAD -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://www.googletagmanager.com;
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data: https:;
+        font-src 'self' data:;
+        connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://www.google-analytics.com;
+        frame-src https://www.google.com;
+        frame-ancestors 'none';
+        form-action 'self';
+        base-uri 'self';
+    ">
+    
     <!-- SEO META TAGS -->
     <meta name="description" content="Agenda cultural de Chivilcoy: teatro, música, ferias, talleres, hospedajes y teléfonos útiles. Todo lo que pasa en la ciudad, en un solo lugar. Capital Provincial del Teatro.">
     <meta name="keywords" content="Chivilcoy, agenda cultural, teatro Chivilcoy, música en vivo, eventos culturales, Capital Provincial del Teatro, hospedajes Chivilcoy, teléfonos útiles, teatro independiente, peñas folclóricas">
@@ -760,6 +774,15 @@
             outline-offset: 2px;
         }
 
+        /* FASE 1: Honeypot field para anti-spam */
+        .hp-field {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+        }
+
         /* ============================================
            FOOTER CON HOVER
            ============================================ */
@@ -1220,18 +1243,24 @@
                 <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="Imagen 1 de 3">
                     <img src="https://images.unsplash.com/photo-1503095396549-807759245b35?w=1920&h=1080&fit=crop" 
                          alt="Teatro en escena" 
+                         width="1920"
+                         height="1080"
                          fetchpriority="high"
                          decoding="async">
                 </div>
                 <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="Imagen 2 de 3">
                     <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=1920&h=1080&fit=crop" 
                          alt="Música en vivo" 
+                         width="1920"
+                         height="1080"
                          loading="lazy"
                          decoding="async">
                 </div>
                 <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="Imagen 3 de 3">
                     <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=1920&h=1080&fit=crop" 
                          alt="Eventos culturales" 
+                         width="1920"
+                         height="1080"
                          loading="lazy"
                          decoding="async">
                 </div>
@@ -1404,7 +1433,11 @@
                 <h2 class="valoracion-titulo">¿Te gusta Movida Chivilcoy?</h2>
                 <p class="valoracion-subtitulo">Tu opinión nos ayuda a mejorar. ¡Dejanos tu valoración!</p>
                 
+                <!-- FASE 1: Formulario con honeypot anti-spam -->
                 <form id="formValoracion" novalidate>
+                    <!-- Honeypot field - invisible para usuarios, visible para bots -->
+                    <input type="text" name="website" id="honeypot" class="hp-field" tabindex="-1" autocomplete="off">
+                    
                     <div class="estrellas-container" role="radiogroup" aria-label="Seleccioná una valoración de 1 a 5 estrellas">
                         <input type="radio" id="estrella5" name="valoracion" value="5" class="estrella-input">
                         <label for="estrella5" class="estrella-label" aria-label="5 estrellas - Excelente">★</label>
@@ -1549,13 +1582,38 @@
 
     <script>
         // ============================================
-        // UTILIDADES
+        // FASE 1: UTILIDADES DE SEGURIDAD Y VALIDACIÓN
         // ============================================
         
+        // Sanitización robusta contra XSS
         function sanitizeText(text) {
+            if (typeof text !== 'string') return '';
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
+        }
+
+        // Validación de timestamp para prevenir spam
+        function validateTimestamp() {
+            const formLoadTime = sessionStorage.getItem('formLoadTime');
+            if (!formLoadTime) {
+                sessionStorage.setItem('formLoadTime', Date.now().toString());
+                return true;
+            }
+            
+            const timeDiff = Date.now() - parseInt(formLoadTime);
+            // Mínimo 3 segundos entre carga del formulario y envío
+            return timeDiff >= 3000;
+        }
+
+        // Rate limiting por localStorage
+        function checkRateLimit() {
+            const lastSubmission = localStorage.getItem('lastSubmissionTime');
+            if (!lastSubmission) return true;
+            
+            const timeDiff = Date.now() - parseInt(lastSubmission);
+            // Mínimo 60 segundos entre envíos
+            return timeDiff >= 60000;
         }
 
         function showToast(message, type = 'success') {
@@ -1634,6 +1692,41 @@
         }
 
         // ============================================
+        // FASE 1: MANEJO OFFLINE
+        // ============================================
+        
+        let isOnline = navigator.onLine;
+        let pendingSubmissions = JSON.parse(localStorage.getItem('pendingSubmissions') || '[]');
+
+        window.addEventListener('online', () => {
+            isOnline = true;
+            showToast('Conexión restaurada', 'success');
+            syncPendingSubmissions();
+        });
+
+        window.addEventListener('offline', () => {
+            isOnline = false;
+            showToast('Sin conexión. Los datos se guardarán cuando vuelva la conexión.', 'warning');
+        });
+
+        function syncPendingSubmissions() {
+            if (!db || pendingSubmissions.length === 0) return;
+            
+            const valoracionesRef = db.ref('valoraciones');
+            
+            pendingSubmissions.forEach((submission, index) => {
+                valoracionesRef.push(submission)
+                    .then(() => {
+                        pendingSubmissions.splice(index, 1);
+                        localStorage.setItem('pendingSubmissions', JSON.stringify(pendingSubmissions));
+                    })
+                    .catch(error => {
+                        console.error('Error al sincronizar:', error);
+                    });
+            });
+        }
+
+        // ============================================
         // VARIABLES GLOBALES
         // ============================================
         
@@ -1647,6 +1740,7 @@
         const listaComentarios = document.getElementById('listaComentarios');
         const comentarioTextarea = document.getElementById('comentario');
         const comentarioCounter = document.getElementById('comentarioCounter');
+        const honeypot = document.getElementById('honeypot');
 
         // ============================================
         // VERIFICAR SI YA VALORÓ
@@ -1730,7 +1824,8 @@
                             
                             const texto = document.createElement('p');
                             texto.className = 'comentario-texto';
-                            texto.textContent = v.comentario;
+                            // FASE 1: Sanitización XSS
+                            texto.textContent = sanitizeText(v.comentario);
                             
                             item.appendChild(header);
                             item.appendChild(texto);
@@ -1749,11 +1844,29 @@
         }
 
         // ============================================
-        // ENVIAR VALORACIÓN
+        // FASE 1: ENVIAR VALORACIÓN CON VALIDACIÓN ANTI-SPAM
         // ============================================
         
         formValoracion.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // FASE 1: Verificar honeypot (anti-spam)
+            if (honeypot.value !== '') {
+                console.warn('Bot detectado');
+                return;
+            }
+            
+            // FASE 1: Validar timestamp
+            if (!validateTimestamp()) {
+                showToast('Por favor, esperá unos segundos antes de enviar', 'warning');
+                return;
+            }
+            
+            // FASE 1: Validar rate limiting
+            if (!checkRateLimit()) {
+                showToast('Ya enviaste una valoración recientemente. Esperá un momento.', 'warning');
+                return;
+            }
             
             if (!db) {
                 showToast('Error de conexión. Recargá la página.', 'error');
@@ -1785,15 +1898,28 @@
 
             const nuevaValoracion = {
                 estrellas: estrellas,
-                comentario: comentario,
-                fecha: new Date().toISOString()
+                comentario: sanitizeText(comentario), // FASE 1: Sanitización
+                fecha: new Date().toISOString(),
+                timestamp: Date.now() // FASE 1: Timestamp para validación
             };
 
             try {
+                // FASE 1: Manejo offline
+                if (!isOnline) {
+                    pendingSubmissions.push(nuevaValoracion);
+                    localStorage.setItem('pendingSubmissions', JSON.stringify(pendingSubmissions));
+                    localStorage.setItem('yaValoroMovida', 'true');
+                    formValoracion.style.display = 'none';
+                    mensajeGracias.classList.add('activo');
+                    showToast('Guardado offline. Se sincronizará cuando tengas conexión.', 'success');
+                    return;
+                }
+
                 const valoracionesRef = db.ref('valoraciones');
                 await valoracionesRef.push(nuevaValoracion);
                 
                 localStorage.setItem('yaValoroMovida', 'true');
+                localStorage.setItem('lastSubmissionTime', Date.now().toString()); // FASE 1: Rate limiting
                 formValoracion.style.display = 'none';
                 mensajeGracias.classList.add('activo');
                 showToast('¡Gracias por tu valoración!', 'success');
@@ -1807,6 +1933,9 @@
                     mensajeError = 'Error de permisos. Contactanos por favor.';
                 } else if (error.code === 'NETWORK_ERROR') {
                     mensajeError = 'Error de conexión. Verificá tu internet.';
+                    // FASE 1: Guardar en pending si es error de red
+                    pendingSubmissions.push(nuevaValoracion);
+                    localStorage.setItem('pendingSubmissions', JSON.stringify(pendingSubmissions));
                 } else if (error.code === 'INVALID_ARGUMENT') {
                     mensajeError = 'Datos inválidos. Verificá la información.';
                 }
@@ -1817,6 +1946,11 @@
                 btnText.textContent = 'Enviar valoración';
             }
         });
+
+        // FASE 1: Sincronizar al cargar si hay pendientes
+        if (pendingSubmissions.length > 0 && isOnline) {
+            syncPendingSubmissions();
+        }
     </script>
 
     <script>
