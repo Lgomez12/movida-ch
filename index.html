@@ -15,7 +15,7 @@
         img-src 'self' data: https:;
         font-src 'self' data:;
        connect-src 'self' https://*.firebaseio.com wss://*.firebaseio.com https://*.firebasedatabase.app wss://*.firebasedatabase.app https://*.googleapis.com https://www.google-analytics.com;
-        frame-src https://www.google.com;
+      frame-src https://www.google.com https://*.firebaseio.com https://*.firebasedatabase.app;
         frame-ancestors 'none';
         form-action 'self';
         base-uri 'self';
