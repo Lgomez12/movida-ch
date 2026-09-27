@@ -1,0 +1,650 @@
+[
+  {
+    "club": "9 de abril",
+    "instagram": "https://www.instagram.com/rotary9deabril/",
+    "facebook": "",
+    "n": 1
+  },
+  {
+    "club": "25 de mayo",
+    "instagram": "https://www.instagram.com/rotary25demayo/",
+    "facebook": "",
+    "n": 2
+  },
+  {
+    "club": "Adrogué",
+    "instagram": "https://www.instagram.com/rotaryadrogue/",
+    "facebook": "",
+    "n": 3
+  },
+  {
+    "club": "Alberti",
+    "instagram": "https://www.instagram.com/rotaryalberti/",
+    "facebook": "",
+    "n": 4
+  },
+  {
+    "club": "Aldo Bonzi",
+    "instagram": "https://www.instagram.com/rotarybonzi/",
+    "facebook": "",
+    "n": 5
+  },
+  {
+    "club": "Alte. Brown",
+    "instagram": "https://www.instagram.com/rotaryclubalmirantebrown/",
+    "facebook": "",
+    "n": 6
+  },
+  {
+    "club": "Avellaneda",
+    "instagram": "https://www.instagram.com/rotaryclubavellaneda/",
+    "facebook": "",
+    "n": 7
+  },
+  {
+    "club": "Banfield Este",
+    "instagram": "https://www.instagram.com/rotarybanfield/",
+    "facebook": "",
+    "n": 8
+  },
+  {
+    "club": "Barrancas de Quilmes",
+    "instagram": "https://www.instagram.com/rotaryclubbarrancasdequilmes/",
+    "facebook": "",
+    "n": 9
+  },
+  {
+    "club": "Bella Vista",
+    "instagram": "https://www.instagram.com/rotaryclubbellavista/",
+    "facebook": "",
+    "n": 10
+  },
+  {
+    "club": "Berazategui",
+    "instagram": "https://www.instagram.com/rotaryberazategui/",
+    "facebook": "",
+    "n": 11
+  },
+  {
+    "club": "Berisso",
+    "instagram": "https://www.instagram.com/rotary.club.berisso/",
+    "facebook": "",
+    "n": 12
+  },
+  {
+    "club": "Bernal",
+    "instagram": "https://www.instagram.com/rotaryclub.bernal/",
+    "facebook": "https://www.facebook.com/p/Rotary-CLUB-De-Bernal-100080883746625/",
+    "n": 13
+  },
+  {
+    "club": "Bragado",
+    "instagram": "https://www.instagram.com/rotarybragado/",
+    "facebook": "",
+    "n": 14
+  },
+  {
+    "club": "Burzaco Pque. Industrial",
+    "instagram": "https://www.instagram.com/rotary_burzaco_p.i/",
+    "facebook": "",
+    "n": 15
+  },
+  {
+    "club": "Canning",
+    "instagram": "https://www.instagram.com/rotarycanning/",
+    "facebook": "",
+    "n": 16
+  },
+  {
+    "club": "Cañuelas",
+    "instagram": "https://www.instagram.com/rotaryclubcanuelas/",
+    "facebook": "",
+    "n": 17
+  },
+  {
+    "club": "Carlos Casares",
+    "instagram": "https://www.instagram.com/rotarycasares/",
+    "facebook": "https://www.facebook.com/rotarycasares/",
+    "n": 18
+  },
+  {
+    "club": "Caseros Norte",
+    "instagram": "https://www.instagram.com/rotary.caseros.norte/",
+    "facebook": "https://www.facebook.com/rotarydecaserosnorte/mentions/",
+    "n": 19
+  },
+  {
+    "club": "Caseros Sur",
+    "instagram": "https://www.instagram.com/rotary.caseros.sur/",
+    "facebook": "",
+    "n": 20
+  },
+  {
+    "club": "Castelar",
+    "instagram": "https://www.instagram.com/rotarycastelar/",
+    "facebook": "",
+    "n": 21
+  },
+  {
+    "club": "Chascomús",
+    "instagram": "https://www.instagram.com/rcchascomus/",
+    "facebook": "",
+    "n": 22
+  },
+  {
+    "club": "Chivilcoy",
+    "instagram": "https://www.instagram.com/rotarychivilcoy/",
+    "facebook": "",
+    "n": 23
+  },
+  {
+    "club": "Ciudadela",
+    "instagram": "https://www.instagram.com/rotary_club_ciudadela/",
+    "facebook": "",
+    "n": 24
+  },
+  {
+    "club": "Cnel. Brandsen",
+    "instagram": "https://www.instagram.com/rotaryclubdebrandsen/",
+    "facebook": "",
+    "n": 25
+  },
+  {
+    "club": "Cruce Florencio Varela",
+    "instagram": "https://www.instagram.com/rotary.florenciovarela/",
+    "facebook": "",
+    "n": 26
+  },
+  {
+    "club": "Domínico",
+    "instagram": "https://www.instagram.com/rotary_c_dominico/",
+    "facebook": "",
+    "n": 27
+  },
+  {
+    "club": "Eclub Conurbano",
+    "instagram": "",
+    "facebook": "",
+    "n": 28
+  },
+  {
+    "club": "EClub Oeste JLDL",
+    "instagram": "https://www.instagram.com/rotaryecluboestejldl/",
+    "facebook": "",
+    "n": 29
+  },
+  {
+    "club": "El Dique Tolosa",
+    "instagram": "https://www.instagram.com/rceldiquetolosa/",
+    "facebook": "",
+    "n": 30
+  },
+  {
+    "club": "El Palomar",
+    "instagram": "https://www.instagram.com/rotaryclubelpalomar/",
+    "facebook": "",
+    "n": 31
+  },
+  {
+    "club": "Ensenada",
+    "instagram": "https://www.instagram.com/rotaryclubensenada/",
+    "facebook": "",
+    "n": 32
+  },
+  {
+    "club": "Esteban Echeverría",
+    "instagram": "https://www.instagram.com/rotaryclubestebanecheverria/",
+    "facebook": "",
+    "n": 33
+  },
+  {
+    "club": "Ezpeleta",
+    "instagram": "https://www.instagram.com/rotary.ezpeleta/",
+    "facebook": "",
+    "n": 34
+  },
+  {
+    "club": "Florencio Varela",
+    "instagram": "https://www.instagram.com/rotary.florenciovarelacentro/",
+    "facebook": "",
+    "n": 35
+  },
+  {
+    "club": "Francisco Álvarez",
+    "instagram": "https://www.instagram.com/rotary_franciscoalvarez/",
+    "facebook": "",
+    "n": 36
+  },
+  {
+    "club": "Glew",
+    "instagram": "https://www.instagram.com/rotaryglew/",
+    "facebook": "",
+    "n": 37
+  },
+  {
+    "club": "González Catán",
+    "instagram": "https://www.instagram.com/rotaryclubgonzalezcatan/",
+    "facebook": "",
+    "n": 38
+  },
+  {
+    "club": "Gral. Las Heras",
+    "instagram": "https://www.instagram.com/rotarylasheras/",
+    "facebook": "",
+    "n": 39
+  },
+  {
+    "club": "Gral. Rodríguez",
+    "instagram": "https://www.instagram.com/rotarygeneralrodriguez/",
+    "facebook": "",
+    "n": 40
+  },
+  {
+    "club": "Gral. Sarmiento",
+    "instagram": "https://www.instagram.com/rcgralsarmiento/",
+    "facebook": "",
+    "n": 41
+  },
+  {
+    "club": "Grand Bourg",
+    "instagram": "https://www.instagram.com/rotarygrandbourg/",
+    "facebook": "",
+    "n": 42
+  },
+  {
+    "club": "Guernica",
+    "instagram": "https://www.instagram.com/rotaryclub.guernica/",
+    "facebook": "",
+    "n": 43
+  },
+  {
+    "club": "Haedo",
+    "instagram": "https://www.instagram.com/rotaryhaedo/",
+    "facebook": "",
+    "n": 44
+  },
+  {
+    "club": "Haedo Norte",
+    "instagram": "https://www.instagram.com/rotaryclubhaedonorte/",
+    "facebook": "",
+    "n": 45
+  },
+  {
+    "club": "Isidro Casanova",
+    "instagram": "",
+    "facebook": "",
+    "n": 46
+  },
+  {
+    "club": "Ituzaingó",
+    "instagram": "https://www.instagram.com/rotaryituzaingo/",
+    "facebook": "https://www.facebook.com/RotaryClubdeItuzaingo",
+    "n": 47
+  },
+  {
+    "club": "Ituzaingó Posta Santa Rosa",
+    "instagram": "https://www.instagram.com/rotaryituzaingopsr/",
+    "facebook": "",
+    "n": 48
+  },
+  {
+    "club": "Jean Thomson - La Plata",
+    "instagram": "https://www.instagram.com/rotaryjeanthomsonlaplata/",
+    "facebook": "",
+    "n": 49
+  },
+  {
+    "club": "José C. Paz",
+    "instagram": "https://www.instagram.com/rotaryclubjosecpaz?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==",
+    "facebook": "",
+    "n": 50
+  },
+  {
+    "club": "José María Ezeiza",
+    "instagram": "https://www.instagram.com/rotaryezeiza/",
+    "facebook": "",
+    "n": 51
+  },
+  {
+    "club": "José María Jauregüi",
+    "instagram": "",
+    "facebook": "",
+    "n": 52
+  },
+  {
+    "club": "La Plata",
+    "instagram": "https://www.instagram.com/rotarylaplata/",
+    "facebook": "",
+    "n": 53
+  },
+  {
+    "club": "La Plata Meridiano V",
+    "instagram": "https://www.instagram.com/rotaryclublaplatameridianov/",
+    "facebook": "",
+    "n": 54
+  },
+  {
+    "club": "La Plata Norte",
+    "instagram": "https://www.instagram.com/rotarylaplatanorte/",
+    "facebook": "",
+    "n": 55
+  },
+  {
+    "club": "City Bell - La Plata Sur",
+    "instagram": "https://www.instagram.com/rc.cb.lps/",
+    "facebook": "",
+    "n": 56
+  },
+  {
+    "club": "Lanús",
+    "instagram": "https://www.instagram.com/rotaryvillaindustriales_lanus/",
+    "facebook": "",
+    "n": 57
+  },
+  {
+    "club": "Libertad",
+    "instagram": "https://www.instagram.com/rotaryclublibertad/",
+    "facebook": "",
+    "n": 58
+  },
+  {
+    "club": "Llavallol",
+    "instagram": "https://www.instagram.com/rotaryllavallol/",
+    "facebook": "",
+    "n": 59
+  },
+  {
+    "club": "Lobos",
+    "instagram": "https://www.instagram.com/rotaryclublobos4905/",
+    "facebook": "",
+    "n": 60
+  },
+  {
+    "club": "Lomas de Zamora",
+    "instagram": "https://www.instagram.com/rotarylomaseste/",
+    "facebook": "",
+    "n": 61
+  },
+  {
+    "club": "Lomas Este",
+    "instagram": "https://www.instagram.com/rotarylomaseste/",
+    "facebook": "https://www.facebook.com/rotarylomase",
+    "n": 62
+  },
+  {
+    "club": "Los Hornos",
+    "instagram": "https://www.instagram.com/rotary.clubloshornos/",
+    "facebook": "",
+    "n": 63
+  },
+  {
+    "club": "Los Polvorines",
+    "instagram": "https://www.instagram.com/rotary_lospolvorines/",
+    "facebook": "",
+    "n": 64
+  },
+  {
+    "club": "Luis Guillón",
+    "instagram": "https://www.instagram.com/rotaryluisguillon/",
+    "facebook": "",
+    "n": 65
+  },
+  {
+    "club": "Luján",
+    "instagram": "https://www.instagram.com/rotaryclublujan/",
+    "facebook": "",
+    "n": 66
+  },
+  {
+    "club": "Luján Barnech",
+    "instagram": "",
+    "facebook": "",
+    "n": 67
+  },
+  {
+    "club": "Manuel B. Gonnet",
+    "instagram": "https://www.instagram.com/rotary_gonnet/",
+    "facebook": "",
+    "n": 68
+  },
+  {
+    "club": "Marcos Paz",
+    "instagram": "https://www.instagram.com/Rotary.clubmarcospaz/",
+    "facebook": "",
+    "n": 69
+  },
+  {
+    "club": "Matanza",
+    "instagram": "https://www.instagram.com/rotaryclubmatanza?igsh=MW9rNTM3YjM4Zjk0ZQ%3D%3D&utm_source=qr",
+    "facebook": "",
+    "n": 70
+  },
+  {
+    "club": "Mercedes",
+    "instagram": "https://www.instagram.com/mercedesoeste1967/",
+    "facebook": "",
+    "n": 71
+  },
+  {
+    "club": "Mercedes Bulevar 40",
+    "instagram": "https://www.instagram.com/rotarymercedesbulevar40/",
+    "facebook": "",
+    "n": 72
+  },
+  {
+    "club": "Merlo",
+    "instagram": "https://www.instagram.com/rotaryclubmerlo/",
+    "facebook": "",
+    "n": 73
+  },
+  {
+    "club": "Merlo Norte",
+    "instagram": "https://www.instagram.com/rotarymerlonorte/",
+    "facebook": "",
+    "n": 74
+  },
+  {
+    "club": "Monte Grande del Centenario",
+    "instagram": "https://www.instagram.com/rc_monte_grande_del_centenario/",
+    "facebook": "",
+    "n": 75
+  },
+  {
+    "club": "Moreno Sur",
+    "instagram": "https://www.instagram.com/rotary.morenosur/",
+    "facebook": "",
+    "n": 76
+  },
+  {
+    "club": "Morón",
+    "instagram": "",
+    "facebook": "",
+    "n": 77
+  },
+  {
+    "club": "Navarro",
+    "instagram": "https://www.instagram.com/rotaryclubnavarro/",
+    "facebook": "",
+    "n": 78
+  },
+  {
+    "club": "Nueve de Julio",
+    "instagram": "https://www.instagram.com/rotarynuevedejulio/",
+    "facebook": "",
+    "n": 79
+  },
+  {
+    "club": "Pablo Podestá",
+    "instagram": "https://www.instagram.com/rotaryclubpablopodesta/",
+    "facebook": "",
+    "n": 80
+  },
+  {
+    "club": "Paso del Rey",
+    "instagram": "https://www.instagram.com/rotaryclubpasodelrey/",
+    "facebook": "",
+    "n": 81
+  },
+  {
+    "club": "Quilmes",
+    "instagram": "https://www.instagram.com/RotaryClubQuilmes/",
+    "facebook": "https://www.facebook.com/rotaryclubquilmes/",
+    "n": 82
+  },
+  {
+    "club": "Rafael Calzada",
+    "instagram": "https://www.instagram.com/rotary_rafaelcalzada/",
+    "facebook": "",
+    "n": 83
+  },
+  {
+    "club": "Ramos Mejía",
+    "instagram": "https://www.instagram.com/rotary_club_ramos_mejia/",
+    "facebook": "",
+    "n": 84
+  },
+  {
+    "club": "Ranelagh",
+    "instagram": "https://www.instagram.com/rotary_ranelagh/",
+    "facebook": "",
+    "n": 85
+  },
+  {
+    "club": "Remedios de Escalada",
+    "instagram": "https://www.instagram.com/rotaryremediosdeescalada/",
+    "facebook": "",
+    "n": 86
+  },
+  {
+    "club": "Roque Pérez",
+    "instagram": "https://www.instagram.com/rotaryclubroqueperez/",
+    "facebook": "",
+    "n": 87
+  },
+  {
+    "club": "Saladillo",
+    "instagram": "https://www.instagram.com/rotarysaladillo/",
+    "facebook": "",
+    "n": 88
+  },
+  {
+    "club": "San Francisco Solano",
+    "instagram": "https://www.instagram.com/rotaryclub.solano/",
+    "facebook": "",
+    "n": 89
+  },
+  {
+    "club": "San Martín-Villa Maipú",
+    "instagram": "https://www.instagram.com/rotarysmvm/",
+    "facebook": "",
+    "n": 90
+  },
+  {
+    "club": "San Miguel del Monte",
+    "instagram": "https://www.instagram.com/rc_sanmiguel/",
+    "facebook": "",
+    "n": 91
+  },
+  {
+    "club": "San Vicente",
+    "instagram": "https://www.instagram.com/sanvicenterotaryclub/",
+    "facebook": "",
+    "n": 92
+  },
+  {
+    "club": "Santos Lugares",
+    "instagram": "https://www.instagram.com/rotarysantoslugares/",
+    "facebook": "",
+    "n": 93
+  },
+  {
+    "club": "Sarandí",
+    "instagram": "https://www.instagram.com/rotary.sarandi/",
+    "facebook": "",
+    "n": 94
+  },
+  {
+    "club": "Tapiales",
+    "instagram": "https://www.instagram.com/rotarytapiales/",
+    "facebook": "",
+    "n": 95
+  },
+  {
+    "club": "Turdera",
+    "instagram": "https://www.instagram.com/rcturdera/",
+    "facebook": "",
+    "n": 96
+  },
+  {
+    "club": "Valentín Alsina",
+    "instagram": "https://www.instagram.com/rotaryclubvalentinalsina/",
+    "facebook": "",
+    "n": 97
+  },
+  {
+    "club": "Verónica",
+    "instagram": "https://www.instagram.com/rotaryveronica/",
+    "facebook": "",
+    "n": 98
+  },
+  {
+    "club": "Villa Celina",
+    "instagram": "https://www.instagram.com/monicaclarisarodriguez/",
+    "facebook": "",
+    "n": 99
+  },
+  {
+    "club": "Villa Constructora-San Justo",
+    "instagram": "https://www.instagram.com/rotaryvillaconstructorasj/",
+    "facebook": "",
+    "n": 100
+  },
+  {
+    "club": "Villa Don Bosco",
+    "instagram": "https://www.instagram.com/rotaryclubvilladonbosco/",
+    "facebook": "",
+    "n": 101
+  },
+  {
+    "club": "Villa Elisa",
+    "instagram": "https://www.instagram.com/rotaryclub.villaelisa/",
+    "facebook": "",
+    "n": 102
+  },
+  {
+    "club": "Villa Industriales",
+    "instagram": "https://www.instagram.com/rotaryvillaindustriales_lanus/",
+    "facebook": "",
+    "n": 103
+  },
+  {
+    "club": "Villa La Florida",
+    "instagram": "https://www.instagram.com/rc.villalaflorida/",
+    "facebook": "",
+    "n": 104
+  },
+  {
+    "club": "Villa Libertad de Gral. San Martín",
+    "instagram": "https://www.instagram.com/rcvlibertadsm/",
+    "facebook": "",
+    "n": 105
+  },
+  {
+    "club": "Villa Madero",
+    "instagram": "https://www.instagram.com/rotaryvillamadero/",
+    "facebook": "",
+    "n": 106
+  },
+  {
+    "club": "Villa Sarmiento",
+    "instagram": "https://www.instagram.com/rotaryvillasarmiento/",
+    "facebook": "",
+    "n": 107
+  },
+  {
+    "club": "Wilde",
+    "instagram": "https://www.instagram.com/Rotary.wilde/",
+    "facebook": "",
+    "n": 108
+  }
+]
